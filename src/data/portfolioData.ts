@@ -46,7 +46,7 @@ export const portfolioItems: PortfolioItem[] = [
     videos: [
       {
         id: 1,
-        url: '/projects/alora/AloraFlavours2.mov',
+        url: '/projects/alora/AloraFlavours2.mp4',
         aspectRatio: '1080/1920',
         posterImage: '/projects/alora/1.jpg'
       }
@@ -337,7 +337,7 @@ export const portfolioItems: PortfolioItem[] = [
     videos: [
       {
         id: 1,
-        url: '/projects/5mexicans/5mexicanos.mov',
+        url: '/projects/5mexicans/5mexicanos.mp4',
         aspectRatio: '1920/1080',
         posterImage: '/projects/Frame2.jpg'
       }
@@ -438,7 +438,7 @@ export const portfolioItems: PortfolioItem[] = [
     videos: [
       {
         id: 1,
-        url: '/projects/helsinkiinmyeyes/himevideo.mov',
+        url: '/projects/helsinkiinmyeyes/himevideo.mp4',
         aspectRatio: '1920/1080',
         posterImage: '/FrameJorge.jpg'
       }

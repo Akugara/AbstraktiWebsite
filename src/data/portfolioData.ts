@@ -42,7 +42,7 @@ export const portfolioItems: PortfolioItem[] = [
     description: 'Alora is a kebab restaurant that showcases high-quality kebab, fully handmade. It combines local meat providers with Italian flour for their pizzas to bring the image of kebab to another level. Throughout the project, we created a script and aesthetics that align with the branding strategy designed to pursue their strategic goals. The result is unique, high-end visuals of their restaurant.',
     role: ['Photographer', 'Videographer'],
     tags: ['Photography', 'Video'],
-    image: 'FrameAlora.png',
+    image: '/FrameAlora.jpg',
     videos: [
       {
         id: 1,
@@ -97,7 +97,7 @@ export const portfolioItems: PortfolioItem[] = [
     description: 'Slush 2025 brought together Europe\'s most ambitious entrepreneurs, investors, and innovators for three days of breakthrough moments and inspiring connections. As part of an amazing group of photographers, we covered the hectic energy and scale of one of the world\'s leading startup conferences—capturing everything from keynote speakers and panel discussions to networking sessions, startup pitches, and the vibrant atmosphere that defined the event. Working collaboratively across multiple photographers, we documented authentic moments that reflected the diverse community and transformative potential of Slush, creating a comprehensive visual narrative of innovation in action.',
     role: ['Photographer'],
     tags: ['Photography'],
-    image: '/FrameSlush.png',
+    image: '/FrameSlush.jpg',
     mainImage: '/projects/slush2025/mainimage.jpg',
     imageRows: [
       {
@@ -192,13 +192,13 @@ export const portfolioItems: PortfolioItem[] = [
     description: 'Mutate is more than a clothing store—it\'s a curated lifestyle concept born from a nomadic vision and global sensibility. When fire devastated the original space, we saw an opportunity for transformation. Working alongside founder Gonzalo, we developed Mutate Renace—a reborn identity that honors the store\'s core values while embracing renewal and resilience. The single Buddha statue that survived the fire became a symbolic anchor, representing continuity through change. Our comprehensive rebrand encompassed a refined visual identity, atmospheric photography showcasing each piece\'s narrative, a thoughtfully designed catalog, and a digital presence that captures the nomadic spirit. The result is a brand that celebrates heritage, craftsmanship, and the stories embedded in every carefully selected garment.',
     role: ['Brand Designer', 'Photographer', 'Creative Director'],
     tags: ['Graphic Design', 'Photography'],
-    image: '/FrameMutate.png',
+    image: '/FrameMutate.jpg',
     mainImage: '/projects/mutate/mainimage.jpg',
     imageRows: [
       {
         layout: 'full',
         images: [
-          { id: 1, url: '/projects/mutate/1.png' }
+          { id: 1, url: '/projects/mutate/1.jpg' }
         ]
       },
       {
@@ -268,7 +268,7 @@ export const portfolioItems: PortfolioItem[] = [
     description: 'Alora represents a shift in fast-food culture: a family-owned kebab and pizza restaurant that honors old-world traditions while embracing contemporary appeal. We developed a comprehensive rebranding strategy that repositions Alora as a premium, handcrafted alternative in the fast-food market. The visual identity centers on striking monochromatic photography that captures the craft and authenticity behind every dish. Our campaign taglines—"Real Handmade Kebab," "Real Handmade Pizza," and the provocative "Real Fast Food"—challenge industry conventions by celebrating quality over speed.',
     role: ['Brand Designer', 'Photographer', 'Creative Director'],
     tags: ['Graphic Design', 'Photography', 'Video'],
-    image: '/FrameAloraBranding.png',
+    image: '/FrameAloraBranding.jpg',
     videos: [
       {
         id: 1,
@@ -333,13 +333,13 @@ export const portfolioItems: PortfolioItem[] = [
     description: 'Short video footage showcasing the inauguration of the art exhibition at Kluuvi Helsinki Shopping Center, organized by the Embassy of Mexico.',
     role: ['Videographer'],
     tags: ['Video'],
-    image: '/Frame2.png',
+    image: '/projects/Frame2.jpg',
     videos: [
       {
         id: 1,
         url: '/projects/5mexicans/5mexicanos.mov',
         aspectRatio: '1920/1080',
-        posterImage: '/Frame2.png'
+        posterImage: '/projects/Frame2.jpg'
       }
     ]
   },
@@ -352,7 +352,7 @@ export const portfolioItems: PortfolioItem[] = [
     description: 'KAJ, the Finnish-Swedish speaking Eurovision band, delivered an electrifying performance as part of Slush 2025. As part of a talented photography team, we captured the raw energy and unique moments of the live show from both top and bottom stage positions, documenting the band\'s dynamic presence and connection with the audience in real time.',
     role: ['Photographer'],
     tags: ['Photography'],
-    image: '/FrameKaj.png',
+    image: '/FrameKaj.jpg',
     mainImage: '/projects/kaj/mainimage.jpg',
     imageRows: [
       {
@@ -434,13 +434,13 @@ export const portfolioItems: PortfolioItem[] = [
     description: 'Helsinki in My Eyes documented the vibrant inauguration of a contemporary art exhibition, capturing the opening moments, atmosphere, and attendees through both photography and video. Our coverage showcased the energy of the event, the artwork on display, and the community gathered to celebrate the exhibition\'s launch. The assignment focused on telling the story of the opening night—preserving authentic moments that reflected the artistic vision and cultural significance of the exhibition.',
     role: ['Photographer', 'Videographer'],
     tags: ['Video', 'Photography'],
-    image: '/FrameJorge.png',
+    image: '/FrameJorge.jpg',
     videos: [
       {
         id: 1,
         url: '/projects/helsinkiinmyeyes/himevideo.mov',
         aspectRatio: '1920/1080',
-        posterImage: '/FrameJorge.png'
+        posterImage: '/FrameJorge.jpg'
       }
     ],
     imageRows: [

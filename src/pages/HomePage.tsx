@@ -91,10 +91,14 @@ const HomePage = () => {
           </div>
 
           <div className="portfolio-grid">
-            {filteredItems.map((item) => (
+            {filteredItems.map((item, index) => (
               <Link key={item.id} to={`/portfolio/${item.slug}`} className="portfolio-item">
                 <div className="portfolio-item-image">
-                  <img src={item.image} alt={item.title} />
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    loading={index < 3 ? "eager" : "lazy"}
+                  />
                   <div className="portfolio-item-overlay">
                     <span className="portfolio-item-title-overlay">{item.title}</span>
                   </div>

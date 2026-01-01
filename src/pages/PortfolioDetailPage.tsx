@@ -42,7 +42,12 @@ const PortfolioDetailPage = () => {
       <div className="portfolio-detail-content">
         <div className="portfolio-detail-video-section">
           {project.mainImage ? (
-            <img src={project.mainImage} alt={project.title} className="portfolio-detail-main-image" />
+            <img
+              src={project.mainImage}
+              alt={project.title}
+              className="portfolio-detail-main-image"
+              loading="eager"
+            />
           ) : project.videos && project.videos.length > 0 ? (
             <VideoCarousel videos={project.videos} />
           ) : null}

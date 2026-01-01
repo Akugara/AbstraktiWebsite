@@ -16,7 +16,11 @@ const ImageGallery = ({ images, imageRows }: ImageGalleryProps) => {
             <div key={rowIndex} className={`image-row image-row-${row.layout}`}>
               {row.images.map((image) => (
                 <div key={image.id} className="image-gallery-item">
-                  <img src={image.url} alt={image.caption || 'Project image'} />
+                  <img
+                    src={image.url}
+                    alt={image.caption || 'Project image'}
+                    loading="lazy"
+                  />
                   {image.caption && (
                     <p className="image-gallery-caption">{image.caption}</p>
                   )}
@@ -40,7 +44,11 @@ const ImageGallery = ({ images, imageRows }: ImageGalleryProps) => {
       <div className="image-gallery-grid">
         {images.map((image) => (
           <div key={image.id} className="image-gallery-item">
-            <img src={image.url} alt={image.caption || 'Project image'} />
+            <img
+              src={image.url}
+              alt={image.caption || 'Project image'}
+              loading="lazy"
+            />
             {image.caption && (
               <p className="image-gallery-caption">{image.caption}</p>
             )}

@@ -29,7 +29,7 @@ const Navigation = () => {
       <div className="container">
         <div className="nav-content">
           <Link to="/" className="logo">
-            <img src="/logoabstrakti.svg" alt="Abstrakti creative studio" />
+            <img src="/logoabstrakti.svg" alt="Abstrakti creative studio" loading="eager" />
           </Link>
 
           {/* Hamburger menu button - only visible on mobile */}

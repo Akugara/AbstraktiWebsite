@@ -567,6 +567,7 @@ body {
   font-size: 42px;
   font-weight: 300;
   margin-bottom: 20px;
+  text-align: center;
   opacity: 0;
   transform: translateY(30px);
   transition: opacity 0.8s ease-out, transform 0.8s ease-out;
@@ -583,6 +584,9 @@ body {
   margin-bottom: 60px;
   line-height: 1.8;
   max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
   opacity: 0;
   transform: translateY(30px);
   transition: opacity 0.8s ease-out, transform 0.8s ease-out;
@@ -594,25 +598,22 @@ body {
   transition-delay: 0.2s;
 }
 
-.contact-grid {
-  display: grid;
-  grid-template-columns: 1fr 1.5fr;
-  gap: 80px;
+.contact-info-centered {
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
   opacity: 0;
   transform: translateY(30px);
   transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 
-.contact.visible .contact-grid {
+.contact.visible .contact-info-centered {
   opacity: 1;
   transform: translateY(0);
   transition-delay: 0.4s;
-}
-
-.contact-info-section {
-  display: flex;
-  flex-direction: column;
-  gap: 35px;
 }
 
 .contact-info-item h4 {
@@ -634,9 +635,20 @@ body {
   opacity: 0.6;
 }
 
+.email-bold {
+  font-weight: 600;
+}
+
+.location-note {
+  font-size: 13px;
+  color: #666;
+  margin-top: 5px;
+}
+
 .social-links {
   display: flex;
   gap: 15px;
+  justify-content: center;
 }
 
 .social-links a {

@@ -114,9 +114,9 @@ const HomePage = () => {
         <div className="container">
           <h2>Services & Packages</h2>
           <p className="services-intro">
-            Based in Turku, Finland, we offer flexible service packages tailored to your needs.
+            Based in Turku, Finland, we work with clients across Finland and Europe.
             <br />
-            All prices are reference points and can be adjusted to fit your specific project.
+            We offer flexible service packages tailored to your needs. All prices are reference points and can be adjusted to fit your specific project.
           </p>
 
           <div className="services-promo">
@@ -141,7 +141,7 @@ const HomePage = () => {
           {serviceType === 'photo-video' ? (
             <div className="services-grid">
             <div className="service-package">
-              <h3>Photography Only</h3>
+              <h3>Photography</h3>
               <div className="package-price">€350</div>
               <p className="package-description">
                 Professional photography services for products, events, portraits, or commercial needs.
@@ -159,13 +159,13 @@ const HomePage = () => {
             </div>
 
             <div className="service-package">
-              <h3>Video Only</h3>
+              <h3>Video</h3>
               <div className="package-price">€450</div>
               <p className="package-description">
                 Cinematic video production for brands, events, or promotional content.
               </p>
               <ul className="package-features">
-                <li>Full day filming (8 hours)</li>
+                <li>Half day filming (4 hours)</li>
                 <li>Professional editing & color grading</li>
                 <li>1-3 minute final video</li>
                 <li>Background music & sound design</li>
@@ -185,7 +185,7 @@ const HomePage = () => {
                 Perfect for comprehensive brand coverage.
               </p>
               <ul className="package-features">
-                <li>Full day coverage (8 hours)</li>
+                <li>6 hours coverage</li>
                 <li>Professional photography</li>
                 <li>Video production & editing</li>
                 <li>High-resolution deliverables</li>
@@ -269,15 +269,16 @@ const HomePage = () => {
         <div className="container">
           <div className="about-content">
             <div className="about-text">
-              <h2>About Studio</h2>
+              <h2>About</h2>
               <p>
-                We are a multidisciplinary creative studio specializing in graphic design,
-                photography, and video production. Our approach combines innovative aesthetics
-                with powerful storytelling.
+                We are a solution-oriented creative studio specializing in graphic design,
+                photography, and video production. We help our clients identify opportunities
+                to communicate and grow by telling their stories with higher quality and impact.
               </p>
               <p>
-                With over a decade of experience, we've collaborated with brands and individuals
-                worldwide to create compelling visual narratives that resonate with audiences.
+                With over a decade of experience, our approach combines innovative aesthetics
+                with powerful storytelling, creating compelling visual narratives that resonate
+                with audiences and drive meaningful results.
               </p>
               <p>
                 Our philosophy is simple: less is more. We believe in the power of simplicity and
@@ -308,45 +309,31 @@ const HomePage = () => {
             Ready to start your project? Let's talk about how we can help bring your vision to life.
           </p>
 
-          <div className="contact-grid">
-            <div className="contact-info-section">
-              <div className="contact-info-item">
-                <h4>Email</h4>
-                <a href="mailto:agustin.garagorry@abstrakti.eu">agustin.garagorry@abstrakti.eu</a>
-              </div>
-
-              <div className="contact-info-item">
-                <h4>Phone</h4>
-                <a href="tel:+59841725929">+598 41 725 9298</a>
-              </div>
-
-              <div className="contact-info-item">
-                <h4>Location</h4>
-                <p>Turku, Finland</p>
-              </div>
-
-              <div className="contact-info-item">
-                <h4>Follow</h4>
-                <div className="social-links">
-                  <a href="https://www.instagram.com/abstrakti_wcts/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                    <Instagram size={20} />
-                  </a>
-                </div>
-              </div>
+          <div className="contact-info-centered">
+            <div className="contact-info-item">
+              <h4>Email</h4>
+              <a href="mailto:agustin.garagorry@abstrakti.eu" className="email-bold">agustin.garagorry@abstrakti.eu</a>
             </div>
 
-            <form className="contact-form">
-              <div className="form-group">
-                <input type="text" placeholder="Name" required />
+            <div className="contact-info-item">
+              <h4>Phone</h4>
+              <a href="tel:+59841725929">+598 41 725 9298</a>
+            </div>
+
+            <div className="contact-info-item">
+              <h4>Location</h4>
+              <p>Turku, Finland</p>
+              <p className="location-note">We work across Finland and Europe</p>
+            </div>
+
+            <div className="contact-info-item">
+              <h4>Follow</h4>
+              <div className="social-links">
+                <a href="https://www.instagram.com/abstrakti_wcts/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                  <Instagram size={20} />
+                </a>
               </div>
-              <div className="form-group">
-                <input type="email" placeholder="Email" required />
-              </div>
-              <div className="form-group">
-                <textarea placeholder="Tell us about your project" rows={6} required></textarea>
-              </div>
-              <button type="submit" className="submit-btn">Send Message</button>
-            </form>
+            </div>
           </div>
         </div>
       </section>

@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react'
-import { Volume2, VolumeX, Play, Pause } from 'lucide-react'
+import { Volume2, VolumeX, Play } from 'lucide-react'
 import type { Video } from '../data/portfolioData'
 
 interface VideoPlayerProps {

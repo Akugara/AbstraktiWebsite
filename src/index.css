@@ -801,6 +801,33 @@ body {
   background: rgba(0, 0, 0, 0.8);
 }
 
+.video-play-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid #fff;
+  color: #fff;
+  width: 60px;
+  height: 60px;
+  border-radius: 2px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s;
+  z-index: 10;
+}
+
+.video-play-overlay:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.video-container video {
+  cursor: pointer;
+}
+
 .carousel-controls {
   display: flex;
   justify-content: space-between;

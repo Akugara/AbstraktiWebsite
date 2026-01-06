@@ -154,7 +154,6 @@ const HomePage = () => {
                 <li>Half day session (4 hours)</li>
                 <li>Professional editing</li>
                 <li>50+ high-resolution photos</li>
-                <li>Online gallery access</li>
                 <li>Commercial usage rights</li>
               </ul>
               <div className="package-monthly">
@@ -193,7 +192,7 @@ const HomePage = () => {
                 <li>Professional photography</li>
                 <li>Video production & editing</li>
                 <li>High-resolution deliverables</li>
-                <li>Online gallery & video files</li>
+                <li>All files delivered digitally</li>
               </ul>
               <div className="package-monthly">
                 <strong>Monthly package:</strong> €550/session (3-month commitment)

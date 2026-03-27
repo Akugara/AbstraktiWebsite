@@ -121,6 +121,8 @@ const HomePage = () => {
             Based in Turku, Finland, we work with clients across Finland and Europe.
             <br />
             We offer flexible service packages tailored to your needs. All prices are reference points and can be adjusted to fit your specific project.
+            <br />
+            <span style={{ fontSize: '0.9em', opacity: 0.8 }}>ALV 0%</span>
           </p>
 
           <div className="services-promo">
@@ -146,7 +148,7 @@ const HomePage = () => {
             <div className="services-grid">
             <div className="service-package">
               <h3>Photography</h3>
-              <div className="package-price">€350</div>
+              <div className="package-price">€450</div>
               <p className="package-description">
                 Professional photography services for products, events, portraits, or commercial needs.
               </p>
@@ -163,7 +165,7 @@ const HomePage = () => {
 
             <div className="service-package">
               <h3>Video</h3>
-              <div className="package-price">€450</div>
+              <div className="package-price">€550</div>
               <p className="package-description">
                 Cinematic video production for brands, events, or promotional content.
               </p>
@@ -175,27 +177,28 @@ const HomePage = () => {
                 <li>Multiple format deliverables</li>
               </ul>
               <div className="package-monthly">
-                <strong>Monthly package:</strong> €390/session (3-month commitment)
+                <strong>Monthly package:</strong> €425/session (3-month commitment)
               </div>
             </div>
 
             <div className="service-package featured">
               <div className="featured-badge">Most Popular</div>
-              <h3>Photography & Video</h3>
-              <div className="package-price">€650</div>
+              <h3>Photography & Video Bundle</h3>
+              <div className="package-price">€950</div>
               <p className="package-description">
                 Complete visual storytelling combining both photography and videography.
                 Perfect for comprehensive brand coverage.
               </p>
               <ul className="package-features">
-                <li>6 hours coverage</li>
-                <li>Professional photography</li>
-                <li>Video production & editing</li>
-                <li>High-resolution deliverables</li>
+                <li>3 professional videos</li>
+                <li>5 short-form clips</li>
+                <li>50+ high-resolution photos</li>
+                <li>Professional editing & color grading</li>
+                <li>Commercial usage rights</li>
                 <li>All files delivered digitally</li>
               </ul>
               <div className="package-monthly">
-                <strong>Monthly package:</strong> €550/session (3-month commitment)
+                <strong>Monthly package:</strong> €750/session (3-month commitment)
               </div>
             </div>
 
@@ -213,7 +216,7 @@ const HomePage = () => {
                 <li>Basic brand guidelines</li>
                 <li>Business card design</li>
                 <li>Social media templates</li>
-                <li>2 revision rounds</li>
+                <li>1 revision round</li>
               </ul>
               <div className="package-monthly">
                 <strong>Add monthly design support:</strong> +€350/month for ongoing design work (social media, marketing materials, etc.)
@@ -234,7 +237,7 @@ const HomePage = () => {
                 <li>Stationery design suite</li>
                 <li>Marketing collateral templates</li>
                 <li>Social media brand kit</li>
-                <li>Unlimited revisions</li>
+                <li>2 revision rounds</li>
               </ul>
             </div>
 
@@ -251,6 +254,7 @@ const HomePage = () => {
                 <li>Custom website design & development</li>
                 <li>SEO optimization</li>
                 <li>Social media content package</li>
+                <li>3 revision rounds</li>
                 <li>3 months of ongoing support</li>
               </ul>
             </div>

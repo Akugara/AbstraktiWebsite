@@ -159,7 +159,7 @@ const HomePage = () => {
                 <li>Commercial usage rights</li>
               </ul>
               <div className="package-monthly">
-                <strong>Monthly package:</strong> €275/session (3-month commitment)
+                <strong>Monthly package:</strong> €325/session (3-month commitment)
               </div>
             </div>
 

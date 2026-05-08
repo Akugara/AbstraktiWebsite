@@ -233,8 +233,8 @@ const HomePage = () => {
           ) : (
             <div className="services-grid">
             <div className="service-package">
-              <h3>Quick Branding</h3>
-              <div className="package-price">€600</div>
+              <h3>Essentials</h3>
+              <div className="package-price">€675</div>
               <p className="package-description">
                 Essential brand identity for startups and small businesses looking to establish their visual presence.
               </p>
@@ -252,8 +252,8 @@ const HomePage = () => {
 
             <div className="service-package featured">
               <div className="featured-badge">Most Popular</div>
-              <h3>Branding</h3>
-              <div className="package-price">€1,200</div>
+              <h3>Brand Identity</h3>
+              <div className="package-price">€1,395</div>
               <p className="package-description">
                 Complete brand identity system with comprehensive visual guidelines and marketing materials.
               </p>
@@ -269,7 +269,7 @@ const HomePage = () => {
             </div>
 
             <div className="service-package">
-              <h3>Full Package</h3>
+              <h3>Full Studio</h3>
               <div className="package-price">€2,750</div>
               <p className="package-description">
                 Everything you need to launch: complete branding, professional photography, video content, and a custom website.

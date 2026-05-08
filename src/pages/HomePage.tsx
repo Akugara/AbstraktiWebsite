@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { Instagram } from 'lucide-react'
 import { portfolioItems } from '../data/portfolioData'
@@ -6,6 +6,18 @@ import { portfolioItems } from '../data/portfolioData'
 const HomePage = () => {
   const [activeFilter, setActiveFilter] = useState('ALL')
   const [serviceType, setServiceType] = useState('photo-video')
+  const [videoEnded, setVideoEnded] = useState(false)
+  const heroVideoRef = useRef<HTMLVideoElement>(null)
+
+  const handleVideoEnd = () => setVideoEnded(true)
+
+  const handleReplay = () => {
+    setVideoEnded(false)
+    if (heroVideoRef.current) {
+      heroVideoRef.current.currentTime = 0
+      heroVideoRef.current.play()
+    }
+  }
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -49,13 +61,28 @@ const HomePage = () => {
     <div>
       {/* Hero Section */}
       <section className="hero">
-        <h1>
-          Creative
-          <br />
-          Studio
-        </h1>
-        <p className="subtitle">Graphic Design · Photography · Video Production</p>
-        <a href="#portfolio" className="cta" onClick={(e) => { e.preventDefault(); scrollToSection('portfolio') }}>View work →</a>
+        <video
+          ref={heroVideoRef}
+          className={`hero-video-bg${videoEnded ? ' faded' : ''}`}
+          src="/video/HEROFINAL.mov"
+          autoPlay
+          muted
+          playsInline
+          onEnded={handleVideoEnd}
+          onError={handleVideoEnd}
+        />
+        <div className={`hero-text${videoEnded ? ' revealed' : ''}`}>
+          <h1>
+            Creative
+            <br />
+            Studio
+          </h1>
+          <p className="subtitle">Graphic Design · Photography · Video Production</p>
+          <div className="hero-cta-group">
+            <a href="#portfolio" className="cta" onClick={(e) => { e.preventDefault(); scrollToSection('portfolio') }}>View work →</a>
+            <button className="replay-btn" onClick={handleReplay}>↺ Play reel</button>
+          </div>
+        </div>
       </section>
 
       {/* Portfolio Section */}
@@ -243,17 +270,22 @@ const HomePage = () => {
 
             <div className="service-package">
               <h3>Full Package</h3>
-              <div className="package-price">€2,500</div>
+              <div className="package-price">€2,750</div>
               <p className="package-description">
                 Everything you need to launch: complete branding, professional photography, video content, and a custom website.
               </p>
               <ul className="package-features">
-                <li>Complete branding package</li>
-                <li>Professional photography session</li>
-                <li>Video production & editing</li>
+                <li>Logo design</li>
+                <li>Brand guidelines & visual identity</li>
+                <li>Typography & color palette</li>
+                <li>2 custom design pieces</li>
+                <li>Social media templates</li>
+                <li>1 hero piece video</li>
+                <li>3 Instagram / TikTok short-form videos</li>
+                <li>10 additional video clips</li>
+                <li>25+ professionally edited photos</li>
                 <li>Custom website design & development</li>
                 <li>SEO optimization</li>
-                <li>Social media content package</li>
                 <li>3 revision rounds</li>
                 <li>3 months of ongoing support</li>
               </ul>

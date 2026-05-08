@@ -64,7 +64,7 @@ const HomePage = () => {
         <video
           ref={heroVideoRef}
           className={`hero-video-bg${videoEnded ? ' faded' : ''}`}
-          src="/video/HEROFINAL.mov"
+          src="/video/HEROFINAL.mp4"
           autoPlay
           muted
           playsInline

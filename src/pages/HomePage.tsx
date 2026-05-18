@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
 import { Instagram } from 'lucide-react'
 import { portfolioItems } from '../data/portfolioData'
 
@@ -59,6 +60,15 @@ const HomePage = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Abstrakti – Creative Studio | Graphic Design, Photography & Video | Turku & Helsinki</title>
+        <meta name="description" content="Abstrakti is a creative studio based in Turku, Finland, serving clients across Helsinki and Europe. We specialise in graphic design, brand identity, photography, and video production." />
+        <link rel="canonical" href="https://abstrakti.eu/" />
+        <meta property="og:title" content="Abstrakti – Creative Studio | Graphic Design, Photography & Video" />
+        <meta property="og:description" content="Creative studio based in Turku and Helsinki. We help brands grow through graphic design, photography, and video production across Finland and Europe." />
+        <meta property="og:url" content="https://abstrakti.eu/" />
+      </Helmet>
+
       {/* Hero Section */}
       <section className="hero">
         <video

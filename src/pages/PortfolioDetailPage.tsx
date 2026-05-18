@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { useParams, Link, Navigate } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
 import { getPortfolioBySlug } from '../data/portfolioData'
 import VideoCarousel from '../components/VideoCarousel'
 import ImageGallery from '../components/ImageGallery'
@@ -29,8 +30,42 @@ const PortfolioDetailPage = () => {
     )
   }
 
+  const pageTitle = `${project.title} – ${project.tags.join(', ')} | Abstrakti`
+  const pageDesc = `${project.description.slice(0, 155).trim()}…`
+  const ogImage = `https://abstrakti.eu${project.mainImage ?? project.image}`
+  const canonicalUrl = `https://abstrakti.eu/portfolio/${project.slug}`
+
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'CreativeWork',
+    name: project.title,
+    description: project.description,
+    image: ogImage,
+    url: canonicalUrl,
+    dateCreated: String(project.year),
+    creator: {
+      '@type': 'Organization',
+      name: 'Abstrakti',
+      url: 'https://abstrakti.eu'
+    },
+    genre: project.tags.join(', '),
+    client: project.client
+  }
+
   return (
     <div className="portfolio-detail">
+      <Helmet>
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDesc} />
+        <link rel="canonical" href={canonicalUrl} />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={pageDesc} />
+        <meta property="og:image" content={ogImage} />
+        <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:type" content="article" />
+        <script type="application/ld+json">{JSON.stringify(schema)}</script>
+      </Helmet>
+
       <Link to="/#portfolio" className="portfolio-detail-back">← Back to Portfolio</Link>
 
       <div className="portfolio-detail-header">
@@ -76,7 +111,7 @@ const PortfolioDetailPage = () => {
       </div>
 
       {(project.imageRows || project.images) && (
-        <ImageGallery images={project.images} imageRows={project.imageRows} />
+        <ImageGallery images={project.images} imageRows={project.imageRows} projectTitle={project.title} />
       )}
     </div>
   )

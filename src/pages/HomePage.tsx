@@ -185,7 +185,7 @@ const HomePage = () => {
             <div className="services-grid">
             <div className="service-package">
               <h3>Photography</h3>
-              <div className="package-price">€450</div>
+              <div className="package-price">€550</div>
               <p className="package-description">
                 Professional photography services for products, events, portraits, or commercial needs.
               </p>
@@ -196,13 +196,13 @@ const HomePage = () => {
                 <li>Commercial usage rights</li>
               </ul>
               <div className="package-monthly">
-                <strong>Monthly package:</strong> €325/session (3-month commitment)
+                <strong>Monthly package:</strong> €465/session (3-month commitment)
               </div>
             </div>
 
             <div className="service-package">
               <h3>Video</h3>
-              <div className="package-price">€550</div>
+              <div className="package-price">€690</div>
               <p className="package-description">
                 Cinematic video production for brands, events, or promotional content.
               </p>
@@ -211,31 +211,31 @@ const HomePage = () => {
                 <li>Professional editing & color grading</li>
                 <li>1-3 minute final video</li>
                 <li>Background music & sound design</li>
-                <li>Multiple format deliverables</li>
+                <li>Format tailored to your needs</li>
               </ul>
               <div className="package-monthly">
-                <strong>Monthly package:</strong> €425/session (3-month commitment)
+                <strong>Monthly package:</strong> €585/session (3-month commitment)
               </div>
             </div>
 
             <div className="service-package featured">
               <div className="featured-badge">Most Popular</div>
               <h3>Photography & Video Bundle</h3>
-              <div className="package-price">€950</div>
+              <div className="package-price">€1,090</div>
               <p className="package-description">
-                Complete visual storytelling combining both photography and videography.
-                Perfect for comprehensive brand coverage.
+                A full-day shoot combining photography and videography for comprehensive brand coverage.
               </p>
               <ul className="package-features">
+                <li>Full day shoot (8 hours)</li>
                 <li>3 professional videos</li>
                 <li>5 short-form clips</li>
                 <li>50+ high-resolution photos</li>
                 <li>Professional editing & color grading</li>
                 <li>Commercial usage rights</li>
-                <li>All files delivered digitally</li>
+                <li>Format tailored to your needs</li>
               </ul>
               <div className="package-monthly">
-                <strong>Monthly package:</strong> €750/session (3-month commitment)
+                <strong>Monthly package:</strong> €925/session (3-month commitment)
               </div>
             </div>
 
@@ -244,7 +244,7 @@ const HomePage = () => {
             <div className="services-grid">
             <div className="service-package">
               <h3>Essentials</h3>
-              <div className="package-price">€675</div>
+              <div className="package-price">€790</div>
               <p className="package-description">
                 Essential brand identity for startups and small businesses looking to establish their visual presence.
               </p>
@@ -263,7 +263,7 @@ const HomePage = () => {
             <div className="service-package featured">
               <div className="featured-badge">Most Popular</div>
               <h3>Brand Identity</h3>
-              <div className="package-price">€1,395</div>
+              <div className="package-price">€1,695</div>
               <p className="package-description">
                 Complete brand identity system with comprehensive visual guidelines and marketing materials.
               </p>
@@ -271,16 +271,19 @@ const HomePage = () => {
                 <li>Brand strategy & positioning</li>
                 <li>Logo design (3+ concepts)</li>
                 <li>Complete brand guidelines</li>
-                <li>Stationery design suite</li>
+                <li>Business card, letterhead & email signature</li>
                 <li>Marketing collateral templates</li>
                 <li>Social media brand kit</li>
                 <li>2 revision rounds</li>
               </ul>
+              <div className="package-monthly">
+                <strong>Add monthly design support:</strong> +€450/month for ongoing social media graphics, marketing materials & brand asset updates
+              </div>
             </div>
 
             <div className="service-package">
               <h3>Full Studio</h3>
-              <div className="package-price">€2,750</div>
+              <div className="package-price">€3,850</div>
               <p className="package-description">
                 Everything you need to launch: complete branding, professional photography, video content, and a custom website.
               </p>
@@ -297,8 +300,11 @@ const HomePage = () => {
                 <li>Custom website design & development</li>
                 <li>SEO optimization</li>
                 <li>3 revision rounds</li>
-                <li>3 months of ongoing support</li>
+                <li>3 months of ongoing support included</li>
               </ul>
+              <div className="package-monthly">
+                <strong>Continue after launch:</strong> +€550/month for ongoing design, content creation & website updates
+              </div>
             </div>
           </div>
           )}

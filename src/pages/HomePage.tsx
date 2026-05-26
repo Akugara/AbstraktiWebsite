@@ -162,10 +162,6 @@ const HomePage = () => {
             <span style={{ fontSize: '0.9em', opacity: 0.8 }}>ALV 0%</span>
           </p>
 
-          <div className="services-promo">
-            <span className="promo-badge">First-timers get 10% off!</span>
-          </div>
-
           <div className="services-toggle">
             <button
               className={`toggle-btn ${serviceType === 'photo-video' ? 'active' : ''}`}

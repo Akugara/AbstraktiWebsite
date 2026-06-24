@@ -37,6 +37,93 @@ export interface PortfolioItem {
 
 export const portfolioItems: PortfolioItem[] = [
   {
+    id: 8,
+    slug: 'bjorkholm',
+    title: 'Björkholm 1935',
+    client: 'Björkholm',
+    year: 2026,
+    description: 'Leave your worries on the mainland. In 1935, a ship pilot and his wife claimed a stretch of island in the Finnish archipelago — a place shaped by tides, seasons, and the quiet rhythm of self-sufficient life. The family fished, tended hayfields, kept farm animals, and raised their children among fruit trees and open water. School meant rowing to the neighboring island of Heisala. As decades passed and the archipelago changed, their son Kurt Kronehag followed his father into the waters as a ship pilot. In 1964, Kurt and his wife Gulli built the first summer cabin on the island\'s south shore, opening their home to visitors. Over the next fifty years, that single cabin grew into a holiday village of eleven cottages. In 2018, a new generation took the helm. We — Johannes and Johanna — arrived as entrepreneurs with deep respect for what Kurt and Gulli built. Farm animals have returned to the island: horses graze the fields, sheep wander the paths, and chickens scratch near the cottages. Our son Jelmer was born here in 2021, our daughter Fenna in 2023. The island is raising a family again. Björkholm is not a resort. It is a place where life slows to the pace of the archipelago — sauna smoke drifting over still water, horses moving through morning light, oars pulling quietly across the lake. Nearly a century of one family\'s connection to this island, offered to you.',
+    role: ['Videographer', 'Photographer'],
+    tags: ['Video', 'Photography'],
+    image: '/FrameBjorkholm.jpg',
+    videos: [
+      {
+        id: 1,
+        url: '/projects/bjorkholm/Bjorkholm1Cine.mp4',
+        aspectRatio: '1920/1080',
+        posterImage: '/projects/bjorkholm/poster-hero.jpg',
+        loop: false
+      }
+    ],
+    clips: [
+      { id: 1, url: '/projects/bjorkholm/Clip1.mp4', aspectRatio: '1080/1080' },
+      { id: 2, url: '/projects/bjorkholm/Clip2.mp4', aspectRatio: '1080/1080' },
+      { id: 3, url: '/projects/bjorkholm/Clip3.mp4', aspectRatio: '1080/1080' }
+    ],
+    imageRows: [
+      {
+        layout: 'full',
+        images: [
+          { id: 1, url: '/projects/bjorkholm/1.jpg' }
+        ]
+      },
+      {
+        layout: 'two-column',
+        images: [
+          { id: 2, url: '/projects/bjorkholm/2.jpg' },
+          { id: 3, url: '/projects/bjorkholm/3.jpg' }
+        ]
+      },
+      {
+        layout: 'full',
+        images: [
+          { id: 4, url: '/projects/bjorkholm/4.jpg' }
+        ]
+      },
+      {
+        layout: 'two-column',
+        images: [
+          { id: 5, url: '/projects/bjorkholm/5.jpg' },
+          { id: 6, url: '/projects/bjorkholm/6.jpg' }
+        ]
+      },
+      {
+        layout: 'full',
+        images: [
+          { id: 7, url: '/projects/bjorkholm/7.jpg' }
+        ]
+      },
+      {
+        layout: 'three-column',
+        images: [
+          { id: 8, url: '/projects/bjorkholm/8.jpg' },
+          { id: 9, url: '/projects/bjorkholm/9.jpg' },
+          { id: 10, url: '/projects/bjorkholm/10.jpg' }
+        ]
+      },
+      {
+        layout: 'two-column',
+        images: [
+          { id: 11, url: '/projects/bjorkholm/11.jpg' },
+          { id: 12, url: '/projects/bjorkholm/12.jpg' }
+        ]
+      },
+      {
+        layout: 'full',
+        images: [
+          { id: 13, url: '/projects/bjorkholm/13.jpg' }
+        ]
+      }
+    ],
+    endVideo: {
+      id: 2,
+      url: '/projects/bjorkholm/CineBjorkholm2.mp4',
+      aspectRatio: '1920/1080',
+      posterImage: '/projects/bjorkholm/poster-end.jpg',
+      loop: false
+    }
+  },
+  {
     id: 1,
     slug: 'alora',
     title: 'Ravintola Alora',
@@ -499,93 +586,6 @@ export const portfolioItems: PortfolioItem[] = [
         ]
       }
     ]
-  },
-  {
-    id: 8,
-    slug: 'bjorkholm',
-    title: 'Björkholm 1935',
-    client: 'Björkholm',
-    year: 2026,
-    description: 'Leave your worries on the mainland. In 1935, a ship pilot and his wife claimed a stretch of island in the Finnish archipelago — a place shaped by tides, seasons, and the quiet rhythm of self-sufficient life. The family fished, tended hayfields, kept farm animals, and raised their children among fruit trees and open water. School meant rowing to the neighboring island of Heisala. As decades passed and the archipelago changed, their son Kurt Kronehag followed his father into the waters as a ship pilot. In 1964, Kurt and his wife Gulli built the first summer cabin on the island\'s south shore, opening their home to visitors. Over the next fifty years, that single cabin grew into a holiday village of eleven cottages. In 2018, a new generation took the helm. We — Johannes and Johanna — arrived as entrepreneurs with deep respect for what Kurt and Gulli built. Farm animals have returned to the island: horses graze the fields, sheep wander the paths, and chickens scratch near the cottages. Our son Jelmer was born here in 2021, our daughter Fenna in 2023. The island is raising a family again. Björkholm is not a resort. It is a place where life slows to the pace of the archipelago — sauna smoke drifting over still water, horses moving through morning light, oars pulling quietly across the lake. Nearly a century of one family\'s connection to this island, offered to you.',
-    role: ['Videographer', 'Photographer'],
-    tags: ['Video', 'Photography'],
-    image: '/FrameBjorkholm.jpg',
-    videos: [
-      {
-        id: 1,
-        url: '/projects/bjorkholm/Bjorkholm1Cine.mp4',
-        aspectRatio: '1920/1080',
-        posterImage: '/projects/bjorkholm/poster-hero.jpg',
-        loop: false
-      }
-    ],
-    clips: [
-      { id: 1, url: '/projects/bjorkholm/Clip1.mp4', aspectRatio: '1080/1080' },
-      { id: 2, url: '/projects/bjorkholm/Clip2.mp4', aspectRatio: '1080/1080' },
-      { id: 3, url: '/projects/bjorkholm/Clip3.mp4', aspectRatio: '1080/1080' }
-    ],
-    imageRows: [
-      {
-        layout: 'full',
-        images: [
-          { id: 1, url: '/projects/bjorkholm/1.jpg' }
-        ]
-      },
-      {
-        layout: 'two-column',
-        images: [
-          { id: 2, url: '/projects/bjorkholm/2.jpg' },
-          { id: 3, url: '/projects/bjorkholm/3.jpg' }
-        ]
-      },
-      {
-        layout: 'full',
-        images: [
-          { id: 4, url: '/projects/bjorkholm/4.jpg' }
-        ]
-      },
-      {
-        layout: 'two-column',
-        images: [
-          { id: 5, url: '/projects/bjorkholm/5.jpg' },
-          { id: 6, url: '/projects/bjorkholm/6.jpg' }
-        ]
-      },
-      {
-        layout: 'full',
-        images: [
-          { id: 7, url: '/projects/bjorkholm/7.jpg' }
-        ]
-      },
-      {
-        layout: 'three-column',
-        images: [
-          { id: 8, url: '/projects/bjorkholm/8.jpg' },
-          { id: 9, url: '/projects/bjorkholm/9.jpg' },
-          { id: 10, url: '/projects/bjorkholm/10.jpg' }
-        ]
-      },
-      {
-        layout: 'two-column',
-        images: [
-          { id: 11, url: '/projects/bjorkholm/11.jpg' },
-          { id: 12, url: '/projects/bjorkholm/12.jpg' }
-        ]
-      },
-      {
-        layout: 'full',
-        images: [
-          { id: 13, url: '/projects/bjorkholm/13.jpg' }
-        ]
-      }
-    ],
-    endVideo: {
-      id: 2,
-      url: '/projects/bjorkholm/CineBjorkholm2.mp4',
-      aspectRatio: '1920/1080',
-      posterImage: '/projects/bjorkholm/poster-end.jpg',
-      loop: false
-    }
   }
 ]
 

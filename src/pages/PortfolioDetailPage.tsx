@@ -3,6 +3,8 @@ import { useParams, Link, Navigate } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 import { getPortfolioBySlug } from '../data/portfolioData'
 import VideoCarousel from '../components/VideoCarousel'
+import VideoPlayer from '../components/VideoPlayer'
+import ClipStrip from '../components/ClipStrip'
 import ImageGallery from '../components/ImageGallery'
 
 const PortfolioDetailPage = () => {
@@ -110,8 +112,18 @@ const PortfolioDetailPage = () => {
         </div>
       </div>
 
+      {project.clips && project.clips.length > 0 && (
+        <ClipStrip clips={project.clips} />
+      )}
+
       {(project.imageRows || project.images) && (
         <ImageGallery images={project.images} imageRows={project.imageRows} projectTitle={project.title} />
+      )}
+
+      {project.endVideo && (
+        <div className="portfolio-detail-end-video">
+          <VideoPlayer video={project.endVideo} />
+        </div>
       )}
     </div>
   )

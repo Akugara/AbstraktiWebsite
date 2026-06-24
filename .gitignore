@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+# Large video masters — web-optimized .mp4 versions are served instead
+public/projects/bjorkholm/*.mov
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

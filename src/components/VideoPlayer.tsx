@@ -43,10 +43,11 @@ const VideoPlayer = ({ video }: VideoPlayerProps) => {
       <video
         ref={videoRef}
         muted={isMuted}
-        loop
+        loop={video.loop !== false}
         playsInline
         poster={video.posterImage}
         onClick={togglePlay}
+        onEnded={() => setIsPlaying(false)}
       >
         <source src={video.url} type="video/mp4" />
         Your browser does not support the video tag.

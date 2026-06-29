@@ -116,6 +116,14 @@ const PortfolioDetailPage = () => {
         <ClipStrip clips={project.clips} />
       )}
 
+      {project.verticalVideos && project.verticalVideos.length > 0 && (
+        <div className="vertical-video-pair">
+          {project.verticalVideos.map((video) => (
+            <VideoPlayer key={video.id} video={video} />
+          ))}
+        </div>
+      )}
+
       {(project.imageRows || project.images) && (
         <ImageGallery images={project.images} imageRows={project.imageRows} projectTitle={project.title} />
       )}

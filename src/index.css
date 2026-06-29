@@ -1042,6 +1042,22 @@ body {
   display: block;
 }
 
+/* Two vertical videos side by side */
+.vertical-video-pair {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 80px;
+}
+
+.vertical-video-pair .video-container.vertical-1920 {
+  flex: 1 1 0;
+  width: auto;
+  max-width: 480px;
+  max-height: none;
+}
+
 /* Closing video after the gallery */
 .portfolio-detail-end-video {
   width: 100%;
@@ -1403,6 +1419,17 @@ body {
   .clip-strip {
     margin-top: 40px;
     gap: 8px;
+  }
+
+  .vertical-video-pair {
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+  }
+
+  .vertical-video-pair .video-container.vertical-1920 {
+    flex: none;
+    width: 100%;
   }
 
   .portfolio-detail-end-video {

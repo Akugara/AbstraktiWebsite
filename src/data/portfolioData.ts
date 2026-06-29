@@ -32,6 +32,7 @@ export interface PortfolioItem {
   images?: PortfolioImage[]  // Legacy support
   imageRows?: ImageRow[]      // New structured layout
   clips?: Video[]            // Looping 1:1 clips shown in a single horizontal strip
+  verticalVideos?: Video[]   // Vertical videos shown side by side
   endVideo?: Video           // Closing video shown after the image gallery
 }
 
@@ -39,19 +40,19 @@ export const portfolioItems: PortfolioItem[] = [
   {
     id: 8,
     slug: 'bjorkholm',
-    title: 'Björkholm 1935',
+    title: 'Björkholm 1965',
     client: 'Björkholm',
     year: 2026,
-    description: 'Leave your worries on the mainland. In 1935, a ship pilot and his wife claimed a stretch of island in the Finnish archipelago — a place shaped by tides, seasons, and the quiet rhythm of self-sufficient life. The family fished, tended hayfields, kept farm animals, and raised their children among fruit trees and open water. School meant rowing to the neighboring island of Heisala. As decades passed and the archipelago changed, their son Kurt Kronehag followed his father into the waters as a ship pilot. In 1964, Kurt and his wife Gulli built the first summer cabin on the island\'s south shore, opening their home to visitors. Over the next fifty years, that single cabin grew into a holiday village of eleven cottages. In 2018, a new generation took the helm. We — Johannes and Johanna — arrived as entrepreneurs with deep respect for what Kurt and Gulli built. Farm animals have returned to the island: horses graze the fields, sheep wander the paths, and chickens scratch near the cottages. Our son Jelmer was born here in 2021, our daughter Fenna in 2023. The island is raising a family again. Björkholm is not a resort. It is a place where life slows to the pace of the archipelago — sauna smoke drifting over still water, horses moving through morning light, oars pulling quietly across the lake. Nearly a century of one family\'s connection to this island, offered to you.',
+    description: 'Leave your worries on the mainland. In 1935, a ship pilot and his wife claimed a stretch of island in the Finnish archipelago — a place shaped by tides, seasons, and the quiet rhythm of self-sufficient life. The family fished, tended hayfields, kept farm animals, and raised their children among fruit trees and open water. School meant rowing to the neighboring island of Heisala. As decades passed and the archipelago changed, their son Kurt Kronehag followed his father into the waters as a ship pilot. In 1964, Kurt and his wife Gulli built the first summer cabin on the island\'s south shore, opening their home to visitors. Over the next fifty years, that single cabin grew into a holiday village of eleven cottages. In 2018, a new generation took the helm. Johanna and Matthijs arrived as entrepreneurs with deep respect for what Kurt and Gulli built. Farm animals have returned to the island: horses graze the fields, sheep wander the paths, and chickens scratch near the cottages. Their son Jelmer was born here in 2021, their daughter Fenna in 2023. The island is raising a family again. Björkholm is not a resort. It is a place where life slows to the pace of the archipelago — sauna smoke drifting over still water, horses moving through morning light, oars pulling quietly across the lake. Nearly a century of one family\'s connection to this island, offered to you.',
     role: ['Videographer', 'Photographer'],
     tags: ['Video', 'Photography'],
     image: '/FrameBjorkholm.jpg',
     videos: [
       {
         id: 1,
-        url: '/projects/bjorkholm/Bjorkholm1Cine.mp4',
+        url: '/projects/bjorkholm/Bjorkholm1964-Horizontal.mp4',
         aspectRatio: '1920/1080',
-        posterImage: '/projects/bjorkholm/poster-hero.jpg',
+        posterImage: '/projects/bjorkholm/poster-Bjorkholm1964-Horizontal.jpg',
         loop: false
       }
     ],
@@ -59,6 +60,22 @@ export const portfolioItems: PortfolioItem[] = [
       { id: 1, url: '/projects/bjorkholm/Clip1.mp4', aspectRatio: '1080/1080' },
       { id: 2, url: '/projects/bjorkholm/Clip2.mp4', aspectRatio: '1080/1080' },
       { id: 3, url: '/projects/bjorkholm/Clip3.mp4', aspectRatio: '1080/1080' }
+    ],
+    verticalVideos: [
+      {
+        id: 1,
+        url: '/projects/bjorkholm/Bjorkholm1964-Second-Vertical.mp4',
+        aspectRatio: '1080/1920',
+        posterImage: '/projects/bjorkholm/poster-Bjorkholm1964-Second-Vertical.jpg',
+        loop: false
+      },
+      {
+        id: 2,
+        url: '/projects/bjorkholm/Bjorkholm1964-Sensations-Vertical.mp4',
+        aspectRatio: '1080/1920',
+        posterImage: '/projects/bjorkholm/poster-Bjorkholm1964-Sensations-Vertical.jpg',
+        loop: false
+      }
     ],
     imageRows: [
       {
@@ -117,9 +134,9 @@ export const portfolioItems: PortfolioItem[] = [
     ],
     endVideo: {
       id: 2,
-      url: '/projects/bjorkholm/CineBjorkholm2.mp4',
+      url: '/projects/bjorkholm/Bjorkholm1964-Second-Horizontal.mp4',
       aspectRatio: '1920/1080',
-      posterImage: '/projects/bjorkholm/poster-end.jpg',
+      posterImage: '/projects/bjorkholm/poster-Bjorkholm1964-Second-Horizontal.jpg',
       loop: false
     }
   },

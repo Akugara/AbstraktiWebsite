@@ -40,7 +40,7 @@ export const portfolioItems: PortfolioItem[] = [
   {
     id: 8,
     slug: 'bjorkholm',
-    title: 'Björkholm 1965',
+    title: 'Björkholm 1964',
     client: 'Björkholm',
     year: 2026,
     description: 'Leave your worries on the mainland. In 1935, a ship pilot and his wife claimed a stretch of island in the Finnish archipelago — a place shaped by tides, seasons, and the quiet rhythm of self-sufficient life. The family fished, tended hayfields, kept farm animals, and raised their children among fruit trees and open water. School meant rowing to the neighboring island of Heisala. As decades passed and the archipelago changed, their son Kurt Kronehag followed his father into the waters as a ship pilot. In 1964, Kurt and his wife Gulli built the first summer cabin on the island\'s south shore, opening their home to visitors. Over the next fifty years, that single cabin grew into a holiday village of eleven cottages. In 2018, a new generation took the helm. Johanna and Matthijs arrived as entrepreneurs with deep respect for what Kurt and Gulli built. Farm animals have returned to the island: horses graze the fields, sheep wander the paths, and chickens scratch near the cottages. Their son Jelmer was born here in 2021, their daughter Fenna in 2023. The island is raising a family again. Björkholm is not a resort. It is a place where life slows to the pace of the archipelago — sauna smoke drifting over still water, horses moving through morning light, oars pulling quietly across the lake. Nearly a century of one family\'s connection to this island, offered to you.',

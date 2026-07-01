@@ -38,6 +38,48 @@ export interface PortfolioItem {
 
 export const portfolioItems: PortfolioItem[] = [
   {
+    id: 9,
+    slug: 'through-the-gate',
+    title: 'Through the Gate',
+    client: 'Through the Gate',
+    year: 2026,
+    description: 'Alongside the exhibition, we produced a documentary-style interview series capturing the six photographers as they reflect on their work and the four moments — Dawn, Movement, Contemplation, and Dream — that shape the exhibition\'s narrative. Shot in an intimate, observational style, the interviews trace each artist\'s process and perspective, giving viewers a deeper entry point into the vulnerability at the heart of the show: the same gate the exhibition itself invites us to open. We also designed, built, and deployed the exhibition\'s website, optimized for a seamless experience across desktop, tablet, and mobile. The site integrates real-time visitor statistics, allowing us to track engagement and refine the experience throughout the exhibition\'s run. From concept to launch, the goal was a digital space that felt as considered and immersive as the physical exhibition at Kluuvi Shopping Centre.',
+    role: ['Videographer', 'Photographer', 'Web Designer'],
+    tags: ['Video', 'Photography', 'Graphic Design'],
+    image: '/FrameThroughTheGate.jpg',
+    videos: [
+      {
+        id: 1,
+        url: '/projects/throughthegate/throughthegate.mp4',
+        aspectRatio: '1920/1080',
+        posterImage: '/projects/throughthegate/poster-throughthegate.jpg',
+        loop: false
+      }
+    ],
+    imageRows: [
+      {
+        layout: 'full',
+        images: [
+          { id: 1, url: '/projects/throughthegate/Through1.jpg' }
+        ]
+      },
+      {
+        layout: 'two-column',
+        images: [
+          { id: 2, url: '/projects/throughthegate/Through2.jpg' },
+          { id: 3, url: '/projects/throughthegate/Through3.jpg' }
+        ]
+      },
+      {
+        layout: 'two-column',
+        images: [
+          { id: 4, url: '/projects/throughthegate/Through4.jpg' },
+          { id: 5, url: '/projects/throughthegate/Through5.jpg' }
+        ]
+      }
+    ]
+  },
+  {
     id: 8,
     slug: 'bjorkholm',
     title: 'Björkholm 1964',

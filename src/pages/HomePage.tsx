@@ -380,7 +380,7 @@ const HomePage = () => {
             <div className="contact-info-item">
               <h4>Follow</h4>
               <div className="social-links">
-                <a href="https://www.instagram.com/abstrakti_wcts/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <a href="https://www.instagram.com/abstrakti.eu/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                   <Instagram size={20} />
                 </a>
               </div>

@@ -219,10 +219,10 @@ const HomePage = () => {
               <h3>Photography & Video Bundle</h3>
               <div className="package-price">€1,090</div>
               <p className="package-description">
-                A full-day shoot combining photography and videography for comprehensive brand coverage.
+                A full shoot combining photography and videography for comprehensive brand coverage.
               </p>
               <ul className="package-features">
-                <li>Full day shoot (8 hours)</li>
+                <li>Full shoot (6 hours)</li>
                 <li>3 professional videos</li>
                 <li>5 short-form clips</li>
                 <li>50+ high-resolution photos</li>

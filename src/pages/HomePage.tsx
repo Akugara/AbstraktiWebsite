@@ -181,9 +181,9 @@ const HomePage = () => {
             <div className="services-grid">
             <div className="service-package">
               <h3>Photography</h3>
-              <div className="package-price">€550</div>
+              <div className="package-price">€650</div>
               <p className="package-description">
-                Professional photography services for products, events, portraits, or commercial needs.
+                Professional photography services for products, portraits, or commercial needs.
               </p>
               <ul className="package-features">
                 <li>Half day session (4 hours)</li>
@@ -198,9 +198,9 @@ const HomePage = () => {
 
             <div className="service-package">
               <h3>Video</h3>
-              <div className="package-price">€690</div>
+              <div className="package-price">€720</div>
               <p className="package-description">
-                Cinematic video production for brands, events, or promotional content.
+                Cinematic video production for brands or promotional content.
               </p>
               <ul className="package-features">
                 <li>Half day filming (4 hours)</li>

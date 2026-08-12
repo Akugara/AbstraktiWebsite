@@ -25,7 +25,9 @@ body {
   border: 1px solid #000;
   margin: 20px 30px;
   border-radius: 2px;
-  position: relative;
+  position: sticky;
+  top: 20px;
+  z-index: 1000;
 }
 
 .nav-content {
@@ -116,7 +118,7 @@ body {
   pointer-events: none;
 }
 
-/* Text overlay — hidden while video plays, revealed after */
+/* Text overlay — visible immediately, white while the video plays, dark once it ends */
 .hero-text {
   position: relative;
   z-index: 1;
@@ -125,44 +127,29 @@ body {
   align-items: center;
 }
 
-.hero-text h1,
-.hero-text .subtitle,
-.hero-text .hero-cta-group {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
-}
-
-.hero-text.revealed h1 {
-  opacity: 1;
-  transform: translateY(0);
-  transition-delay: 0.1s;
-}
-
-.hero-text.revealed .subtitle {
-  opacity: 1;
-  transform: translateY(0);
-  transition-delay: 0.35s;
-}
-
-.hero-text.revealed .hero-cta-group {
-  opacity: 1;
-  transform: translateY(0);
-  transition-delay: 0.6s;
-}
-
 .hero h1 {
   font-size: 72px;
   font-weight: 300;
   line-height: 1.2;
   margin-bottom: 20px;
   letter-spacing: -1px;
+  color: #fff;
+  transition: color 0.8s ease;
+}
+
+.hero-text.video-ended h1 {
+  color: #000;
 }
 
 .hero .subtitle {
   font-size: 15px;
-  color: #333333;
+  color: #fff;
   margin-bottom: 30px;
+  transition: color 0.8s ease;
+}
+
+.hero-text.video-ended .subtitle {
+  color: #333333;
 }
 
 .hero-cta-group {
@@ -173,12 +160,17 @@ body {
 
 .hero .cta {
   display: inline-block;
-  color: #000;
+  color: #fff;
   text-decoration: none;
   font-size: 14px;
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid #fff;
   padding-bottom: 2px;
-  transition: opacity 0.3s;
+  transition: opacity 0.3s, color 0.8s ease, border-color 0.8s ease;
+}
+
+.hero-text.video-ended .cta {
+  color: #000;
+  border-bottom-color: #000;
 }
 
 .hero .cta:hover {
@@ -188,13 +180,18 @@ body {
 .replay-btn {
   background: none;
   border: none;
-  border-bottom: 1px solid #999;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.7);
   padding-bottom: 2px;
   font-size: 14px;
-  color: #777;
+  color: #fff;
   cursor: pointer;
-  transition: opacity 0.3s, color 0.3s, border-color 0.3s;
+  transition: opacity 0.3s, color 0.8s ease, border-color 0.8s ease;
   font-family: inherit;
+}
+
+.hero-text.video-ended .replay-btn {
+  color: #777;
+  border-bottom-color: #999;
 }
 
 .replay-btn:hover {
@@ -1240,6 +1237,7 @@ body {
   .nav {
     margin: 15px 20px;
     padding: 12px 0;
+    top: 15px;
   }
 
   .logo img {

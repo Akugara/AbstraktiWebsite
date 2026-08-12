@@ -81,7 +81,7 @@ const HomePage = () => {
           onEnded={handleVideoEnd}
           onError={handleVideoEnd}
         />
-        <div className={`hero-text${videoEnded ? ' revealed' : ''}`}>
+        <div className={`hero-text${videoEnded ? ' video-ended' : ''}`}>
           <h1>
             Creative
             <br />

@@ -79,6 +79,14 @@ const Navigation = () => {
             </li>
             <li>
               <Link
+                to="/#team"
+                onClick={(e) => handleLinkClick(e, 'team')}
+              >
+                TEAM
+              </Link>
+            </li>
+            <li>
+              <Link
                 to="/#contact"
                 onClick={(e) => handleLinkClick(e, 'contact')}
               >

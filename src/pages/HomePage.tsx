@@ -10,6 +10,78 @@ const HomePage = () => {
   const [videoEnded, setVideoEnded] = useState(false)
   const heroVideoRef = useRef<HTMLVideoElement>(null)
 
+  const WEB3FORMS_ACCESS_KEY = 'dd872ed7-0fed-4ea6-89ae-8a3772dfb3bd'
+
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    company: '',
+    projectType: '',
+    budget: '',
+    message: '',
+  })
+  const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
+  const [formError, setFormError] = useState('')
+  const botcheckRef = useRef<HTMLInputElement>(null)
+
+  const handleFormChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target
+    setFormData((prev) => ({ ...prev, [name]: value }))
+  }
+
+  const handleFormSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+
+    // Honeypot: real visitors never check/fill this hidden field, bots often do.
+    if (botcheckRef.current?.checked) {
+      setFormStatus('success')
+      return
+    }
+
+    setFormStatus('submitting')
+    setFormError('')
+
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_ACCESS_KEY,
+          subject: `New project inquiry from ${formData.firstName} ${formData.lastName}`.trim(),
+          from_name: `${formData.firstName} ${formData.lastName}`.trim(),
+          first_name: formData.firstName,
+          last_name: formData.lastName,
+          email: formData.email,
+          phone: formData.phone,
+          company: formData.company,
+          project_type: formData.projectType,
+          budget: formData.budget,
+          message: formData.message,
+        }),
+      })
+
+      const result = await response.json()
+
+      if (result.success) {
+        setFormStatus('success')
+      } else {
+        throw new Error(result.message || 'Something went wrong. Please try again or email us directly.')
+      }
+    } catch (err) {
+      setFormStatus('error')
+      setFormError(
+        err instanceof Error ? err.message : 'Something went wrong. Please try again or email us directly.'
+      )
+    }
+  }
+
   const handleVideoEnd = () => setVideoEnded(true)
 
   const handleReplay = () => {
@@ -34,15 +106,18 @@ const HomePage = () => {
 
     const servicesSection = document.getElementById('services')
     const aboutSection = document.getElementById('about')
+    const teamSection = document.getElementById('team')
     const contactSection = document.getElementById('contact')
 
     if (servicesSection) observer.observe(servicesSection)
     if (aboutSection) observer.observe(aboutSection)
+    if (teamSection) observer.observe(teamSection)
     if (contactSection) observer.observe(contactSection)
 
     return () => {
       if (servicesSection) observer.unobserve(servicesSection)
       if (aboutSection) observer.unobserve(aboutSection)
+      if (teamSection) observer.unobserve(teamSection)
       if (contactSection) observer.unobserve(contactSection)
     }
   }, [])
@@ -352,6 +427,34 @@ const HomePage = () => {
         </div>
       </section>
 
+      {/* Team Section */}
+      <section id="team" className="team">
+        <div className="container">
+          <h2>The Team</h2>
+          <p className="team-intro">
+            The people behind the camera and the craft.
+          </p>
+
+          <div className="team-grid">
+            <div className="team-member">
+              <div className="team-photo">
+                <img src="/abstraktipeople/Agustin.jpg" alt="Agustin, Founder at Abstrakti" loading="lazy" />
+              </div>
+              <h3 className="team-name">Agustin</h3>
+              <p className="team-role">Founder · Graphic Designer · Photo &amp; Video</p>
+            </div>
+
+            <div className="team-member">
+              <div className="team-photo">
+                <img src="/abstraktipeople/Frank.jpg" alt="Frank, Videographer and Content Creator at Abstrakti" loading="lazy" />
+              </div>
+              <h3 className="team-name">Frank</h3>
+              <p className="team-role">Videographer · Content Creator</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Contact Section */}
       <section id="contact" className="contact">
         <div className="container">
@@ -360,30 +463,203 @@ const HomePage = () => {
             Ready to start your project? Let's talk about how we can help bring your vision to life.
           </p>
 
-          <div className="contact-info-centered">
-            <div className="contact-info-item">
-              <h4>Email</h4>
-              <a href="mailto:agustin.garagorry@abstrakti.eu" className="email-bold">agustin.garagorry@abstrakti.eu</a>
-            </div>
+          <div className="contact-grid">
+            <div className="contact-details">
+              <h3>Tell us about your project</h3>
+              <p>
+                Share a few details about what you need and your budget, and we'll get back to
+                you with a clear idea of how we can help &mdash; no obligation, no pressure.
+              </p>
 
-            <div className="contact-info-item">
-              <h4>Phone</h4>
-              <a href="tel:+358417259298">+358 41 725 9298</a>
-            </div>
+              <ul className="contact-trust-list">
+                <li>No obligation to book</li>
+                <li>No pushy sales &mdash; just honest advice</li>
+                <li>We usually reply within 1&ndash;2 business days</li>
+              </ul>
 
-            <div className="contact-info-item">
-              <h4>Location</h4>
-              <p>Turku, Finland</p>
-              <p className="location-note">We work across Finland and Europe</p>
-            </div>
+              <div className="contact-details-info">
+                <div className="contact-info-item">
+                  <h4>Email</h4>
+                  <a href="mailto:agustin.garagorry@abstrakti.eu" className="email-bold">agustin.garagorry@abstrakti.eu</a>
+                </div>
 
-            <div className="contact-info-item">
-              <h4>Follow</h4>
-              <div className="social-links">
-                <a href="https://www.instagram.com/abstrakti.eu/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                  <Instagram size={20} />
-                </a>
+                <div className="contact-info-item">
+                  <h4>Phone</h4>
+                  <a href="tel:+358417259298">+358 41 725 9298</a>
+                </div>
+
+                <div className="contact-info-item">
+                  <h4>Location</h4>
+                  <p>Turku, Finland</p>
+                  <p className="location-note">We work across Finland and Europe</p>
+                </div>
+
+                <div className="contact-info-item">
+                  <h4>Follow</h4>
+                  <div className="social-links">
+                    <a href="https://www.instagram.com/abstrakti.eu/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                      <Instagram size={20} />
+                    </a>
+                  </div>
+                </div>
               </div>
+            </div>
+
+            <div className="contact-form">
+              {formStatus === 'success' ? (
+                <div className="form-success">
+                  <h3>Thanks &mdash; message sent!</h3>
+                  <p>
+                    We've received your details and will get back to you within 1&ndash;2 business days.
+                  </p>
+                </div>
+              ) : (
+                <form onSubmit={handleFormSubmit} noValidate>
+                  {/* Honeypot field for spam bots — hidden from real visitors */}
+                  <input
+                    type="checkbox"
+                    name="botcheck"
+                    ref={botcheckRef}
+                    className="botcheck-field"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    aria-hidden="true"
+                  />
+
+                  <div className="form-row">
+                    <div className="form-group">
+                      <label htmlFor="firstName">First name</label>
+                      <input
+                        type="text"
+                        id="firstName"
+                        name="firstName"
+                        placeholder="First name"
+                        value={formData.firstName}
+                        onChange={handleFormChange}
+                        required
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label htmlFor="lastName">Last name</label>
+                      <input
+                        type="text"
+                        id="lastName"
+                        name="lastName"
+                        placeholder="Last name"
+                        value={formData.lastName}
+                        onChange={handleFormChange}
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div className="form-group">
+                    <label htmlFor="email">Email</label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      placeholder="you@company.com"
+                      value={formData.email}
+                      onChange={handleFormChange}
+                      required
+                    />
+                  </div>
+
+                  <div className="form-row">
+                    <div className="form-group">
+                      <label htmlFor="phone">Phone <span className="optional-tag">(optional)</span></label>
+                      <input
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        placeholder="+358 ..."
+                        value={formData.phone}
+                        onChange={handleFormChange}
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label htmlFor="company">Company <span className="optional-tag">(optional)</span></label>
+                      <input
+                        type="text"
+                        id="company"
+                        name="company"
+                        placeholder="Company name"
+                        value={formData.company}
+                        onChange={handleFormChange}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="form-row">
+                    <div className="form-group">
+                      <label htmlFor="projectType">What do you need?</label>
+                      <select
+                        id="projectType"
+                        name="projectType"
+                        value={formData.projectType}
+                        onChange={handleFormChange}
+                        required
+                      >
+                        <option value="" disabled>Select a service</option>
+                        <option value="Photography">Photography</option>
+                        <option value="Video Production">Video Production</option>
+                        <option value="Photography & Video Bundle">Photography &amp; Video Bundle</option>
+                        <option value="Graphic Design & Brand Identity">Graphic Design &amp; Brand Identity</option>
+                        <option value="Full Studio Package">Full Studio Package</option>
+                        <option value="Event Coverage">Event Coverage</option>
+                        <option value="Not sure yet">Not sure yet</option>
+                      </select>
+                    </div>
+                    <div className="form-group">
+                      <label htmlFor="budget">Budget</label>
+                      <select
+                        id="budget"
+                        name="budget"
+                        value={formData.budget}
+                        onChange={handleFormChange}
+                        required
+                      >
+                        <option value="" disabled>Select a range</option>
+                        <option value="Under €750">Under €750</option>
+                        <option value="€750 – €1,500">€750 &ndash; €1,500</option>
+                        <option value="€1,500 – €3,000">€1,500 &ndash; €3,000</option>
+                        <option value="€3,000 – €5,000">€3,000 &ndash; €5,000</option>
+                        <option value="€5,000+">€5,000+</option>
+                        <option value="Not sure yet">Not sure yet</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className="form-group">
+                    <label htmlFor="message">What would you like to achieve?</label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      placeholder="Tell us briefly about your project, goals, or what you need help with."
+                      value={formData.message}
+                      onChange={handleFormChange}
+                      required
+                    />
+                  </div>
+
+                  <p className="form-note">
+                    Prices are reference points &mdash; sharing your budget just helps us tailor
+                    the right package for you.
+                  </p>
+
+                  {formStatus === 'error' && (
+                    <p className="form-error">
+                      {formError} You can also email us directly at{' '}
+                      <a href="mailto:agustin.garagorry@abstrakti.eu">agustin.garagorry@abstrakti.eu</a>.
+                    </p>
+                  )}
+
+                  <button type="submit" className="submit-btn" disabled={formStatus === 'submitting'}>
+                    {formStatus === 'submitting' ? 'Sending…' : 'Send message'}
+                  </button>
+                </form>
+              )}
             </div>
           </div>
         </div>

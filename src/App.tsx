@@ -5,6 +5,10 @@ import Footer from './components/Footer'
 import ScrollToTop from './components/ScrollToTop'
 import HomePage from './pages/HomePage'
 import PortfolioDetailPage from './pages/PortfolioDetailPage'
+import AdminLoginPage from './pages/AdminLoginPage'
+import AdminDashboardPage from './pages/AdminDashboardPage'
+import AdminGalleryUploadPage from './pages/AdminGalleryUploadPage'
+import ClientGalleryPage from './pages/ClientGalleryPage'
 
 const Layout = () => {
   return (
@@ -31,6 +35,22 @@ const router = createBrowserRouter([
         element: <PortfolioDetailPage />
       }
     ]
+  },
+  {
+    path: '/admin',
+    element: <AdminLoginPage />
+  },
+  {
+    path: '/admin/galleries',
+    element: <AdminDashboardPage />
+  },
+  {
+    path: '/admin/galleries/:slug',
+    element: <AdminGalleryUploadPage />
+  },
+  {
+    path: '/gallery/:slug',
+    element: <ClientGalleryPage />
   }
 ])
 

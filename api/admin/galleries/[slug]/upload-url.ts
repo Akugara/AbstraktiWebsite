@@ -1,11 +1,12 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 import { PutObjectCommand } from '@aws-sdk/client-s3'
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
-import { isAdminRequest } from '../../../_lib/auth'
-import { getGalleryMeta, fileKey, sanitizeFilename } from '../../../_lib/galleries'
-import { getR2Client, getBucketName } from '../../../_lib/r2'
+import { isAdminRequest } from '../../../_lib/auth.js'
+import { getGalleryMeta, fileKey, sanitizeFilename } from '../../../_lib/galleries.js'
+import { getR2Client, getBucketName } from '../../../_lib/r2.js'
+import { withHandler } from '../../../_lib/withHandler.js'
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+async function handler(req: VercelRequest, res: VercelResponse) {
   if (!(await isAdminRequest(req))) {
     return res.status(401).json({ error: 'Unauthorized' })
   }
@@ -36,3 +37,5 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   return res.status(200).json({ uploadUrl, key, filename: sanitizeFilename(filename) })
 }
+
+export default withHandler(handler)

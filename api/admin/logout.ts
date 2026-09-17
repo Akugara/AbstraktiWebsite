@@ -1,10 +1,13 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
-import { buildAdminLogoutCookie } from '../_lib/auth'
+import { buildAdminLogoutCookie } from '../_lib/auth.js'
+import { withHandler } from '../_lib/withHandler.js'
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' })
   }
   res.setHeader('Set-Cookie', buildAdminLogoutCookie())
   return res.status(200).json({ ok: true })
 }
+
+export default withHandler(handler)

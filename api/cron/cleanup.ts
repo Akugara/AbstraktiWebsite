@@ -1,9 +1,10 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
-import { listGalleries, deleteGalleryObjects, isExpired } from '../_lib/galleries'
+import { listGalleries, deleteGalleryObjects, isExpired } from '../_lib/galleries.js'
+import { withHandler } from '../_lib/withHandler.js'
 
 const GRACE_PERIOD_MS = 24 * 60 * 60 * 1000
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+async function handler(req: VercelRequest, res: VercelResponse) {
   const cronSecret = process.env.CRON_SECRET
   if (cronSecret && req.headers.authorization !== `Bearer ${cronSecret}`) {
     return res.status(401).json({ error: 'Unauthorized' })
@@ -22,3 +23,5 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   return res.status(200).json({ checked: galleries.length, deleted })
 }
+
+export default withHandler(handler)

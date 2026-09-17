@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
-import { comparePassword, signAdminSession, buildAdminSessionCookie } from '../_lib/auth'
-import { withHandler } from '../_lib/withHandler'
+import { comparePassword, signAdminSession, buildAdminSessionCookie } from '../_lib/auth.js'
+import { withHandler } from '../_lib/withHandler.js'
 
 async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') {
@@ -23,4 +23,4 @@ async function handler(req: VercelRequest, res: VercelResponse) {
   return res.status(200).json({ ok: true })
 }
 
-export default withHandler(handler, true)
+export default withHandler(handler)

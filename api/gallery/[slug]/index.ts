@@ -1,11 +1,12 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 import { GetObjectCommand } from '@aws-sdk/client-s3'
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
-import { getBearerToken, verifyGalleryAccessToken } from '../../_lib/auth'
-import { getGalleryMeta, isExpired } from '../../_lib/galleries'
-import { getR2Client, getBucketName } from '../../_lib/r2'
+import { getBearerToken, verifyGalleryAccessToken } from '../../_lib/auth.js'
+import { getGalleryMeta, isExpired } from '../../_lib/galleries.js'
+import { getR2Client, getBucketName } from '../../_lib/r2.js'
+import { withHandler } from '../../_lib/withHandler.js'
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'GET') {
     return res.status(405).json({ error: 'Method not allowed' })
   }
@@ -54,3 +55,5 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     files,
   })
 }
+
+export default withHandler(handler)

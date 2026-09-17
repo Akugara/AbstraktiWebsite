@@ -5,7 +5,7 @@ import {
   DeleteObjectsCommand,
 } from '@aws-sdk/client-s3'
 import { customAlphabet } from 'nanoid'
-import { getR2Client, getBucketName } from './r2'
+import { getR2Client, getBucketName } from './r2.js'
 
 const nanoid = customAlphabet('abcdefghijklmnopqrstuvwxyz0123456789', 10)
 

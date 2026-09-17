@@ -1,8 +1,9 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
-import { comparePassword, signGalleryAccess } from '../../_lib/auth'
-import { getGalleryMeta, isExpired } from '../../_lib/galleries'
+import { comparePassword, signGalleryAccess } from '../../_lib/auth.js'
+import { getGalleryMeta, isExpired } from '../../_lib/galleries.js'
+import { withHandler } from '../../_lib/withHandler.js'
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' })
   }
@@ -26,3 +27,5 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const token = await signGalleryAccess(slug)
   return res.status(200).json({ token })
 }
+
+export default withHandler(handler)

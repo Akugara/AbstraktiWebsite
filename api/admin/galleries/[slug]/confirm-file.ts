@@ -1,8 +1,9 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
-import { isAdminRequest } from '../../../_lib/auth'
-import { getGalleryMeta, putGalleryMeta, fileKey, sanitizeFilename } from '../../../_lib/galleries'
+import { isAdminRequest } from '../../../_lib/auth.js'
+import { getGalleryMeta, putGalleryMeta, fileKey, sanitizeFilename } from '../../../_lib/galleries.js'
+import { withHandler } from '../../../_lib/withHandler.js'
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+async function handler(req: VercelRequest, res: VercelResponse) {
   if (!(await isAdminRequest(req))) {
     return res.status(401).json({ error: 'Unauthorized' })
   }
@@ -34,3 +35,5 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   await putGalleryMeta(meta)
   return res.status(200).json({ gallery: meta })
 }
+
+export default withHandler(handler)

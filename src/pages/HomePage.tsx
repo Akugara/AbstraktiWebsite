@@ -1,14 +1,39 @@
 import { useState, useEffect, useRef } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 import { Instagram } from 'lucide-react'
 import { portfolioItems } from '../data/portfolioData'
 
+const formatPrice = (n: number) => n.toLocaleString('en-US')
+
 const HomePage = () => {
+  const location = useLocation()
   const [activeFilter, setActiveFilter] = useState('ALL')
   const [serviceType, setServiceType] = useState('photo-video')
+  const [socialPeriod, setSocialPeriod] = useState<'3' | '6' | '12'>('3')
   const [videoEnded, setVideoEnded] = useState(false)
   const heroVideoRef = useRef<HTMLVideoElement>(null)
+
+  const socialPricing: Record<string, Record<'3' | '6' | '12', number>> = {
+    starter: { '3': 390, '6': 360, '12': 330 },
+    growth: { '3': 650, '6': 590, '12': 520 },
+    fullManagement: { '3': 950, '6': 850, '12': 750 },
+    fullPackage: { '3': 1490, '6': 1370, '12': 1230 },
+  }
+
+  const periodLabels: Record<'3' | '6' | '12', string> = {
+    '3': '3-month commitment',
+    '6': '6-month commitment',
+    '12': '12-month commitment',
+  }
+
+  const getSavingsLabel = (tierKey: keyof typeof socialPricing) => {
+    if (socialPeriod === '3') return null
+    const basePrice = socialPricing[tierKey]['3']
+    const currentPrice = socialPricing[tierKey][socialPeriod]
+    const savings = Math.round((1 - currentPrice / basePrice) * 100)
+    return `Save ${savings}%`
+  }
 
   const WEB3FORMS_ACCESS_KEY = 'dd872ed7-0fed-4ea6-89ae-8a3772dfb3bd'
 
@@ -91,6 +116,29 @@ const HomePage = () => {
       heroVideoRef.current.play()
     }
   }
+
+  // If autoplay is blocked or the video stalls, fall back to the static
+  // (dark-on-light) hero state instead of leaving white text on a white background.
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const video = heroVideoRef.current
+      if (video && video.paused && video.currentTime === 0) {
+        setVideoEnded(true)
+      }
+    }, 3000)
+    return () => clearTimeout(timer)
+  }, [])
+
+  // Deep-links into a section (e.g. arriving at "/#services" from another page)
+  // need to scroll there once the page has rendered.
+  useEffect(() => {
+    if (!location.hash) return
+    const id = location.hash.replace('#', '')
+    const timer = setTimeout(() => {
+      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+    }, 50)
+    return () => clearTimeout(timer)
+  }, [location.hash])
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -250,7 +298,42 @@ const HomePage = () => {
             >
               Graphic Design
             </button>
+            <button
+              className={`toggle-btn ${serviceType === 'webdesign' ? 'active' : ''}`}
+              onClick={() => setServiceType('webdesign')}
+            >
+              Web Design
+            </button>
+            <button
+              className={`toggle-btn ${serviceType === 'social' ? 'active' : ''}`}
+              onClick={() => setServiceType('social')}
+            >
+              Social Media
+            </button>
           </div>
+
+          {serviceType === 'social' && (
+            <div className="period-toggle">
+              <button
+                className={`period-btn ${socialPeriod === '3' ? 'active' : ''}`}
+                onClick={() => setSocialPeriod('3')}
+              >
+                3 Months
+              </button>
+              <button
+                className={`period-btn ${socialPeriod === '6' ? 'active' : ''}`}
+                onClick={() => setSocialPeriod('6')}
+              >
+                6 Months
+              </button>
+              <button
+                className={`period-btn ${socialPeriod === '12' ? 'active' : ''}`}
+                onClick={() => setSocialPeriod('12')}
+              >
+                12 Months
+              </button>
+            </div>
+          )}
 
           {serviceType === 'photo-video' ? (
             <div className="services-grid">
@@ -311,7 +394,7 @@ const HomePage = () => {
             </div>
 
           </div>
-          ) : (
+          ) : serviceType === 'design' ? (
             <div className="services-grid">
             <div className="service-package">
               <h3>Essentials</h3>
@@ -378,12 +461,201 @@ const HomePage = () => {
               </div>
             </div>
           </div>
+          ) : serviceType === 'webdesign' ? (
+            <div className="services-grid">
+            <div className="service-package">
+              <h3>Landing Page</h3>
+              <div className="package-price">€450</div>
+              <p className="package-description">
+                A focused single-page site to establish an online presence quickly.
+              </p>
+              <ul className="package-features">
+                <li>1-page responsive site (up to 5 sections)</li>
+                <li>Mobile-optimized design</li>
+                <li>Contact form integration</li>
+                <li>Basic on-page SEO setup</li>
+                <li>1 revision round</li>
+              </ul>
+              <div className="package-monthly">
+                <strong>Add hosting & maintenance:</strong> +€40/month for hosting, updates & small edits
+              </div>
+            </div>
+
+            <div className="service-package featured">
+              <div className="featured-badge">Most Popular</div>
+              <h3>Business Website</h3>
+              <div className="package-price">€890</div>
+              <p className="package-description">
+                A complete multi-page website for businesses ready to showcase their full offering.
+              </p>
+              <ul className="package-features">
+                <li>Up to 6 pages (Home, About, Services, Portfolio, Contact)</li>
+                <li>Custom responsive design</li>
+                <li>Contact form integration</li>
+                <li>On-page SEO optimization</li>
+                <li>Google Analytics setup</li>
+                <li>2 revision rounds</li>
+              </ul>
+              <div className="package-monthly">
+                <strong>Add hosting & maintenance:</strong> +€60/month for hosting, updates & content changes
+              </div>
+            </div>
+          </div>
+          ) : (
+            <>
+            <div className="tier-summary-grid">
+              <div className="tier-summary-card">
+                <h3>Starter</h3>
+                <div className="package-price">
+                  €{formatPrice(socialPricing.starter[socialPeriod])}<span className="price-period">/mo</span>
+                </div>
+                {getSavingsLabel('starter') && <div className="savings-badge">{getSavingsLabel('starter')}</div>}
+                <p className="tier-summary-description">
+                  A focused starting point for brands building a presence on one channel.
+                </p>
+                <a href="#contact" className="tier-cta" onClick={(e) => { e.preventDefault(); scrollToSection('contact') }}>Get started</a>
+              </div>
+
+              <div className="tier-summary-card">
+                <h3>Growth</h3>
+                <div className="package-price">
+                  €{formatPrice(socialPricing.growth[socialPeriod])}<span className="price-period">/mo</span>
+                </div>
+                {getSavingsLabel('growth') && <div className="savings-badge">{getSavingsLabel('growth')}</div>}
+                <p className="tier-summary-description">
+                  Active, multi-channel presence with short-form video included.
+                </p>
+                <a href="#contact" className="tier-cta" onClick={(e) => { e.preventDefault(); scrollToSection('contact') }}>Get started</a>
+              </div>
+
+              <div className="tier-summary-card featured">
+                <div className="featured-badge">Most Popular</div>
+                <h3>Full Management</h3>
+                <div className="package-price">
+                  €{formatPrice(socialPricing.fullManagement[socialPeriod])}<span className="price-period">/mo</span>
+                </div>
+                {getSavingsLabel('fullManagement') && <div className="savings-badge">{getSavingsLabel('fullManagement')}</div>}
+                <p className="tier-summary-description">
+                  Full social presence across all three platforms, fully produced by us.
+                </p>
+                <a href="#contact" className="tier-cta" onClick={(e) => { e.preventDefault(); scrollToSection('contact') }}>Get started</a>
+              </div>
+
+              <div className="tier-summary-card">
+                <h3>Full Package</h3>
+                <div className="package-price">
+                  €{formatPrice(socialPricing.fullPackage[socialPeriod])}<span className="price-period">/mo</span>
+                </div>
+                {getSavingsLabel('fullPackage') && <div className="savings-badge">{getSavingsLabel('fullPackage')}</div>}
+                <p className="tier-summary-description">
+                  Everything in Full Management, plus a dedicated monthly shoot day and paid ad management.
+                </p>
+                <a href="#contact" className="tier-cta" onClick={(e) => { e.preventDefault(); scrollToSection('contact') }}>Get started</a>
+              </div>
+            </div>
+
+            <div className="pricing-table-wrapper">
+              <table className="pricing-table">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Starter</th>
+                    <th>Growth</th>
+                    <th>Full Management</th>
+                    <th>Full Package</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Dedicated social media manager</td>
+                    <td><span className="tick">✓</span></td>
+                    <td><span className="tick">✓</span></td>
+                    <td><span className="tick">✓</span></td>
+                    <td><span className="tick">✓</span></td>
+                  </tr>
+                  <tr>
+                    <td>Channels</td>
+                    <td>Instagram or Facebook (1)</td>
+                    <td>Instagram + Facebook</td>
+                    <td>Instagram + Facebook + TikTok</td>
+                    <td>Instagram + Facebook + TikTok</td>
+                  </tr>
+                  <tr>
+                    <td>Feed posts / month</td>
+                    <td>4</td>
+                    <td>8</td>
+                    <td>12</td>
+                    <td>12</td>
+                  </tr>
+                  <tr>
+                    <td>Stories / month</td>
+                    <td>8</td>
+                    <td>12</td>
+                    <td>20</td>
+                    <td>20</td>
+                  </tr>
+                  <tr>
+                    <td>Short-form video / month</td>
+                    <td>–</td>
+                    <td>2</td>
+                    <td>6</td>
+                    <td>6</td>
+                  </tr>
+                  <tr>
+                    <td>Content shooting</td>
+                    <td><span className="cross">✗</span></td>
+                    <td><span className="cross">✗</span></td>
+                    <td><span className="tick">✓</span> 4h / month</td>
+                    <td><span className="tick">✓</span> 6h / month</td>
+                  </tr>
+                  <tr>
+                    <td>Paid ad management</td>
+                    <td><span className="cross">✗</span></td>
+                    <td><span className="cross">✗</span></td>
+                    <td><span className="cross">✗</span></td>
+                    <td><span className="tick">✓</span> 4 campaigns / month</td>
+                  </tr>
+                  <tr>
+                    <td>Content planning & copywriting</td>
+                    <td><span className="tick">✓</span></td>
+                    <td><span className="tick">✓</span></td>
+                    <td><span className="tick">✓</span></td>
+                    <td><span className="tick">✓</span></td>
+                  </tr>
+                  <tr>
+                    <td>Reporting</td>
+                    <td>Basic report</td>
+                    <td>Basic report + check-in</td>
+                    <td>Basic report + monthly call</td>
+                    <td>Basic report + monthly call</td>
+                  </tr>
+                  <tr className="price-row">
+                    <td>Price ({periodLabels[socialPeriod]})</td>
+                    <td>€{formatPrice(socialPricing.starter[socialPeriod])}/mo</td>
+                    <td>€{formatPrice(socialPricing.growth[socialPeriod])}/mo</td>
+                    <td>€{formatPrice(socialPricing.fullManagement[socialPeriod])}/mo</td>
+                    <td>€{formatPrice(socialPricing.fullPackage[socialPeriod])}/mo</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div className="services-note">
+              <p>
+                <strong>Add a professional shoot:</strong> Photography €419, Video €527, Bundle €833/session — 10% off standard rates for Starter and Growth clients.
+              </p>
+            </div>
+            </>
           )}
 
           <div className="services-note">
             <p>
-              <strong>For events:</strong> Contact us directly for custom event coverage packages.
-              <br />
+              {serviceType === 'photo-video' && (
+                <>
+                  <strong>For events:</strong> Contact us directly for custom event coverage packages.
+                  <br />
+                </>
+              )}
               These are reference prices that can be adjusted to your specific needs and budget.
             </p>
           </div>
@@ -606,6 +878,8 @@ const HomePage = () => {
                         <option value="Video Production">Video Production</option>
                         <option value="Photography & Video Bundle">Photography &amp; Video Bundle</option>
                         <option value="Graphic Design & Brand Identity">Graphic Design &amp; Brand Identity</option>
+                        <option value="Web Design">Web Design</option>
+                        <option value="Social Media Marketing">Social Media Marketing</option>
                         <option value="Full Studio Package">Full Studio Package</option>
                         <option value="Event Coverage">Event Coverage</option>
                         <option value="Not sure yet">Not sure yet</option>

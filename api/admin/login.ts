@@ -1,7 +1,8 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 import { comparePassword, signAdminSession, buildAdminSessionCookie } from '../_lib/auth'
+import { withHandler } from '../_lib/withHandler'
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' })
   }
@@ -21,3 +22,5 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   res.setHeader('Set-Cookie', buildAdminSessionCookie(token))
   return res.status(200).json({ ok: true })
 }
+
+export default withHandler(handler, true)

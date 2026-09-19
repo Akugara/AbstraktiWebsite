@@ -11,6 +11,8 @@ export interface PublicGalleryResponse {
   type: 'photo' | 'video'
   expiresAt?: string
   files?: PublicGalleryFile[]
+  coverUrl?: string
+  coverSubtitle?: string
 }
 
 export async function getPublicGallery(slug: string, token?: string): Promise<PublicGalleryResponse> {

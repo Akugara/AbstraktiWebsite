@@ -35,6 +35,8 @@ const ClientGalleryPage = () => {
   const [files, setFiles] = useState<PublicGalleryFile[]>([])
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
   const [zipping, setZipping] = useState(false)
+  const [coverUrl, setCoverUrl] = useState<string | undefined>()
+  const [coverSubtitle, setCoverSubtitle] = useState<string | undefined>()
 
   const load = async (token?: string) => {
     if (!slug) return
@@ -48,6 +50,8 @@ const ClientGalleryPage = () => {
         setRequiresPassword(false)
         setExpiresAt(data.expiresAt)
         setFiles(data.files ?? [])
+        setCoverUrl(data.coverUrl)
+        setCoverSubtitle(data.coverSubtitle)
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'This gallery has expired or does not exist.')
@@ -142,15 +146,30 @@ const ClientGalleryPage = () => {
 
   return (
     <div className="gallery-shell">
-      <div className="gallery-header">
-        <img src="/logoabstrakti.svg" alt="Abstrakti" className="gallery-logo" />
-        <h1 className="gallery-title">{clientName}</h1>
-        {expiresAt && (
-          <p className="gallery-expiry">
-            Available until {new Date(expiresAt).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}
-          </p>
-        )}
-      </div>
+      {coverUrl ? (
+        <div className="gallery-cover" style={{ backgroundImage: `url(${coverUrl})` }}>
+          <img src="/logoabstrakti.svg" alt="Abstrakti" className="gallery-logo gallery-logo-on-cover" />
+          <div className="gallery-cover-text">
+            <h1 className="gallery-title">{clientName}</h1>
+            {coverSubtitle && <p className="gallery-subtitle gallery-cover-subtitle">{coverSubtitle}</p>}
+            {expiresAt && (
+              <p className="gallery-expiry gallery-cover-expiry">
+                Available until {new Date(expiresAt).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}
+              </p>
+            )}
+          </div>
+        </div>
+      ) : (
+        <div className="gallery-header">
+          <img src="/logoabstrakti.svg" alt="Abstrakti" className="gallery-logo" />
+          <h1 className="gallery-title">{clientName}</h1>
+          {expiresAt && (
+            <p className="gallery-expiry">
+              Available until {new Date(expiresAt).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}
+            </p>
+          )}
+        </div>
+      )}
 
       {galleryType === 'photo' && (
         <>

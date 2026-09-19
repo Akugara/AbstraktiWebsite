@@ -13,6 +13,8 @@ export interface GalleryMeta {
   expiresAt: string
   passwordHash?: string
   files: GalleryFile[]
+  coverFilename?: string
+  coverSubtitle?: string
 }
 
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
@@ -77,6 +79,13 @@ export function confirmFile(slug: string, file: { filename: string; size: number
   return request<{ gallery: GalleryMeta }>(`/api/admin/galleries/${slug}/confirm-file`, {
     method: 'POST',
     body: JSON.stringify(file),
+  })
+}
+
+export function setGalleryCover(slug: string, cover: { filename: string; subtitle?: string } | null) {
+  return request<{ gallery: GalleryMeta }>(`/api/admin/galleries/${slug}/cover`, {
+    method: 'POST',
+    body: JSON.stringify(cover ?? { filename: null }),
   })
 }
 

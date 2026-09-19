@@ -47,12 +47,18 @@ async function handler(req: VercelRequest, res: VercelResponse) {
     })
   )
 
+  const cover = meta.coverFilename
+    ? files.find((f) => f.filename === meta.coverFilename)
+    : undefined
+
   return res.status(200).json({
     requiresPassword: false,
     clientName: meta.clientName,
     type: meta.type,
     expiresAt: meta.expiresAt,
     files,
+    coverUrl: cover?.url,
+    coverSubtitle: meta.coverSubtitle,
   })
 }
 

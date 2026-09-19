@@ -26,6 +26,8 @@ export interface GalleryMeta {
   expiresAt: string
   passwordHash?: string
   files: GalleryFile[]
+  coverFilename?: string
+  coverSubtitle?: string
 }
 
 export function generateSlug(): string {

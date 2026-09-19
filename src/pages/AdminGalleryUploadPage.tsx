@@ -5,6 +5,7 @@ import {
   getUploadUrl,
   confirmFile,
   uploadFileToR2,
+  setGalleryCover,
   type GalleryMeta,
 } from '../lib/adminApi'
 
@@ -38,11 +39,20 @@ const AdminGalleryUploadPage = () => {
   const [copied, setCopied] = useState(false)
   const [dragActive, setDragActive] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
+  const [coverFilename, setCoverFilename] = useState('')
+  const [coverSubtitle, setCoverSubtitle] = useState('')
+  const [savingCover, setSavingCover] = useState(false)
+  const [coverError, setCoverError] = useState('')
+  const [coverSaved, setCoverSaved] = useState(false)
 
   useEffect(() => {
     if (!slug) return
     getGallery(slug)
-      .then(({ gallery }) => setGallery(gallery))
+      .then(({ gallery }) => {
+        setGallery(gallery)
+        setCoverFilename(gallery.coverFilename ?? '')
+        setCoverSubtitle(gallery.coverSubtitle ?? '')
+      })
       .catch((err) => {
         if (err instanceof Error && err.message.includes('Unauthorized')) {
           navigate('/admin')
@@ -52,6 +62,25 @@ const AdminGalleryUploadPage = () => {
       })
       .finally(() => setLoading(false))
   }, [slug, navigate])
+
+  const handleSaveCover = async () => {
+    if (!slug) return
+    setSavingCover(true)
+    setCoverError('')
+    try {
+      const { gallery: updated } = await setGalleryCover(
+        slug,
+        coverFilename ? { filename: coverFilename, subtitle: coverSubtitle } : null
+      )
+      setGallery(updated)
+      setCoverSaved(true)
+      setTimeout(() => setCoverSaved(false), 1500)
+    } catch (err) {
+      setCoverError(err instanceof Error ? err.message : 'Failed to save cover')
+    } finally {
+      setSavingCover(false)
+    }
+  }
 
   const uploadFiles = useCallback(
     async (files: FileList | File[]) => {
@@ -168,6 +197,44 @@ const AdminGalleryUploadPage = () => {
             </ul>
           )}
         </section>
+
+        {gallery.type === 'photo' && gallery.files.length > 0 && (
+          <section className="admin-panel">
+            <h2 className="admin-panel-title">Cover photo</h2>
+            <p className="admin-meta-line">
+              Pick a photo and an optional subtitle to show as a banner at the top of the client gallery page.
+            </p>
+            <div className="form-row">
+              <div className="form-group">
+                <label htmlFor="coverFilename">Cover photo</label>
+                <select
+                  id="coverFilename"
+                  value={coverFilename}
+                  onChange={(e) => setCoverFilename(e.target.value)}
+                >
+                  <option value="">None</option>
+                  {gallery.files.map((f) => (
+                    <option key={f.key} value={f.filename}>{f.filename}</option>
+                  ))}
+                </select>
+              </div>
+              <div className="form-group">
+                <label htmlFor="coverSubtitle">Subtitle <span className="optional-tag">(optional)</span></label>
+                <input
+                  id="coverSubtitle"
+                  value={coverSubtitle}
+                  onChange={(e) => setCoverSubtitle(e.target.value)}
+                  placeholder="e.g. Smith Wedding — June 2026"
+                  disabled={!coverFilename}
+                />
+              </div>
+            </div>
+            {coverError && <p className="form-error">{coverError}</p>}
+            <button className="admin-link-btn" onClick={handleSaveCover} disabled={savingCover}>
+              {savingCover ? 'Saving…' : coverSaved ? 'Saved!' : 'Save cover'}
+            </button>
+          </section>
+        )}
 
         <section className="admin-panel">
           <h2 className="admin-panel-title">Files in this gallery ({gallery.files.length})</h2>

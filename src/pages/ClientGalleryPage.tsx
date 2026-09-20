@@ -102,9 +102,9 @@ const ClientGalleryPage = () => {
 
   const toggleFullscreen = () => {
     if (document.fullscreenElement) {
-      document.exitFullscreen()
+      document.exitFullscreen().catch(() => {})
     } else {
-      lightboxRef.current?.requestFullscreen()
+      lightboxRef.current?.requestFullscreen?.().catch(() => {})
     }
   }
 

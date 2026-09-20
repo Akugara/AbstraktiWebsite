@@ -16,6 +16,7 @@ export interface GalleryFile {
   filename: string
   size: number
   contentType: string
+  previewKey?: string
 }
 
 export interface GalleryMeta {
@@ -45,6 +46,10 @@ export function sanitizeFilename(name: string): string {
 
 export function fileKey(slug: string, filename: string): string {
   return `galleries/${slug}/files/${sanitizeFilename(filename)}`
+}
+
+export function previewKey(slug: string, filename: string): string {
+  return `galleries/${slug}/previews/${sanitizeFilename(filename)}.jpg`
 }
 
 async function streamToString(body: unknown): Promise<string> {

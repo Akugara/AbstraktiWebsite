@@ -3,6 +3,7 @@ export interface GalleryFile {
   filename: string
   size: number
   contentType: string
+  previewKey?: string
 }
 
 export interface GalleryMeta {
@@ -68,14 +69,22 @@ export function deleteGallery(slug: string) {
   return request<{ ok: true }>(`/api/admin/galleries/${slug}`, { method: 'DELETE' })
 }
 
-export function getUploadUrl(slug: string, filename: string, contentType: string) {
+export function getUploadUrl(
+  slug: string,
+  filename: string,
+  contentType: string,
+  kind?: 'original' | 'preview'
+) {
   return request<{ uploadUrl: string; key: string; filename: string }>(
     `/api/admin/galleries/${slug}/upload-url`,
-    { method: 'POST', body: JSON.stringify({ filename, contentType }) }
+    { method: 'POST', body: JSON.stringify({ filename, contentType, kind }) }
   )
 }
 
-export function confirmFile(slug: string, file: { filename: string; size: number; contentType: string }) {
+export function confirmFile(
+  slug: string,
+  file: { filename: string; size: number; contentType: string; hasPreview?: boolean }
+) {
   return request<{ gallery: GalleryMeta }>(`/api/admin/galleries/${slug}/confirm-file`, {
     method: 'POST',
     body: JSON.stringify(file),

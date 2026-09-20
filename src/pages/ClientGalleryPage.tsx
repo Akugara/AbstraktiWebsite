@@ -234,7 +234,7 @@ const ClientGalleryPage = () => {
             {files.map((file, i) => (
               <button key={file.filename} className="gallery-photo-item" onClick={() => setLightboxIndex(i)}>
                 <img
-                  src={file.url}
+                  src={file.previewUrl}
                   alt={file.filename}
                   loading={i < 8 ? 'eager' : 'lazy'}
                   decoding="async"
@@ -246,7 +246,7 @@ const ClientGalleryPage = () => {
           </div>
           {lightboxIndex !== null && files[lightboxIndex] && (
             <div className="gallery-lightbox" ref={lightboxRef} onClick={closeLightbox}>
-              <img src={files[lightboxIndex].url} alt={files[lightboxIndex].filename} onClick={(e) => e.stopPropagation()} />
+              <img src={files[lightboxIndex].previewUrl} alt={files[lightboxIndex].filename} onClick={(e) => e.stopPropagation()} />
 
               {files.length > 1 && (
                 <>

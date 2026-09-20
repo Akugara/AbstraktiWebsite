@@ -8,6 +8,7 @@ import {
   setGalleryCover,
   type GalleryMeta,
 } from '../lib/adminApi'
+import { generatePreviewBlob } from '../lib/imagePreview'
 
 interface UploadItem {
   id: string
@@ -86,6 +87,7 @@ const AdminGalleryUploadPage = () => {
     async (files: FileList | File[]) => {
       if (!slug) return
       const fileArray = Array.from(files)
+      const isPhotoGallery = gallery?.type === 'photo'
 
       for (const file of fileArray) {
         const id = `${file.name}-${file.size}-${Date.now()}`
@@ -96,10 +98,22 @@ const AdminGalleryUploadPage = () => {
           await uploadFileToR2(uploadUrl, file, (pct) => {
             setUploads((prev) => prev.map((u) => (u.id === id ? { ...u, progress: pct } : u)))
           })
+
+          let hasPreview = false
+          if (isPhotoGallery) {
+            const previewBlob = await generatePreviewBlob(file)
+            if (previewBlob) {
+              const { uploadUrl: previewUploadUrl } = await getUploadUrl(slug, file.name, 'image/jpeg', 'preview')
+              await uploadFileToR2(previewUploadUrl, new File([previewBlob], file.name, { type: 'image/jpeg' }), () => {})
+              hasPreview = true
+            }
+          }
+
           const { gallery: updated } = await confirmFile(slug, {
             filename: file.name,
             size: file.size,
             contentType: file.type || 'application/octet-stream',
+            hasPreview,
           })
           setGallery(updated)
           setUploads((prev) => prev.map((u) => (u.id === id ? { ...u, status: 'done', progress: 100 } : u)))
@@ -112,7 +126,7 @@ const AdminGalleryUploadPage = () => {
         }
       }
     },
-    [slug]
+    [slug, gallery?.type]
   )
 
   const handleDrop = (e: React.DragEvent) => {

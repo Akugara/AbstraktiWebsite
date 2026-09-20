@@ -3,6 +3,7 @@ export interface PublicGalleryFile {
   size: number
   contentType: string
   url: string
+  previewUrl: string
 }
 
 export interface PublicGalleryResponse {

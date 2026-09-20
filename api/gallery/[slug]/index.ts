@@ -43,7 +43,10 @@ async function handler(req: VercelRequest, res: VercelResponse) {
         }),
         { expiresIn: 15 * 60 }
       )
-      return { filename: file.filename, size: file.size, contentType: file.contentType, url }
+      const previewUrl = file.previewKey
+        ? await getSignedUrl(client, new GetObjectCommand({ Bucket: bucket, Key: file.previewKey }), { expiresIn: 15 * 60 })
+        : url
+      return { filename: file.filename, size: file.size, contentType: file.contentType, url, previewUrl }
     })
   )
 
@@ -57,7 +60,7 @@ async function handler(req: VercelRequest, res: VercelResponse) {
     type: meta.type,
     expiresAt: meta.expiresAt,
     files,
-    coverUrl: cover?.url,
+    coverUrl: cover?.previewUrl,
     coverSubtitle: meta.coverSubtitle,
   })
 }

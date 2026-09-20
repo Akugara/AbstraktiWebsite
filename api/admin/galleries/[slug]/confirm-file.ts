@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 import { isAdminRequest } from '../../../_lib/auth.js'
-import { getGalleryMeta, putGalleryMeta, fileKey, sanitizeFilename } from '../../../_lib/galleries.js'
+import { getGalleryMeta, putGalleryMeta, fileKey, previewKey, sanitizeFilename } from '../../../_lib/galleries.js'
 import { withHandler } from '../../../_lib/withHandler.js'
 
 async function handler(req: VercelRequest, res: VercelResponse) {
@@ -12,7 +12,7 @@ async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   const slug = req.query.slug as string
-  const { filename, size, contentType } = req.body ?? {}
+  const { filename, size, contentType, hasPreview } = req.body ?? {}
 
   if (typeof filename !== 'string' || !filename.trim() || typeof size !== 'number') {
     return res.status(400).json({ error: 'filename and size are required' })
@@ -30,6 +30,7 @@ async function handler(req: VercelRequest, res: VercelResponse) {
     filename: cleanName,
     size,
     contentType: typeof contentType === 'string' ? contentType : 'application/octet-stream',
+    previewKey: hasPreview === true ? previewKey(slug, filename) : undefined,
   })
 
   await putGalleryMeta(meta)

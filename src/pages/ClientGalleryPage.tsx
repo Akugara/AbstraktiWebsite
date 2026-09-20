@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { Maximize, Minimize, ChevronLeft, ChevronRight, X } from 'lucide-react'
 import JSZip from 'jszip'
 import { saveAs } from 'file-saver'
 import {
@@ -37,6 +38,8 @@ const ClientGalleryPage = () => {
   const [zipping, setZipping] = useState(false)
   const [coverUrl, setCoverUrl] = useState<string | undefined>()
   const [coverSubtitle, setCoverSubtitle] = useState<string | undefined>()
+  const [isFullscreen, setIsFullscreen] = useState(false)
+  const lightboxRef = useRef<HTMLDivElement>(null)
 
   const load = async (token?: string) => {
     if (!slug) return
@@ -83,6 +86,44 @@ const ClientGalleryPage = () => {
       setUnlocking(false)
     }
   }
+
+  const closeLightbox = useCallback(() => {
+    if (document.fullscreenElement) document.exitFullscreen()
+    setLightboxIndex(null)
+  }, [])
+
+  const goToPrev = useCallback(() => {
+    setLightboxIndex((i) => (i === null || files.length === 0 ? i : (i - 1 + files.length) % files.length))
+  }, [files.length])
+
+  const goToNext = useCallback(() => {
+    setLightboxIndex((i) => (i === null || files.length === 0 ? i : (i + 1) % files.length))
+  }, [files.length])
+
+  const toggleFullscreen = () => {
+    if (document.fullscreenElement) {
+      document.exitFullscreen()
+    } else {
+      lightboxRef.current?.requestFullscreen()
+    }
+  }
+
+  useEffect(() => {
+    if (lightboxIndex === null) return
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft') goToPrev()
+      else if (e.key === 'ArrowRight') goToNext()
+      else if (e.key === 'Escape') closeLightbox()
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [lightboxIndex, goToPrev, goToNext, closeLightbox])
+
+  useEffect(() => {
+    const handleChange = () => setIsFullscreen(Boolean(document.fullscreenElement))
+    document.addEventListener('fullscreenchange', handleChange)
+    return () => document.removeEventListener('fullscreenchange', handleChange)
+  }, [])
 
   const handleDownloadAll = async () => {
     setZipping(true)
@@ -147,7 +188,16 @@ const ClientGalleryPage = () => {
   return (
     <div className="gallery-shell">
       {coverUrl ? (
-        <div className="gallery-cover" style={{ backgroundImage: `url(${coverUrl})` }}>
+        <div className="gallery-cover">
+          <img
+            src={coverUrl}
+            alt=""
+            className="gallery-cover-image"
+            // @ts-expect-error - fetchpriority is valid HTML but not yet in React's DOM typings
+            fetchpriority="high"
+            loading="eager"
+            decoding="async"
+          />
           <img src="/logoabstrakti.svg" alt="Abstrakti" className="gallery-logo gallery-logo-on-cover" />
           <div className="gallery-cover-text">
             <h1 className="gallery-title">{clientName}</h1>
@@ -183,21 +233,50 @@ const ClientGalleryPage = () => {
           <div className="gallery-photo-grid">
             {files.map((file, i) => (
               <button key={file.filename} className="gallery-photo-item" onClick={() => setLightboxIndex(i)}>
-                <img src={file.url} alt={file.filename} loading="lazy" />
+                <img
+                  src={file.url}
+                  alt={file.filename}
+                  loading={i < 8 ? 'eager' : 'lazy'}
+                  decoding="async"
+                  // @ts-expect-error - fetchpriority is valid HTML but not yet in React's DOM typings
+                  fetchpriority={i < 8 ? 'high' : 'auto'}
+                />
               </button>
             ))}
           </div>
           {lightboxIndex !== null && files[lightboxIndex] && (
-            <div className="gallery-lightbox" onClick={() => setLightboxIndex(null)}>
+            <div className="gallery-lightbox" ref={lightboxRef} onClick={closeLightbox}>
               <img src={files[lightboxIndex].url} alt={files[lightboxIndex].filename} onClick={(e) => e.stopPropagation()} />
-              <a
-                className="gallery-lightbox-download"
-                href={files[lightboxIndex].url}
-                onClick={(e) => e.stopPropagation()}
-              >
-                Download
-              </a>
-              <button className="gallery-lightbox-close" onClick={() => setLightboxIndex(null)} aria-label="Close">×</button>
+
+              {files.length > 1 && (
+                <>
+                  <button
+                    className="gallery-lightbox-nav gallery-lightbox-prev"
+                    onClick={(e) => { e.stopPropagation(); goToPrev() }}
+                    aria-label="Previous photo"
+                  >
+                    <ChevronLeft size={28} />
+                  </button>
+                  <button
+                    className="gallery-lightbox-nav gallery-lightbox-next"
+                    onClick={(e) => { e.stopPropagation(); goToNext() }}
+                    aria-label="Next photo"
+                  >
+                    <ChevronRight size={28} />
+                  </button>
+                </>
+              )}
+
+              <div className="gallery-lightbox-controls" onClick={(e) => e.stopPropagation()}>
+                <span className="gallery-lightbox-counter">{lightboxIndex + 1} / {files.length}</span>
+                <a className="gallery-lightbox-download" href={files[lightboxIndex].url}>Download</a>
+                <button className="gallery-lightbox-icon-btn" onClick={toggleFullscreen} aria-label={isFullscreen ? 'Exit fullscreen' : 'Fullscreen'}>
+                  {isFullscreen ? <Minimize size={18} /> : <Maximize size={18} />}
+                </button>
+                <button className="gallery-lightbox-icon-btn" onClick={closeLightbox} aria-label="Close">
+                  <X size={18} />
+                </button>
+              </div>
             </div>
           )}
         </>

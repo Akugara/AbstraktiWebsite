@@ -38,6 +38,101 @@ export interface PortfolioItem {
 
 export const portfolioItems: PortfolioItem[] = [
   {
+    id: 10,
+    slug: 'underdog',
+    title: 'Underdog Store – Photography & Social Media Clips',
+    client: 'Underdog Store',
+    year: 2026,
+    description: 'Underdog Store is a passion project led by Ari Lautanen, a golf player who wants to share his passion for the game. Like many entrepreneurs, he started with his own funds, and from our studio we believe in playing the long game. We built him a personalized growth strategy pack that prioritizes high-quality images, accompanied by multiple clips centered around the concept of underdog player situations.',
+    role: ['Photographer', 'Videographer'],
+    tags: ['Photography', 'Video'],
+    image: '/FrameUnderdog.jpg',
+    videos: [
+      {
+        id: 1,
+        url: '/projects/underdog/clip1.mp4',
+        aspectRatio: '1920/1080',
+        posterImage: '/projects/underdog/poster-clip1.jpg'
+      },
+      {
+        id: 2,
+        url: '/projects/underdog/clip2.mp4',
+        aspectRatio: '1920/1080',
+        posterImage: '/projects/underdog/poster-clip2.jpg'
+      },
+      {
+        id: 3,
+        url: '/projects/underdog/clip3.mp4',
+        aspectRatio: '1920/1080',
+        posterImage: '/projects/underdog/poster-clip3.jpg'
+      }
+    ],
+    imageRows: [
+      {
+        layout: 'full',
+        images: [
+          { id: 1, url: '/projects/underdog/1.jpg' }
+        ]
+      },
+      {
+        layout: 'two-column',
+        images: [
+          { id: 2, url: '/projects/underdog/2.jpg' },
+          { id: 3, url: '/projects/underdog/3.jpg' }
+        ]
+      },
+      {
+        layout: 'full',
+        images: [
+          { id: 4, url: '/projects/underdog/4.jpg' }
+        ]
+      },
+      {
+        layout: 'three-column',
+        images: [
+          { id: 5, url: '/projects/underdog/5.jpg' },
+          { id: 6, url: '/projects/underdog/6.jpg' },
+          { id: 7, url: '/projects/underdog/7.jpg' }
+        ]
+      },
+      {
+        layout: 'two-column',
+        images: [
+          { id: 8, url: '/projects/underdog/8.jpg' },
+          { id: 9, url: '/projects/underdog/9.jpg' }
+        ]
+      },
+      {
+        layout: 'full',
+        images: [
+          { id: 10, url: '/projects/underdog/10.jpg' }
+        ]
+      },
+      {
+        layout: 'three-column',
+        images: [
+          { id: 11, url: '/projects/underdog/11.jpg' },
+          { id: 12, url: '/projects/underdog/12.jpg' },
+          { id: 13, url: '/projects/underdog/13.jpg' }
+        ]
+      },
+      {
+        layout: 'full',
+        images: [
+          { id: 14, url: '/projects/underdog/14.jpg' }
+        ]
+      },
+      {
+        layout: 'three-column',
+        images: [
+          { id: 15, url: '/projects/underdog/15.jpg' },
+          { id: 16, url: '/projects/underdog/16.jpg' },
+          { id: 17, url: '/projects/underdog/17.jpg' }
+        ]
+      }
+    ]
+  },
+  {
     id: 8,
     slug: 'bjorkholm',
     title: 'Björkholm 1964',

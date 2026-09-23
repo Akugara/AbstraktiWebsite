@@ -43,7 +43,7 @@ const VideoCarousel = ({ videos }: VideoCarouselProps) => {
 
   return (
     <div className="video-carousel">
-      <VideoPlayer video={videos[currentIndex]} />
+      <VideoPlayer key={videos[currentIndex].id} video={videos[currentIndex]} />
 
       <div className="carousel-controls">
         <button

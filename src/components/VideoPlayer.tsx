@@ -22,6 +22,12 @@ const VideoPlayer = ({ video }: VideoPlayerProps) => {
   const videoRef = useRef<HTMLVideoElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
 
+  // Browsers don't reliably pick up a <source> child inserted via React;
+  // explicitly load so switching videos (e.g. carousel next/prev) actually works.
+  useEffect(() => {
+    videoRef.current?.load()
+  }, [video.url])
+
   const toggleMute = () => {
     setIsMuted((prev) => {
       const next = !prev

@@ -22,8 +22,8 @@ const VideoPlayer = ({ video }: VideoPlayerProps) => {
   const videoRef = useRef<HTMLVideoElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
 
-  // Browsers don't reliably pick up a <source> child inserted via React;
-  // explicitly load so switching videos (e.g. carousel next/prev) actually works.
+  // Belt-and-suspenders: force a reload whenever the source changes, on top of
+  // the key-based remount in VideoCarousel, so switching videos reliably works.
   useEffect(() => {
     videoRef.current?.load()
   }, [video.url])
@@ -89,6 +89,7 @@ const VideoPlayer = ({ video }: VideoPlayerProps) => {
     <div ref={containerRef} className={`video-container ${getAspectClass()}`}>
       <video
         ref={videoRef}
+        src={video.url}
         muted={isMuted}
         loop={video.loop !== false}
         playsInline
@@ -99,7 +100,6 @@ const VideoPlayer = ({ video }: VideoPlayerProps) => {
         onTimeUpdate={(e) => setCurrentTime(e.currentTarget.currentTime)}
         onLoadedMetadata={(e) => setDuration(e.currentTarget.duration)}
       >
-        <source src={video.url} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
 

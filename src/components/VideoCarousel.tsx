@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import VideoPlayer from './VideoPlayer'
 import type { Video } from '../data/portfolioData'
@@ -9,14 +9,23 @@ interface VideoCarouselProps {
 
 const VideoCarousel = ({ videos }: VideoCarouselProps) => {
   const [currentIndex, setCurrentIndex] = useState(0)
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  // Stop the outgoing video immediately (before the remount) so it can never
+  // keep playing/buffering underneath the newly selected one.
+  const stopCurrentVideo = () => {
+    containerRef.current?.querySelector('video')?.pause()
+  }
 
   const goToPrevious = () => {
+    stopCurrentVideo()
     setCurrentIndex((prevIndex) =>
       prevIndex === 0 ? videos.length - 1 : prevIndex - 1
     )
   }
 
   const goToNext = () => {
+    stopCurrentVideo()
     setCurrentIndex((prevIndex) =>
       prevIndex === videos.length - 1 ? 0 : prevIndex + 1
     )
@@ -42,7 +51,7 @@ const VideoCarousel = ({ videos }: VideoCarouselProps) => {
   }
 
   return (
-    <div className="video-carousel">
+    <div className="video-carousel" ref={containerRef}>
       <VideoPlayer key={videos[currentIndex].id} video={videos[currentIndex]} />
 
       <div className="carousel-controls">

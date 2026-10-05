@@ -38,6 +38,26 @@ export interface PortfolioItem {
 
 export const portfolioItems: PortfolioItem[] = [
   {
+    id: 11,
+    slug: 'futureplay',
+    title: 'FuturePlay – Global Gathering Hero Film',
+    client: 'FuturePlay',
+    year: 2026,
+    description: 'FuturePlay is a mobile game developing company based in Helsinki with offices across Europe. Once a year, colleagues from every office and country travel to come together, work side by side, and celebrate as one team. We produced this hero film for FuturePlay\'s website to capture the energy of that gathering — the commute, the collaboration, and the camaraderie that defines the event.',
+    role: ['Videographer'],
+    tags: ['Video'],
+    image: '/FrameFuturePlay.jpg',
+    videos: [
+      {
+        id: 1,
+        url: '/projects/futureplay/futureplay.mp4',
+        aspectRatio: '1920/1080',
+        posterImage: '/projects/futureplay/poster-futureplay.jpg',
+        loop: false
+      }
+    ]
+  },
+  {
     id: 10,
     slug: 'underdog',
     title: 'Underdog Store – Photography & Social Media Clips',

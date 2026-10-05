@@ -14,6 +14,8 @@ dist-ssr
 
 # Large video masters — web-optimized .mp4 versions are served instead
 public/projects/bjorkholm/*.mov
+public/projects/futureplay/*.mov
+public/projects/futureplay/cover.png
 
 # Editor directories and files
 .vscode/*

@@ -757,7 +757,7 @@ const HomePage = () => {
 
                 <div className="contact-info-item">
                   <h4>Phone</h4>
-                  <a href="tel:+358417259298">+358 41 725 9298</a>
+                  <a href="tel:+358458753911">+358 45 875 3911</a>
                 </div>
 
                 <div className="contact-info-item">

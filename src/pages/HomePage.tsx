@@ -477,7 +477,7 @@ const HomePage = () => {
                 <li>1 revision round</li>
               </ul>
               <div className="package-monthly">
-                <strong>Add hosting & maintenance:</strong> +€40/month for hosting, updates & small edits
+                <strong>Add hosting & maintenance:</strong> +€10/month for hosting, updates & small edits
               </div>
             </div>
 
@@ -497,7 +497,7 @@ const HomePage = () => {
                 <li>2 revision rounds</li>
               </ul>
               <div className="package-monthly">
-                <strong>Add hosting & maintenance:</strong> +€60/month for hosting, updates & content changes
+                <strong>Add hosting & maintenance:</strong> +€10/month for hosting, updates & content changes
               </div>
             </div>
           </div>

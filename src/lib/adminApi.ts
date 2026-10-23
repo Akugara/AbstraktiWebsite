@@ -91,6 +91,13 @@ export function confirmFile(
   })
 }
 
+export function deleteGalleryFile(slug: string, filename: string) {
+  return request<{ gallery: GalleryMeta }>(`/api/admin/galleries/${slug}/delete-file`, {
+    method: 'POST',
+    body: JSON.stringify({ filename }),
+  })
+}
+
 export function setGalleryCover(slug: string, cover: { filename: string; subtitle?: string } | null) {
   return request<{ gallery: GalleryMeta }>(`/api/admin/galleries/${slug}/cover`, {
     method: 'POST',

@@ -143,6 +143,30 @@ export async function deleteGalleryObjects(slug: string): Promise<void> {
   } while (continuationToken)
 }
 
+export async function deleteGalleryFile(slug: string, filename: string): Promise<GalleryMeta | null> {
+  const meta = await getGalleryMeta(slug)
+  if (!meta) return null
+
+  const file = meta.files.find((f) => f.filename === filename)
+  if (!file) return meta
+
+  const client = getR2Client()
+  const bucket = getBucketName()
+  const keysToDelete = [file.key, file.previewKey].filter((key): key is string => !!key)
+  await client.send(
+    new DeleteObjectsCommand({ Bucket: bucket, Delete: { Objects: keysToDelete.map((Key) => ({ Key })) } })
+  )
+
+  meta.files = meta.files.filter((f) => f.filename !== filename)
+  if (meta.coverFilename === filename) {
+    delete meta.coverFilename
+    delete meta.coverSubtitle
+  }
+
+  await putGalleryMeta(meta)
+  return meta
+}
+
 export function isExpired(meta: GalleryMeta): boolean {
   return new Date(meta.expiresAt).getTime() < Date.now()
 }

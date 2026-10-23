@@ -6,6 +6,7 @@ import {
   confirmFile,
   uploadFileToR2,
   setGalleryCover,
+  deleteGalleryFile,
   type GalleryMeta,
 } from '../lib/adminApi'
 import { generatePreviewBlob } from '../lib/imagePreview'
@@ -45,6 +46,8 @@ const AdminGalleryUploadPage = () => {
   const [savingCover, setSavingCover] = useState(false)
   const [coverError, setCoverError] = useState('')
   const [coverSaved, setCoverSaved] = useState(false)
+  const [deletingFilename, setDeletingFilename] = useState('')
+  const [deleteError, setDeleteError] = useState('')
 
   useEffect(() => {
     if (!slug) return
@@ -133,6 +136,26 @@ const AdminGalleryUploadPage = () => {
     e.preventDefault()
     setDragActive(false)
     if (e.dataTransfer.files.length > 0) uploadFiles(e.dataTransfer.files)
+  }
+
+  const handleDeleteFile = async (filename: string) => {
+    if (!slug) return
+    if (!window.confirm(`Delete "${filename}"? This cannot be undone.`)) return
+
+    setDeletingFilename(filename)
+    setDeleteError('')
+    try {
+      const { gallery: updated } = await deleteGalleryFile(slug, filename)
+      setGallery(updated)
+      if (coverFilename === filename) {
+        setCoverFilename(updated.coverFilename ?? '')
+        setCoverSubtitle(updated.coverSubtitle ?? '')
+      }
+    } catch (err) {
+      setDeleteError(err instanceof Error ? err.message : 'Failed to delete file')
+    } finally {
+      setDeletingFilename('')
+    }
   }
 
   const handleCopyLink = () => {
@@ -252,6 +275,7 @@ const AdminGalleryUploadPage = () => {
 
         <section className="admin-panel">
           <h2 className="admin-panel-title">Files in this gallery ({gallery.files.length})</h2>
+          {deleteError && <p className="form-error">{deleteError}</p>}
           {gallery.files.length === 0 && <p>No files uploaded yet.</p>}
           {gallery.files.length > 0 && (
             <ul className="admin-file-list">
@@ -259,6 +283,13 @@ const AdminGalleryUploadPage = () => {
                 <li key={f.key}>
                   <span>{f.filename}</span>
                   <span className="admin-file-size">{formatBytes(f.size)}</span>
+                  <button
+                    className="admin-link-btn admin-link-btn-danger admin-file-delete-btn"
+                    onClick={() => handleDeleteFile(f.filename)}
+                    disabled={deletingFilename === f.filename}
+                  >
+                    {deletingFilename === f.filename ? 'Deleting…' : 'Delete'}
+                  </button>
                 </li>
               ))}
             </ul>

@@ -38,6 +38,89 @@ export interface PortfolioItem {
 
 export const portfolioItems: PortfolioItem[] = [
   {
+    id: 12,
+    slug: 'nosejob',
+    title: 'A Nose Job for Soile',
+    client: 'Björkholm Cottages',
+    year: 2026,
+    description: 'A Nose Job for Soile is a project in collaboration with Björkholm Cottages for the Saaristo campaign. We shot a creative video telling the story of Soile, a sheep in the archipelago who would love to travel around and discover the smells of other islands. With a hint of wholesome humor, we launched a 2-day production with lovely storytelling.',
+    role: ['Videographer'],
+    tags: ['Video'],
+    image: '/FrameNoseJob.jpg',
+    videos: [
+      {
+        id: 1,
+        url: '/projects/nosejob/NoseJobForSoile.mp4',
+        aspectRatio: '2880/2160',
+        posterImage: '/projects/nosejob/poster-NoseJobForSoile.jpg',
+        loop: false
+      }
+    ],
+    clips: [
+      {
+        id: 1,
+        url: '/projects/nosejob/projectclip1.mp4',
+        aspectRatio: '2880/2160',
+        posterImage: '/projects/nosejob/poster-projectclip1.jpg'
+      },
+      {
+        id: 2,
+        url: '/projects/nosejob/projectclip2.mp4',
+        aspectRatio: '2880/2160',
+        posterImage: '/projects/nosejob/poster-projectclip2.jpg'
+      },
+      {
+        id: 3,
+        url: '/projects/nosejob/projectclip3.mp4',
+        aspectRatio: '2880/2160',
+        posterImage: '/projects/nosejob/poster-projectclip3.jpg'
+      }
+    ],
+    imageRows: [
+      {
+        layout: 'full',
+        images: [
+          { id: 1, url: '/projects/nosejob/web/default_1.2.1.jpg' }
+        ]
+      },
+      {
+        layout: 'two-column',
+        images: [
+          { id: 2, url: '/projects/nosejob/web/default_1.4.1.jpg' },
+          { id: 3, url: '/projects/nosejob/web/default_1.5.1.jpg' }
+        ]
+      },
+      {
+        layout: 'two-column',
+        images: [
+          { id: 4, url: '/projects/nosejob/web/default_1.7.1.jpg' },
+          { id: 5, url: '/projects/nosejob/web/default_1.8.1.jpg' }
+        ]
+      },
+      {
+        layout: 'three-column',
+        images: [
+          { id: 6, url: '/projects/nosejob/web/default_1.10.1.jpg' },
+          { id: 7, url: '/projects/nosejob/web/default_1.12.1.jpg' },
+          { id: 8, url: '/projects/nosejob/web/default_1.13.1.jpg' }
+        ]
+      },
+      {
+        layout: 'two-column',
+        images: [
+          { id: 9, url: '/projects/nosejob/web/default_1.15.1.jpg' },
+          { id: 10, url: '/projects/nosejob/web/default_1.16.1.jpg' }
+        ]
+      },
+      {
+        layout: 'full',
+        images: [
+          { id: 11, url: '/projects/nosejob/web/default_2.1.1.jpg' }
+        ]
+      }
+    ]
+  },
+  {
     id: 11,
     slug: 'futureplay',
     title: 'FuturePlay – Global Gathering Hero Film',

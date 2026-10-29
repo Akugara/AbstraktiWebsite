@@ -16,6 +16,9 @@ dist-ssr
 public/projects/bjorkholm/*.mov
 public/projects/futureplay/*.mov
 public/projects/futureplay/cover.png
+public/projects/nosejob/*.mov
+public/projects/nosejob/default_*.jpg
+public/FrameNoseJob.png
 
 # Editor directories and files
 .vscode/*

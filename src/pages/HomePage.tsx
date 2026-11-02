@@ -936,6 +936,43 @@ const HomePage = () => {
               )}
             </div>
           </div>
+
+          <div className="service-tags">
+            <h4>What we cover</h4>
+            <ul className="tag-list">
+              <li>Graphic Design</li>
+              <li>Brand Identity Design</li>
+              <li>Logo Design</li>
+              <li>Brand Consulting</li>
+              <li>Art Direction &amp; Consulting</li>
+              <li>Professional Photography</li>
+              <li>Commercial Photography</li>
+              <li>Event Photography &amp; Videography</li>
+              <li>Drone Photography &amp; Videography</li>
+              <li>Real Estate Photography</li>
+              <li>Portrait Photography</li>
+              <li>Sports Photography</li>
+              <li>Product Photography</li>
+              <li>Brand Photography</li>
+              <li>Pet Photography</li>
+              <li>Graduation Photography</li>
+              <li>Video Production</li>
+              <li>Brand Films</li>
+              <li>Commercial Videos</li>
+              <li>Short-Form Video</li>
+              <li>Aftermovies</li>
+              <li>Interview Videos</li>
+              <li>Event Videos</li>
+              <li>Drone Videos</li>
+              <li>Music Videos</li>
+              <li>Wedding Films</li>
+              <li>Video Editing Services</li>
+              <li>Content Production</li>
+              <li>Blog Writing &amp; Editorial Content</li>
+              <li>UGC Content Creation</li>
+              <li>Website Design</li>
+            </ul>
+          </div>
         </div>
       </section>
     </div>

@@ -952,6 +952,41 @@ body {
   transition-delay: 0.3s;
 }
 
+/* SEO service tag list */
+.service-tags {
+  max-width: 1100px;
+  margin: 70px auto 0;
+  padding-top: 50px;
+  border-top: 1px solid #eee;
+  text-align: center;
+}
+
+.service-tags h4 {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #999;
+  margin-bottom: 20px;
+}
+
+.tag-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  padding: 0;
+  margin: 0;
+}
+
+.tag-list li {
+  font-size: 13px;
+  color: #555;
+  padding: 7px 16px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+}
+
 .contact-details h3 {
   font-size: 22px;
   font-weight: 500;

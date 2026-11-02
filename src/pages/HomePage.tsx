@@ -349,6 +349,7 @@ const HomePage = () => {
                 <li>50+ high-resolution photos</li>
                 <li>Commercial usage rights</li>
               </ul>
+              <Link to="/services/photography" className="package-learn-more">Learn more about Photography →</Link>
               <div className="package-monthly">
                 <strong>Monthly package:</strong> €465/session (3-month commitment)
               </div>
@@ -367,6 +368,7 @@ const HomePage = () => {
                 <li>Background music & sound design</li>
                 <li>Format tailored to your needs</li>
               </ul>
+              <Link to="/services/video-production" className="package-learn-more">Learn more about Video Production →</Link>
               <div className="package-monthly">
                 <strong>Monthly package:</strong> €585/session (3-month commitment)
               </div>
@@ -409,6 +411,7 @@ const HomePage = () => {
                 <li>Social media templates</li>
                 <li>1 revision round</li>
               </ul>
+              <Link to="/services/graphic-design" className="package-learn-more">Learn more about Graphic Design →</Link>
               <div className="package-monthly">
                 <strong>Add monthly design support:</strong> +€350/month for ongoing design work (social media, marketing materials, etc.)
               </div>
@@ -430,6 +433,7 @@ const HomePage = () => {
                 <li>Social media brand kit</li>
                 <li>2 revision rounds</li>
               </ul>
+              <Link to="/services/graphic-design" className="package-learn-more">Learn more about Graphic Design →</Link>
               <div className="package-monthly">
                 <strong>Add monthly design support:</strong> +€450/month for ongoing social media graphics, marketing materials & brand asset updates
               </div>
@@ -456,6 +460,7 @@ const HomePage = () => {
                 <li>3 revision rounds</li>
                 <li>3 months of ongoing support included</li>
               </ul>
+              <Link to="/services/graphic-design" className="package-learn-more">Learn more about Graphic Design →</Link>
               <div className="package-monthly">
                 <strong>Continue after launch:</strong> +€550/month for ongoing design, content creation & website updates
               </div>
@@ -476,6 +481,7 @@ const HomePage = () => {
                 <li>Basic on-page SEO setup</li>
                 <li>1 revision round</li>
               </ul>
+              <Link to="/services/web-design" className="package-learn-more">Learn more about Web Design →</Link>
               <div className="package-monthly">
                 <strong>Add hosting & maintenance:</strong> +€10/month for hosting, updates & small edits
               </div>
@@ -496,6 +502,7 @@ const HomePage = () => {
                 <li>Google Analytics setup</li>
                 <li>2 revision rounds</li>
               </ul>
+              <Link to="/services/web-design" className="package-learn-more">Learn more about Web Design →</Link>
               <div className="package-monthly">
                 <strong>Add hosting & maintenance:</strong> +€10/month for hosting, updates & content changes
               </div>

@@ -5,6 +5,7 @@ import Footer from './components/Footer'
 import ScrollToTop from './components/ScrollToTop'
 import HomePage from './pages/HomePage'
 import PortfolioDetailPage from './pages/PortfolioDetailPage'
+import ServicePage from './pages/ServicePage'
 import AdminLoginPage from './pages/AdminLoginPage'
 import AdminDashboardPage from './pages/AdminDashboardPage'
 import AdminGalleryUploadPage from './pages/AdminGalleryUploadPage'
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
       {
         path: '/portfolio/:slug',
         element: <PortfolioDetailPage />
+      },
+      {
+        path: '/services/:slug',
+        element: <ServicePage />
       }
     ]
   },

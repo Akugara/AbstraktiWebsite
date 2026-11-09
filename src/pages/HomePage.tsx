@@ -975,7 +975,8 @@ const HomePage = () => {
               <li>Wedding Films</li>
               <li>Video Editing Services</li>
               <li>Content Production</li>
-              <li>Blog Writing &amp; Editorial Content</li>
+              <li>Event Production</li>
+              <li>Social Media</li>
               <li>UGC Content Creation</li>
               <li>Website Design</li>
             </ul>

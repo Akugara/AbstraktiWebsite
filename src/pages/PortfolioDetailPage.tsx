@@ -33,7 +33,7 @@ const PortfolioDetailPage = () => {
   }
 
   const pageTitle = `${project.title} – ${project.tags.join(', ')} | Abstrakti`
-  const pageDesc = `${project.description.slice(0, 155).trim()}…`
+  const pageDesc = `${project.description.replace(/\n+/g, ' ').slice(0, 155).trim()}…`
   const ogImage = `https://abstrakti.eu${project.mainImage ?? project.image}`
   const canonicalUrl = `https://abstrakti.eu/portfolio/${project.slug}`
 
@@ -93,7 +93,9 @@ const PortfolioDetailPage = () => {
         <div className="portfolio-detail-meta">
           <div className="portfolio-detail-meta-item">
             <h4>About</h4>
-            <p>{project.description}</p>
+            {project.description.split('\n\n').map((paragraph, index) => (
+              <p key={index}>{paragraph}</p>
+            ))}
           </div>
 
           <div className="portfolio-detail-meta-item">
@@ -104,6 +106,17 @@ const PortfolioDetailPage = () => {
               ))}
             </ul>
           </div>
+
+          {project.credits && project.credits.length > 0 && (
+            <div className="portfolio-detail-meta-item">
+              <h4>Credits</h4>
+              <ul>
+                {project.credits.map((credit, index) => (
+                  <li key={index}>{credit.role}: {credit.names}</li>
+                ))}
+              </ul>
+            </div>
+          )}
 
           <div className="portfolio-detail-meta-item">
             <h4>Category</h4>

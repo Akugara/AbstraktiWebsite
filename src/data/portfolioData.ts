@@ -17,6 +17,11 @@ export interface ImageRow {
   images: PortfolioImage[]
 }
 
+export interface Credit {
+  role: string
+  names: string
+}
+
 export interface PortfolioItem {
   id: number
   slug: string
@@ -25,6 +30,7 @@ export interface PortfolioItem {
   year: number
   description: string
   role: string[]
+  credits?: Credit[]
   tags: string[]
   image: string
   videos?: Video[]
@@ -43,8 +49,13 @@ export const portfolioItems: PortfolioItem[] = [
     title: 'Since AI 2026 – Event Photography & Video',
     client: 'Since AI',
     year: 2026,
-    description: 'Since AI is the largest hackathon in the Nordics. More than a thousand participants from around the world spend two intensive days building and designing solutions to real AI challenges. Abstrakti handled the full content production: planning, photo and video coverage, and post-production. We delivered the YouTube aftermovie, a social media aftermovie, short-form videos, interviews, and an image bank Since AI will use to market its 2027 event. A team of three photographers and videographers covered the event.',
+    description: 'Since AI is the largest hackathon in the Nordics. More than a thousand participants from around the world spend two intensive days building and designing solutions to real AI challenges.\n\nAbstrakti handled the full content production: planning, photo and video coverage, and post-production. We delivered the YouTube aftermovie, a social media aftermovie, short-form videos, interviews, and an image bank Since AI will use to market its 2027 event.\n\nA team of three photographers and videographers covered the event.',
     role: ['Photographer', 'Videographer'],
+    credits: [
+      { role: 'Creative Direction & Photography', names: 'Agustin Garagorry' },
+      { role: 'Videography', names: 'Frank Rios, Jere Alanen' },
+      { role: 'Video Editing', names: 'Agustin Garagorry, Jere Alanen' }
+    ],
     tags: ['Photography', 'Video'],
     image: '/FrameSinceAI.jpg',
     videos: [
@@ -87,65 +98,55 @@ export const portfolioItems: PortfolioItem[] = [
         ]
       },
       {
+        layout: 'three-column',
+        images: [
+          { id: 2, url: '/projects/sinceai2026/SinceAIDay5-4.jpg' },
+          { id: 3, url: '/projects/sinceai2026/SinceAIDay5-44.jpg' },
+          { id: 4, url: '/projects/sinceai2026/SinceAIDay5-95.jpg' }
+        ]
+      },
+      {
         layout: 'two-column',
         images: [
-          { id: 2, url: '/projects/sinceai2026/SinceAiFourthBadge-77.jpg' },
-          { id: 3, url: '/projects/sinceai2026/SinceAiFourthBadge-78.jpg' }
+          { id: 5, url: '/projects/sinceai2026/SinceAiFourthBadge-77.jpg' },
+          { id: 6, url: '/projects/sinceai2026/SinceAiFourthBadge-78.jpg' }
         ]
       },
       {
         layout: 'three-column',
         images: [
-          { id: 4, url: '/projects/sinceai2026/SinceAIDay5-4.jpg' },
-          { id: 5, url: '/projects/sinceai2026/SinceAIDay5-44.jpg' },
-          { id: 6, url: '/projects/sinceai2026/SinceAIDay5-95.jpg' }
+          { id: 7, url: '/projects/sinceai2026/SinceAiThirdBadge-44.jpg' },
+          { id: 8, url: '/projects/sinceai2026/SinceAiThirdBadge-81.jpg' },
+          { id: 9, url: '/projects/sinceai2026/SinceAIDay5-29.jpg' }
         ]
       },
       {
         layout: 'two-column',
         images: [
-          { id: 7, url: '/projects/sinceai2026/SinceAIDay5-17.jpg' },
-          { id: 8, url: '/projects/sinceai2026/SinceAIDay5-19.jpg' }
+          { id: 10, url: '/projects/sinceai2026/SinceAIDay5-17.jpg' },
+          { id: 11, url: '/projects/sinceai2026/SinceAIDay5-19.jpg' }
         ]
       },
       {
         layout: 'full',
         images: [
-          { id: 9, url: '/projects/sinceai2026/SinceAiSpeakerJason-17.jpg' }
+          { id: 12, url: '/projects/sinceai2026/SinceAiSpeakerJason-17.jpg' }
         ]
       },
       {
         layout: 'three-column',
         images: [
-          { id: 10, url: '/projects/sinceai2026/SinceAiThirdBadge-44.jpg' },
-          { id: 11, url: '/projects/sinceai2026/SinceAiThirdBadge-81.jpg' },
-          { id: 12, url: '/projects/sinceai2026/SinceAIDay5-29.jpg' }
+          { id: 13, url: '/projects/sinceai2026/SinceAIDay5-139.jpg' },
+          { id: 14, url: '/projects/sinceai2026/SinceAIDay5-164.jpg' },
+          { id: 15, url: '/projects/sinceai2026/SinceAiSpeakerJason-25.jpg' }
         ]
       },
       {
-        layout: 'two-column',
-        images: [
-          { id: 13, url: '/projects/sinceai2026/SinceAiThirdBadge-64.jpg' },
-          { id: 14, url: '/projects/sinceai2026/SinceAiThirdBadge-93.jpg' }
-        ]
-      },
-      {
-        layout: 'full',
-        images: [
-          { id: 15, url: '/projects/sinceai2026/SinceAIDay5-164.jpg' }
-        ]
-      },
-      {
-        layout: 'two-column',
+        layout: 'three-column',
         images: [
           { id: 16, url: '/projects/sinceai2026/SinceAiSpeakerJason-69.jpg' },
-          { id: 17, url: '/projects/sinceai2026/SinceAIDay5-139.jpg' }
-        ]
-      },
-      {
-        layout: 'full',
-        images: [
-          { id: 18, url: '/projects/sinceai2026/SinceAiSpeakerJason-25.jpg' }
+          { id: 17, url: '/projects/sinceai2026/SinceAiThirdBadge-64.jpg' },
+          { id: 18, url: '/projects/sinceai2026/SinceAiThirdBadge-93.jpg' }
         ]
       }
     ]

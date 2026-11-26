@@ -1697,6 +1697,10 @@ body {
   line-height: 1.8;
 }
 
+.portfolio-detail-meta-item p + p {
+  margin-top: 15px;
+}
+
 .portfolio-detail-meta-item ul {
   list-style: none;
 }

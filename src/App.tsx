@@ -10,36 +10,35 @@ import AdminLoginPage from './pages/AdminLoginPage'
 import AdminDashboardPage from './pages/AdminDashboardPage'
 import AdminGalleryUploadPage from './pages/AdminGalleryUploadPage'
 import ClientGalleryPage from './pages/ClientGalleryPage'
+import { LanguageProvider, type Lang } from './i18n/LanguageContext'
 
-const Layout = () => {
+const Layout = ({ lang }: { lang: Lang }) => {
   return (
-    <div>
+    <LanguageProvider lang={lang}>
       <Navigation />
       <Outlet />
       <Footer />
       <ScrollToTop />
-    </div>
+    </LanguageProvider>
   )
 }
+
+const publicChildren = [
+  { index: true, element: <HomePage /> },
+  { path: 'portfolio/:slug', element: <PortfolioDetailPage /> },
+  { path: 'services/:slug', element: <ServicePage /> },
+]
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Layout />,
-    children: [
-      {
-        path: '/',
-        element: <HomePage />
-      },
-      {
-        path: '/portfolio/:slug',
-        element: <PortfolioDetailPage />
-      },
-      {
-        path: '/services/:slug',
-        element: <ServicePage />
-      }
-    ]
+    element: <Layout lang="en" />,
+    children: publicChildren
+  },
+  {
+    path: '/fi',
+    element: <Layout lang="fi" />,
+    children: publicChildren
   },
   {
     path: '/admin',

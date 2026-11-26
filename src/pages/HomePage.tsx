@@ -2,12 +2,17 @@ import { useState, useEffect, useRef } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 import { Instagram } from 'lucide-react'
-import { portfolioItems } from '../data/portfolioData'
+import { portfolioItems, tagLabel } from '../data/portfolioData'
+import { useLang, portfolioPath, servicePath } from '../i18n/LanguageContext'
+import { siteContent } from '../i18n/siteContent'
 
-const formatPrice = (n: number) => n.toLocaleString('en-US')
+const formatPrice = (n: number, lang: 'en' | 'fi') =>
+  lang === 'fi' ? `${n.toLocaleString('fi-FI')} €` : `€${n.toLocaleString('en-US')}`
 
 const HomePage = () => {
   const location = useLocation()
+  const lang = useLang()
+  const c = siteContent[lang].home
   const [activeFilter, setActiveFilter] = useState('ALL')
   const [serviceType, setServiceType] = useState('photo-video')
   const [socialPeriod, setSocialPeriod] = useState<'3' | '6' | '12'>('3')
@@ -22,9 +27,9 @@ const HomePage = () => {
   }
 
   const periodLabels: Record<'3' | '6' | '12', string> = {
-    '3': '3-month commitment',
-    '6': '6-month commitment',
-    '12': '12-month commitment',
+    '3': c.services.social.period3Commitment,
+    '6': c.services.social.period6Commitment,
+    '12': c.services.social.period12Commitment,
   }
 
   const getSavingsLabel = (tierKey: keyof typeof socialPricing) => {
@@ -32,7 +37,7 @@ const HomePage = () => {
     const basePrice = socialPricing[tierKey]['3']
     const currentPrice = socialPricing[tierKey][socialPeriod]
     const savings = Math.round((1 - currentPrice / basePrice) * 100)
-    return `Save ${savings}%`
+    return `${c.services.social.save} ${savings}%`
   }
 
   const WEB3FORMS_ACCESS_KEY = 'dd872ed7-0fed-4ea6-89ae-8a3772dfb3bd'
@@ -181,15 +186,21 @@ const HomePage = () => {
     element?.scrollIntoView({ behavior: 'smooth' })
   }
 
+  const canonicalUrl = lang === 'fi' ? 'https://abstrakti.eu/fi' : 'https://abstrakti.eu/'
+
   return (
     <div>
       <Helmet>
-        <title>Abstrakti – Creative Studio | Graphic Design, Photography & Video | Turku & Helsinki</title>
-        <meta name="description" content="Abstrakti is a creative studio based in Turku, Finland, serving clients across Helsinki and Europe. We specialise in graphic design, brand identity, photography, and video production." />
-        <link rel="canonical" href="https://abstrakti.eu/" />
-        <meta property="og:title" content="Abstrakti – Creative Studio | Graphic Design, Photography & Video" />
-        <meta property="og:description" content="Creative studio based in Turku and Helsinki. We help brands grow through graphic design, photography, and video production across Finland and Europe." />
-        <meta property="og:url" content="https://abstrakti.eu/" />
+        <html lang={lang} />
+        <title>{c.meta.title}</title>
+        <meta name="description" content={c.meta.description} />
+        <link rel="canonical" href={canonicalUrl} />
+        <link rel="alternate" hrefLang="en" href="https://abstrakti.eu/" />
+        <link rel="alternate" hrefLang="fi" href="https://abstrakti.eu/fi" />
+        <link rel="alternate" hrefLang="x-default" href="https://abstrakti.eu/" />
+        <meta property="og:title" content={c.meta.ogTitle} />
+        <meta property="og:description" content={c.meta.ogDescription} />
+        <meta property="og:url" content={canonicalUrl} />
       </Helmet>
 
       {/* Hero Section */}
@@ -206,14 +217,14 @@ const HomePage = () => {
         />
         <div className={`hero-text${videoEnded ? ' video-ended' : ''}`}>
           <h1>
-            Creative
+            {c.hero.titleLine1}
             <br />
-            Studio
+            {c.hero.titleLine2}
           </h1>
-          <p className="subtitle">Graphic Design · Photography · Video Production</p>
+          <p className="subtitle">{c.hero.subtitle}</p>
           <div className="hero-cta-group">
-            <a href="#portfolio" className="cta" onClick={(e) => { e.preventDefault(); scrollToSection('portfolio') }}>View work →</a>
-            <button className="replay-btn" onClick={handleReplay}>↺ Play reel</button>
+            <a href="#portfolio" className="cta" onClick={(e) => { e.preventDefault(); scrollToSection('portfolio') }}>{c.hero.cta}</a>
+            <button className="replay-btn" onClick={handleReplay}>{c.hero.replay}</button>
           </div>
         </div>
       </section>
@@ -221,51 +232,51 @@ const HomePage = () => {
       {/* Portfolio Section */}
       <section id="portfolio" className="portfolio">
         <div className="container">
-          <h2>Selected Work</h2>
+          <h2>{c.portfolio.heading}</h2>
 
           <div className="filter-tabs">
             <button
               className={`filter-tab ${activeFilter === 'ALL' ? 'active' : ''}`}
               onClick={() => setActiveFilter('ALL')}
             >
-              ALL
+              {c.portfolio.filterAll}
             </button>
             <button
               className={`filter-tab ${activeFilter === 'GRAPHIC DESIGN' ? 'active' : ''}`}
               onClick={() => setActiveFilter('GRAPHIC DESIGN')}
             >
-              GRAPHIC DESIGN
+              {c.portfolio.filterDesign}
             </button>
             <button
               className={`filter-tab ${activeFilter === 'PHOTOGRAPHY' ? 'active' : ''}`}
               onClick={() => setActiveFilter('PHOTOGRAPHY')}
             >
-              PHOTOGRAPHY
+              {c.portfolio.filterPhoto}
             </button>
             <button
               className={`filter-tab ${activeFilter === 'VIDEO' ? 'active' : ''}`}
               onClick={() => setActiveFilter('VIDEO')}
             >
-              VIDEO
+              {c.portfolio.filterVideo}
             </button>
           </div>
 
           <div className="portfolio-grid">
             {filteredItems.map((item, index) => (
-              <Link key={item.id} to={`/portfolio/${item.slug}`} className="portfolio-item">
+              <Link key={item.id} to={portfolioPath(lang, item.slug)} className="portfolio-item">
                 <div className="portfolio-item-image">
                   <img
                     src={item.image}
-                    alt={item.title}
+                    alt={item.title[lang]}
                     loading={index < 3 ? "eager" : "lazy"}
                   />
                   <div className="portfolio-item-overlay">
-                    <span className="portfolio-item-title-overlay">{item.title}</span>
+                    <span className="portfolio-item-title-overlay">{item.title[lang]}</span>
                   </div>
                 </div>
                 <div className="portfolio-item-info">
-                  <h3>{item.title}</h3>
-                  <p className="category">{item.tags.join(' · ')}</p>
+                  <h3>{item.title[lang]}</h3>
+                  <p className="category">{item.tags.map(tag => tagLabel(tag, lang)).join(' · ')}</p>
                 </div>
               </Link>
             ))}
@@ -276,13 +287,13 @@ const HomePage = () => {
       {/* Services Section */}
       <section id="services" className="services">
         <div className="container">
-          <h2>Services & Packages</h2>
+          <h2>{c.services.heading}</h2>
           <p className="services-intro">
-            Based in Turku, Finland, we work with clients across Finland and Europe.
+            {c.services.introLine1}
             <br />
-            We offer flexible service packages tailored to your needs. All prices are reference points and can be adjusted to fit your specific project.
+            {c.services.introLine2}
             <br />
-            <span style={{ fontSize: '0.9em', opacity: 0.8 }}>ALV 0%</span>
+            <span style={{ fontSize: '0.9em', opacity: 0.8 }}>{c.services.introAlv}</span>
           </p>
 
           <div className="services-toggle">
@@ -290,25 +301,25 @@ const HomePage = () => {
               className={`toggle-btn ${serviceType === 'photo-video' ? 'active' : ''}`}
               onClick={() => setServiceType('photo-video')}
             >
-              Photography & Video
+              {c.services.togglePhotoVideo}
             </button>
             <button
               className={`toggle-btn ${serviceType === 'design' ? 'active' : ''}`}
               onClick={() => setServiceType('design')}
             >
-              Graphic Design
+              {c.services.toggleDesign}
             </button>
             <button
               className={`toggle-btn ${serviceType === 'webdesign' ? 'active' : ''}`}
               onClick={() => setServiceType('webdesign')}
             >
-              Web Design
+              {c.services.toggleWebDesign}
             </button>
             <button
               className={`toggle-btn ${serviceType === 'social' ? 'active' : ''}`}
               onClick={() => setServiceType('social')}
             >
-              Social Media
+              {c.services.toggleSocial}
             </button>
           </div>
 
@@ -318,19 +329,19 @@ const HomePage = () => {
                 className={`period-btn ${socialPeriod === '3' ? 'active' : ''}`}
                 onClick={() => setSocialPeriod('3')}
               >
-                3 Months
+                {c.services.period3}
               </button>
               <button
                 className={`period-btn ${socialPeriod === '6' ? 'active' : ''}`}
                 onClick={() => setSocialPeriod('6')}
               >
-                6 Months
+                {c.services.period6}
               </button>
               <button
                 className={`period-btn ${socialPeriod === '12' ? 'active' : ''}`}
                 onClick={() => setSocialPeriod('12')}
               >
-                12 Months
+                {c.services.period12}
               </button>
             </div>
           )}
@@ -338,60 +349,53 @@ const HomePage = () => {
           {serviceType === 'photo-video' ? (
             <div className="services-grid">
             <div className="service-package">
-              <h3>Photography</h3>
-              <div className="package-price">€650</div>
+              <h3>{c.services.photography.title}</h3>
+              <div className="package-price">{c.services.photography.price}</div>
               <p className="package-description">
-                Professional photography services for products, portraits, or commercial needs.
+                {c.services.photography.description}
               </p>
               <ul className="package-features">
-                <li>Half day session (4 hours)</li>
-                <li>Professional editing</li>
-                <li>50+ high-resolution photos</li>
-                <li>Commercial usage rights</li>
+                {c.services.photography.features.map((feature, index) => (
+                  <li key={index}>{feature}</li>
+                ))}
               </ul>
-              <Link to="/services/photography" className="package-learn-more">Learn more about Photography →</Link>
+              <Link to={servicePath(lang, 'photography')} className="package-learn-more">{c.services.photography.learnMore}</Link>
               <div className="package-monthly">
-                <strong>Monthly package:</strong> €465/session (3-month commitment)
+                <strong>{c.services.photography.monthlyNote}</strong>
               </div>
             </div>
 
             <div className="service-package">
-              <h3>Video</h3>
-              <div className="package-price">€720</div>
+              <h3>{c.services.video.title}</h3>
+              <div className="package-price">{c.services.video.price}</div>
               <p className="package-description">
-                Cinematic video production for brands or promotional content.
+                {c.services.video.description}
               </p>
               <ul className="package-features">
-                <li>Half day filming (4 hours)</li>
-                <li>Professional editing & color grading</li>
-                <li>1-3 minute final video</li>
-                <li>Background music & sound design</li>
-                <li>Format tailored to your needs</li>
+                {c.services.video.features.map((feature, index) => (
+                  <li key={index}>{feature}</li>
+                ))}
               </ul>
-              <Link to="/services/video-production" className="package-learn-more">Learn more about Video Production →</Link>
+              <Link to={servicePath(lang, 'video-production')} className="package-learn-more">{c.services.video.learnMore}</Link>
               <div className="package-monthly">
-                <strong>Monthly package:</strong> €585/session (3-month commitment)
+                <strong>{c.services.video.monthlyNote}</strong>
               </div>
             </div>
 
             <div className="service-package featured">
-              <div className="featured-badge">Most Popular</div>
-              <h3>Photography & Video Bundle</h3>
-              <div className="package-price">€1,090</div>
+              <div className="featured-badge">{c.services.mostPopular}</div>
+              <h3>{c.services.bundle.title}</h3>
+              <div className="package-price">{c.services.bundle.price}</div>
               <p className="package-description">
-                A full shoot combining photography and videography for comprehensive brand coverage.
+                {c.services.bundle.description}
               </p>
               <ul className="package-features">
-                <li>Full shoot (6 hours)</li>
-                <li>3 professional videos</li>
-                <li>5 short-form clips</li>
-                <li>50+ high-resolution photos</li>
-                <li>Professional editing & color grading</li>
-                <li>Commercial usage rights</li>
-                <li>Format tailored to your needs</li>
+                {c.services.bundle.features.map((feature, index) => (
+                  <li key={index}>{feature}</li>
+                ))}
               </ul>
               <div className="package-monthly">
-                <strong>Monthly package:</strong> €925/session (3-month commitment)
+                <strong>{c.services.bundle.monthlyNote}</strong>
               </div>
             </div>
 
@@ -399,112 +403,91 @@ const HomePage = () => {
           ) : serviceType === 'design' ? (
             <div className="services-grid">
             <div className="service-package">
-              <h3>Essentials</h3>
-              <div className="package-price">€790</div>
+              <h3>{c.services.essentials.title}</h3>
+              <div className="package-price">{c.services.essentials.price}</div>
               <p className="package-description">
-                Essential brand identity for startups and small businesses looking to establish their visual presence.
+                {c.services.essentials.description}
               </p>
               <ul className="package-features">
-                <li>Logo design (2 concepts)</li>
-                <li>Basic brand guidelines</li>
-                <li>Business card design</li>
-                <li>Social media templates</li>
-                <li>1 revision round</li>
+                {c.services.essentials.features.map((feature, index) => (
+                  <li key={index}>{feature}</li>
+                ))}
               </ul>
-              <Link to="/services/graphic-design" className="package-learn-more">Learn more about Graphic Design →</Link>
+              <Link to={servicePath(lang, 'graphic-design')} className="package-learn-more">{c.services.essentials.learnMore}</Link>
               <div className="package-monthly">
-                <strong>Add monthly design support:</strong> +€350/month for ongoing design work (social media, marketing materials, etc.)
+                <strong>{c.services.essentials.monthlyNote}</strong>
               </div>
             </div>
 
             <div className="service-package featured">
-              <div className="featured-badge">Most Popular</div>
-              <h3>Brand Identity</h3>
-              <div className="package-price">€1,695</div>
+              <div className="featured-badge">{c.services.mostPopular}</div>
+              <h3>{c.services.brandIdentity.title}</h3>
+              <div className="package-price">{c.services.brandIdentity.price}</div>
               <p className="package-description">
-                Complete brand identity system with comprehensive visual guidelines and marketing materials.
+                {c.services.brandIdentity.description}
               </p>
               <ul className="package-features">
-                <li>Brand strategy & positioning</li>
-                <li>Logo design (3+ concepts)</li>
-                <li>Complete brand guidelines</li>
-                <li>Business card, letterhead & email signature</li>
-                <li>Marketing collateral templates</li>
-                <li>Social media brand kit</li>
-                <li>2 revision rounds</li>
+                {c.services.brandIdentity.features.map((feature, index) => (
+                  <li key={index}>{feature}</li>
+                ))}
               </ul>
-              <Link to="/services/graphic-design" className="package-learn-more">Learn more about Graphic Design →</Link>
+              <Link to={servicePath(lang, 'graphic-design')} className="package-learn-more">{c.services.brandIdentity.learnMore}</Link>
               <div className="package-monthly">
-                <strong>Add monthly design support:</strong> +€450/month for ongoing social media graphics, marketing materials & brand asset updates
+                <strong>{c.services.brandIdentity.monthlyNote}</strong>
               </div>
             </div>
 
             <div className="service-package">
-              <h3>Full Studio</h3>
-              <div className="package-price">€3,850</div>
+              <h3>{c.services.fullStudio.title}</h3>
+              <div className="package-price">{c.services.fullStudio.price}</div>
               <p className="package-description">
-                Everything you need to launch: complete branding, professional photography, video content, and a custom website.
+                {c.services.fullStudio.description}
               </p>
               <ul className="package-features">
-                <li>Logo design</li>
-                <li>Brand guidelines & visual identity</li>
-                <li>Typography & color palette</li>
-                <li>2 custom design pieces</li>
-                <li>Social media templates</li>
-                <li>1 hero piece video</li>
-                <li>3 Instagram / TikTok short-form videos</li>
-                <li>10 additional video clips</li>
-                <li>25+ professionally edited photos</li>
-                <li>Custom website design & development</li>
-                <li>SEO optimization</li>
-                <li>3 revision rounds</li>
-                <li>3 months of ongoing support included</li>
+                {c.services.fullStudio.features.map((feature, index) => (
+                  <li key={index}>{feature}</li>
+                ))}
               </ul>
-              <Link to="/services/graphic-design" className="package-learn-more">Learn more about Graphic Design →</Link>
+              <Link to={servicePath(lang, 'graphic-design')} className="package-learn-more">{c.services.fullStudio.learnMore}</Link>
               <div className="package-monthly">
-                <strong>Continue after launch:</strong> +€550/month for ongoing design, content creation & website updates
+                <strong>{c.services.fullStudio.monthlyNote}</strong>
               </div>
             </div>
           </div>
           ) : serviceType === 'webdesign' ? (
             <div className="services-grid">
             <div className="service-package">
-              <h3>Landing Page</h3>
-              <div className="package-price">€450</div>
+              <h3>{c.services.landingPage.title}</h3>
+              <div className="package-price">{c.services.landingPage.price}</div>
               <p className="package-description">
-                A focused single-page site to establish an online presence quickly.
+                {c.services.landingPage.description}
               </p>
               <ul className="package-features">
-                <li>1-page responsive site (up to 5 sections)</li>
-                <li>Mobile-optimized design</li>
-                <li>Contact form integration</li>
-                <li>Basic on-page SEO setup</li>
-                <li>1 revision round</li>
+                {c.services.landingPage.features.map((feature, index) => (
+                  <li key={index}>{feature}</li>
+                ))}
               </ul>
-              <Link to="/services/web-design" className="package-learn-more">Learn more about Web Design →</Link>
+              <Link to={servicePath(lang, 'web-design')} className="package-learn-more">{c.services.landingPage.learnMore}</Link>
               <div className="package-monthly">
-                <strong>Add hosting & maintenance:</strong> +€10/month for hosting, updates & small edits
+                <strong>{c.services.landingPage.monthlyNote}</strong>
               </div>
             </div>
 
             <div className="service-package featured">
-              <div className="featured-badge">Most Popular</div>
-              <h3>Business Website</h3>
-              <div className="package-price">€890</div>
+              <div className="featured-badge">{c.services.mostPopular}</div>
+              <h3>{c.services.businessWebsite.title}</h3>
+              <div className="package-price">{c.services.businessWebsite.price}</div>
               <p className="package-description">
-                A complete multi-page website for businesses ready to showcase their full offering.
+                {c.services.businessWebsite.description}
               </p>
               <ul className="package-features">
-                <li>Up to 6 pages (Home, About, Services, Portfolio, Contact)</li>
-                <li>Custom responsive design</li>
-                <li>Contact form integration</li>
-                <li>On-page SEO optimization</li>
-                <li>Google Analytics setup</li>
-                <li>2 revision rounds</li>
+                {c.services.businessWebsite.features.map((feature, index) => (
+                  <li key={index}>{feature}</li>
+                ))}
               </ul>
-              <Link to="/services/web-design" className="package-learn-more">Learn more about Web Design →</Link>
+              <Link to={servicePath(lang, 'web-design')} className="package-learn-more">{c.services.businessWebsite.learnMore}</Link>
               <div className="package-monthly">
-                <strong>Add hosting & maintenance:</strong> +€10/month for hosting, updates & content changes
+                <strong>{c.services.businessWebsite.monthlyNote}</strong>
               </div>
             </div>
           </div>
@@ -512,52 +495,52 @@ const HomePage = () => {
             <>
             <div className="tier-summary-grid">
               <div className="tier-summary-card">
-                <h3>Starter</h3>
+                <h3>{c.services.social.starterTitle}</h3>
                 <div className="package-price">
-                  €{formatPrice(socialPricing.starter[socialPeriod])}<span className="price-period">/mo</span>
+                  {formatPrice(socialPricing.starter[socialPeriod], lang)}<span className="price-period">/kk</span>
                 </div>
                 {getSavingsLabel('starter') && <div className="savings-badge">{getSavingsLabel('starter')}</div>}
                 <p className="tier-summary-description">
-                  A focused starting point for brands building a presence on one channel.
+                  {c.services.social.starterDescription}
                 </p>
-                <a href="#contact" className="tier-cta" onClick={(e) => { e.preventDefault(); scrollToSection('contact') }}>Get started</a>
+                <a href="#contact" className="tier-cta" onClick={(e) => { e.preventDefault(); scrollToSection('contact') }}>{c.services.social.getStarted}</a>
               </div>
 
               <div className="tier-summary-card">
-                <h3>Growth</h3>
+                <h3>{c.services.social.growthTitle}</h3>
                 <div className="package-price">
-                  €{formatPrice(socialPricing.growth[socialPeriod])}<span className="price-period">/mo</span>
+                  {formatPrice(socialPricing.growth[socialPeriod], lang)}<span className="price-period">/kk</span>
                 </div>
                 {getSavingsLabel('growth') && <div className="savings-badge">{getSavingsLabel('growth')}</div>}
                 <p className="tier-summary-description">
-                  Active, multi-channel presence with short-form video included.
+                  {c.services.social.growthDescription}
                 </p>
-                <a href="#contact" className="tier-cta" onClick={(e) => { e.preventDefault(); scrollToSection('contact') }}>Get started</a>
+                <a href="#contact" className="tier-cta" onClick={(e) => { e.preventDefault(); scrollToSection('contact') }}>{c.services.social.getStarted}</a>
               </div>
 
               <div className="tier-summary-card featured">
-                <div className="featured-badge">Most Popular</div>
-                <h3>Full Management</h3>
+                <div className="featured-badge">{c.services.mostPopular}</div>
+                <h3>{c.services.social.fullManagementTitle}</h3>
                 <div className="package-price">
-                  €{formatPrice(socialPricing.fullManagement[socialPeriod])}<span className="price-period">/mo</span>
+                  {formatPrice(socialPricing.fullManagement[socialPeriod], lang)}<span className="price-period">/kk</span>
                 </div>
                 {getSavingsLabel('fullManagement') && <div className="savings-badge">{getSavingsLabel('fullManagement')}</div>}
                 <p className="tier-summary-description">
-                  Full social presence across all three platforms, fully produced by us.
+                  {c.services.social.fullManagementDescription}
                 </p>
-                <a href="#contact" className="tier-cta" onClick={(e) => { e.preventDefault(); scrollToSection('contact') }}>Get started</a>
+                <a href="#contact" className="tier-cta" onClick={(e) => { e.preventDefault(); scrollToSection('contact') }}>{c.services.social.getStarted}</a>
               </div>
 
               <div className="tier-summary-card">
-                <h3>Full Package</h3>
+                <h3>{c.services.social.fullPackageTitle}</h3>
                 <div className="package-price">
-                  €{formatPrice(socialPricing.fullPackage[socialPeriod])}<span className="price-period">/mo</span>
+                  {formatPrice(socialPricing.fullPackage[socialPeriod], lang)}<span className="price-period">/kk</span>
                 </div>
                 {getSavingsLabel('fullPackage') && <div className="savings-badge">{getSavingsLabel('fullPackage')}</div>}
                 <p className="tier-summary-description">
-                  Everything in Full Management, plus a dedicated monthly shoot day and paid ad management.
+                  {c.services.social.fullPackageDescription}
                 </p>
-                <a href="#contact" className="tier-cta" onClick={(e) => { e.preventDefault(); scrollToSection('contact') }}>Get started</a>
+                <a href="#contact" className="tier-cta" onClick={(e) => { e.preventDefault(); scrollToSection('contact') }}>{c.services.social.getStarted}</a>
               </div>
             </div>
 
@@ -566,82 +549,82 @@ const HomePage = () => {
                 <thead>
                   <tr>
                     <th></th>
-                    <th>Starter</th>
-                    <th>Growth</th>
-                    <th>Full Management</th>
-                    <th>Full Package</th>
+                    <th>{c.services.social.starterTitle}</th>
+                    <th>{c.services.social.growthTitle}</th>
+                    <th>{c.services.social.fullManagementTitle}</th>
+                    <th>{c.services.social.fullPackageTitle}</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td>Dedicated social media manager</td>
+                    <td>{c.services.social.tableRows.manager}</td>
                     <td><span className="tick">✓</span></td>
                     <td><span className="tick">✓</span></td>
                     <td><span className="tick">✓</span></td>
                     <td><span className="tick">✓</span></td>
                   </tr>
                   <tr>
-                    <td>Channels</td>
-                    <td>Instagram or Facebook (1)</td>
-                    <td>Instagram + Facebook</td>
-                    <td>Instagram + Facebook + TikTok</td>
-                    <td>Instagram + Facebook + TikTok</td>
+                    <td>{c.services.social.tableRows.channels}</td>
+                    <td>{c.services.social.channelsStarter}</td>
+                    <td>{c.services.social.channelsGrowth}</td>
+                    <td>{c.services.social.channelsFullManagement}</td>
+                    <td>{c.services.social.channelsFullPackage}</td>
                   </tr>
                   <tr>
-                    <td>Feed posts / month</td>
+                    <td>{c.services.social.tableRows.feedPosts}</td>
                     <td>4</td>
                     <td>8</td>
                     <td>12</td>
                     <td>12</td>
                   </tr>
                   <tr>
-                    <td>Stories / month</td>
+                    <td>{c.services.social.tableRows.stories}</td>
                     <td>8</td>
                     <td>12</td>
                     <td>20</td>
                     <td>20</td>
                   </tr>
                   <tr>
-                    <td>Short-form video / month</td>
+                    <td>{c.services.social.tableRows.shortForm}</td>
                     <td>–</td>
                     <td>2</td>
                     <td>6</td>
                     <td>6</td>
                   </tr>
                   <tr>
-                    <td>Content shooting</td>
+                    <td>{c.services.social.tableRows.shooting}</td>
                     <td><span className="cross">✗</span></td>
                     <td><span className="cross">✗</span></td>
-                    <td><span className="tick">✓</span> 4h / month</td>
-                    <td><span className="tick">✓</span> 6h / month</td>
+                    <td><span className="tick">✓</span> {c.services.social.shootingFullManagement}</td>
+                    <td><span className="tick">✓</span> {c.services.social.shootingFullPackage}</td>
                   </tr>
                   <tr>
-                    <td>Paid ad management</td>
+                    <td>{c.services.social.tableRows.paidAds}</td>
                     <td><span className="cross">✗</span></td>
                     <td><span className="cross">✗</span></td>
                     <td><span className="cross">✗</span></td>
-                    <td><span className="tick">✓</span> 4 campaigns / month</td>
+                    <td><span className="tick">✓</span> {c.services.social.paidAdsFullPackage}</td>
                   </tr>
                   <tr>
-                    <td>Content planning & copywriting</td>
+                    <td>{c.services.social.tableRows.planning}</td>
                     <td><span className="tick">✓</span></td>
                     <td><span className="tick">✓</span></td>
                     <td><span className="tick">✓</span></td>
                     <td><span className="tick">✓</span></td>
                   </tr>
                   <tr>
-                    <td>Reporting</td>
-                    <td>Basic report</td>
-                    <td>Basic report + check-in</td>
-                    <td>Basic report + monthly call</td>
-                    <td>Basic report + monthly call</td>
+                    <td>{c.services.social.tableRows.reporting}</td>
+                    <td>{c.services.social.reportingStarter}</td>
+                    <td>{c.services.social.reportingGrowth}</td>
+                    <td>{c.services.social.reportingFullManagement}</td>
+                    <td>{c.services.social.reportingFullPackage}</td>
                   </tr>
                   <tr className="price-row">
-                    <td>Price ({periodLabels[socialPeriod]})</td>
-                    <td>€{formatPrice(socialPricing.starter[socialPeriod])}/mo</td>
-                    <td>€{formatPrice(socialPricing.growth[socialPeriod])}/mo</td>
-                    <td>€{formatPrice(socialPricing.fullManagement[socialPeriod])}/mo</td>
-                    <td>€{formatPrice(socialPricing.fullPackage[socialPeriod])}/mo</td>
+                    <td>{c.services.social.tableRows.price} ({periodLabels[socialPeriod]})</td>
+                    <td>{formatPrice(socialPricing.starter[socialPeriod], lang)}/kk</td>
+                    <td>{formatPrice(socialPricing.growth[socialPeriod], lang)}/kk</td>
+                    <td>{formatPrice(socialPricing.fullManagement[socialPeriod], lang)}/kk</td>
+                    <td>{formatPrice(socialPricing.fullPackage[socialPeriod], lang)}/kk</td>
                   </tr>
                 </tbody>
               </table>
@@ -649,7 +632,7 @@ const HomePage = () => {
 
             <div className="services-note">
               <p>
-                <strong>Add a professional shoot:</strong> Photography €419, Video €527, Bundle €833/session — 10% off standard rates for Starter and Growth clients.
+                <strong>{c.services.addShootNote}</strong>
               </p>
             </div>
             </>
@@ -659,11 +642,11 @@ const HomePage = () => {
             <p>
               {serviceType === 'photo-video' && (
                 <>
-                  <strong>For events:</strong> Contact us directly for custom event coverage packages.
+                  <strong>{c.services.eventsNote}</strong>
                   <br />
                 </>
               )}
-              These are reference prices that can be adjusted to your specific needs and budget.
+              {c.services.referenceNote}
             </p>
           </div>
         </div>
@@ -674,31 +657,25 @@ const HomePage = () => {
         <div className="container">
           <div className="about-content">
             <div className="about-text">
-              <h2>About</h2>
+              <h2>{c.about.heading}</h2>
               <p>
-                We are a solution-oriented creative studio specializing in graphic design,
-                photography, and video production. We help our clients identify opportunities
-                to communicate and grow by telling their stories with higher quality and impact.
+                {c.about.p1}
               </p>
               <p>
-                With over a decade of experience, our approach combines innovative aesthetics
-                with powerful storytelling, creating compelling visual narratives that resonate
-                with audiences and drive meaningful results.
+                {c.about.p2}
               </p>
               <p>
-                Our philosophy is simple: less is more. We believe in the power of simplicity and
-                the impact of thoughtful design.
+                {c.about.p3}
               </p>
             </div>
 
             <div>
               <div className="about-services">
-                <h3>SERVICES</h3>
+                <h3>{c.about.servicesHeading}</h3>
                 <ul>
-                  <li>Brand Identity & Design</li>
-                  <li>Editorial & Commercial Photography</li>
-                  <li>Video Production & Cinematography</li>
-                  <li>Art Direction & Consulting</li>
+                  {c.about.servicesList.map((item, index) => (
+                    <li key={index}>{item}</li>
+                  ))}
                 </ul>
               </div>
             </div>
@@ -709,9 +686,9 @@ const HomePage = () => {
       {/* Team Section */}
       <section id="team" className="team">
         <div className="container">
-          <h2>The Team</h2>
+          <h2>{c.team.heading}</h2>
           <p className="team-intro">
-            The people behind the camera and the craft.
+            {c.team.intro}
           </p>
 
           <div className="team-grid">
@@ -720,7 +697,7 @@ const HomePage = () => {
                 <img src="/abstraktipeople/Agustin.jpg" alt="Agustin, Founder at Abstrakti" loading="lazy" />
               </div>
               <h3 className="team-name">Agustin</h3>
-              <p className="team-role">Founder · Graphic Designer · Photo &amp; Video</p>
+              <p className="team-role">{c.team.agustinRole}</p>
             </div>
 
             <div className="team-member">
@@ -728,7 +705,7 @@ const HomePage = () => {
                 <img src="/abstraktipeople/Frank.jpg" alt="Frank, Videographer and Content Creator at Abstrakti" loading="lazy" />
               </div>
               <h3 className="team-name">Frank</h3>
-              <p className="team-role">Videographer · Content Creator</p>
+              <p className="team-role">{c.team.frankRole}</p>
             </div>
           </div>
         </div>
@@ -737,44 +714,43 @@ const HomePage = () => {
       {/* Contact Section */}
       <section id="contact" className="contact">
         <div className="container">
-          <h2>Get in Touch</h2>
+          <h2>{c.contact.heading}</h2>
           <p className="contact-intro">
-            Ready to start your project? Let's talk about how we can help bring your vision to life.
+            {c.contact.intro}
           </p>
 
           <div className="contact-grid">
             <div className="contact-details">
-              <h3>Tell us about your project</h3>
+              <h3>{c.contact.detailsHeading}</h3>
               <p>
-                Share a few details about what you need and your budget, and we'll get back to
-                you with a clear idea of how we can help &mdash; no obligation, no pressure.
+                {c.contact.detailsText}
               </p>
 
               <ul className="contact-trust-list">
-                <li>No obligation to book</li>
-                <li>No pushy sales &mdash; just honest advice</li>
-                <li>We usually reply within 1&ndash;2 business days</li>
+                {c.contact.trustList.map((item, index) => (
+                  <li key={index}>{item}</li>
+                ))}
               </ul>
 
               <div className="contact-details-info">
                 <div className="contact-info-item">
-                  <h4>Email</h4>
+                  <h4>{c.contact.emailLabel}</h4>
                   <a href="mailto:agustin.garagorry@abstrakti.eu" className="email-bold">agustin.garagorry@abstrakti.eu</a>
                 </div>
 
                 <div className="contact-info-item">
-                  <h4>Phone</h4>
+                  <h4>{c.contact.phoneLabel}</h4>
                   <a href="tel:+358458753911">+358 45 875 3911</a>
                 </div>
 
                 <div className="contact-info-item">
-                  <h4>Location</h4>
+                  <h4>{c.contact.locationLabel}</h4>
                   <p>Turku, Finland</p>
-                  <p className="location-note">We work across Finland and Europe</p>
+                  <p className="location-note">{c.contact.locationNote}</p>
                 </div>
 
                 <div className="contact-info-item">
-                  <h4>Follow</h4>
+                  <h4>{c.contact.followLabel}</h4>
                   <div className="social-links">
                     <a href="https://www.instagram.com/abstrakti.eu/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                       <Instagram size={20} />
@@ -787,9 +763,9 @@ const HomePage = () => {
             <div className="contact-form">
               {formStatus === 'success' ? (
                 <div className="form-success">
-                  <h3>Thanks &mdash; message sent!</h3>
+                  <h3>{c.contact.successHeading}</h3>
                   <p>
-                    We've received your details and will get back to you within 1&ndash;2 business days.
+                    {c.contact.successText}
                   </p>
                 </div>
               ) : (
@@ -807,24 +783,24 @@ const HomePage = () => {
 
                   <div className="form-row">
                     <div className="form-group">
-                      <label htmlFor="firstName">First name</label>
+                      <label htmlFor="firstName">{c.contact.form.firstName}</label>
                       <input
                         type="text"
                         id="firstName"
                         name="firstName"
-                        placeholder="First name"
+                        placeholder={c.contact.form.firstName}
                         value={formData.firstName}
                         onChange={handleFormChange}
                         required
                       />
                     </div>
                     <div className="form-group">
-                      <label htmlFor="lastName">Last name</label>
+                      <label htmlFor="lastName">{c.contact.form.lastName}</label>
                       <input
                         type="text"
                         id="lastName"
                         name="lastName"
-                        placeholder="Last name"
+                        placeholder={c.contact.form.lastName}
                         value={formData.lastName}
                         onChange={handleFormChange}
                         required
@@ -833,7 +809,7 @@ const HomePage = () => {
                   </div>
 
                   <div className="form-group">
-                    <label htmlFor="email">Email</label>
+                    <label htmlFor="email">{c.contact.form.email}</label>
                     <input
                       type="email"
                       id="email"
@@ -847,7 +823,7 @@ const HomePage = () => {
 
                   <div className="form-row">
                     <div className="form-group">
-                      <label htmlFor="phone">Phone <span className="optional-tag">(optional)</span></label>
+                      <label htmlFor="phone">{c.contact.form.phone} <span className="optional-tag">{c.contact.form.optional}</span></label>
                       <input
                         type="tel"
                         id="phone"
@@ -858,12 +834,12 @@ const HomePage = () => {
                       />
                     </div>
                     <div className="form-group">
-                      <label htmlFor="company">Company <span className="optional-tag">(optional)</span></label>
+                      <label htmlFor="company">{c.contact.form.company} <span className="optional-tag">{c.contact.form.optional}</span></label>
                       <input
                         type="text"
                         id="company"
                         name="company"
-                        placeholder="Company name"
+                        placeholder={c.contact.form.companyPlaceholder}
                         value={formData.company}
                         onChange={handleFormChange}
                       />
@@ -872,7 +848,7 @@ const HomePage = () => {
 
                   <div className="form-row">
                     <div className="form-group">
-                      <label htmlFor="projectType">What do you need?</label>
+                      <label htmlFor="projectType">{c.contact.form.projectType}</label>
                       <select
                         id="projectType"
                         name="projectType"
@@ -880,20 +856,20 @@ const HomePage = () => {
                         onChange={handleFormChange}
                         required
                       >
-                        <option value="" disabled>Select a service</option>
-                        <option value="Photography">Photography</option>
-                        <option value="Video Production">Video Production</option>
-                        <option value="Photography & Video Bundle">Photography &amp; Video Bundle</option>
-                        <option value="Graphic Design & Brand Identity">Graphic Design &amp; Brand Identity</option>
-                        <option value="Web Design">Web Design</option>
-                        <option value="Social Media Marketing">Social Media Marketing</option>
-                        <option value="Full Studio Package">Full Studio Package</option>
-                        <option value="Event Coverage">Event Coverage</option>
-                        <option value="Not sure yet">Not sure yet</option>
+                        <option value="" disabled>{c.contact.form.selectService}</option>
+                        <option value="Photography">{c.contact.form.serviceOptions.photography}</option>
+                        <option value="Video Production">{c.contact.form.serviceOptions.video}</option>
+                        <option value="Photography & Video Bundle">{c.contact.form.serviceOptions.bundle}</option>
+                        <option value="Graphic Design & Brand Identity">{c.contact.form.serviceOptions.design}</option>
+                        <option value="Web Design">{c.contact.form.serviceOptions.web}</option>
+                        <option value="Social Media Marketing">{c.contact.form.serviceOptions.social}</option>
+                        <option value="Full Studio Package">{c.contact.form.serviceOptions.fullStudio}</option>
+                        <option value="Event Coverage">{c.contact.form.serviceOptions.event}</option>
+                        <option value="Not sure yet">{c.contact.form.serviceOptions.notSure}</option>
                       </select>
                     </div>
                     <div className="form-group">
-                      <label htmlFor="budget">Budget</label>
+                      <label htmlFor="budget">{c.contact.form.budget}</label>
                       <select
                         id="budget"
                         name="budget"
@@ -901,23 +877,23 @@ const HomePage = () => {
                         onChange={handleFormChange}
                         required
                       >
-                        <option value="" disabled>Select a range</option>
-                        <option value="Under €750">Under €750</option>
-                        <option value="€750 – €1,500">€750 &ndash; €1,500</option>
-                        <option value="€1,500 – €3,000">€1,500 &ndash; €3,000</option>
-                        <option value="€3,000 – €5,000">€3,000 &ndash; €5,000</option>
-                        <option value="€5,000+">€5,000+</option>
-                        <option value="Not sure yet">Not sure yet</option>
+                        <option value="" disabled>{c.contact.form.selectBudget}</option>
+                        <option value="Under €750">{c.contact.form.budgetOptions.under750}</option>
+                        <option value="€750 – €1,500">{c.contact.form.budgetOptions.r750to1500}</option>
+                        <option value="€1,500 – €3,000">{c.contact.form.budgetOptions.r1500to3000}</option>
+                        <option value="€3,000 – €5,000">{c.contact.form.budgetOptions.r3000to5000}</option>
+                        <option value="€5,000+">{c.contact.form.budgetOptions.over5000}</option>
+                        <option value="Not sure yet">{c.contact.form.budgetOptions.notSure}</option>
                       </select>
                     </div>
                   </div>
 
                   <div className="form-group">
-                    <label htmlFor="message">What would you like to achieve?</label>
+                    <label htmlFor="message">{c.contact.form.message}</label>
                     <textarea
                       id="message"
                       name="message"
-                      placeholder="Tell us briefly about your project, goals, or what you need help with."
+                      placeholder={c.contact.form.messagePlaceholder}
                       value={formData.message}
                       onChange={handleFormChange}
                       required
@@ -925,19 +901,18 @@ const HomePage = () => {
                   </div>
 
                   <p className="form-note">
-                    Prices are reference points &mdash; sharing your budget just helps us tailor
-                    the right package for you.
+                    {c.contact.form.note}
                   </p>
 
                   {formStatus === 'error' && (
                     <p className="form-error">
-                      {formError} You can also email us directly at{' '}
+                      {formError} {c.contact.form.emailDirectly}{' '}
                       <a href="mailto:agustin.garagorry@abstrakti.eu">agustin.garagorry@abstrakti.eu</a>.
                     </p>
                   )}
 
                   <button type="submit" className="submit-btn" disabled={formStatus === 'submitting'}>
-                    {formStatus === 'submitting' ? 'Sending…' : 'Send message'}
+                    {formStatus === 'submitting' ? c.contact.form.sending : c.contact.form.submit}
                   </button>
                 </form>
               )}
@@ -945,40 +920,11 @@ const HomePage = () => {
           </div>
 
           <div className="service-tags">
-            <h4>What we cover</h4>
+            <h4>{c.contact.tagsHeading}</h4>
             <ul className="tag-list">
-              <li>Graphic Design</li>
-              <li>Brand Identity Design</li>
-              <li>Logo Design</li>
-              <li>Brand Consulting</li>
-              <li>Art Direction &amp; Consulting</li>
-              <li>Professional Photography</li>
-              <li>Commercial Photography</li>
-              <li>Event Photography &amp; Videography</li>
-              <li>Drone Photography &amp; Videography</li>
-              <li>Real Estate Photography</li>
-              <li>Portrait Photography</li>
-              <li>Sports Photography</li>
-              <li>Product Photography</li>
-              <li>Brand Photography</li>
-              <li>Pet Photography</li>
-              <li>Graduation Photography</li>
-              <li>Video Production</li>
-              <li>Brand Films</li>
-              <li>Commercial Videos</li>
-              <li>Short-Form Video</li>
-              <li>Aftermovies</li>
-              <li>Interview Videos</li>
-              <li>Event Videos</li>
-              <li>Drone Videos</li>
-              <li>Music Videos</li>
-              <li>Wedding Films</li>
-              <li>Video Editing Services</li>
-              <li>Content Production</li>
-              <li>Event Production</li>
-              <li>Social Media</li>
-              <li>UGC Content Creation</li>
-              <li>Website Design</li>
+              {c.contact.tags.map((tag, index) => (
+                <li key={index}>{tag}</li>
+              ))}
             </ul>
           </div>
         </div>

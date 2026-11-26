@@ -70,6 +70,20 @@ body {
   opacity: 0.6;
 }
 
+.nav-lang-switch {
+  font-size: 13px;
+  letter-spacing: 0.5px;
+}
+
+.nav-lang-switch a {
+  opacity: 0.45;
+}
+
+.nav-lang-switch a.active {
+  opacity: 1;
+  font-weight: 600;
+}
+
 /* Mobile menu toggle button */
 .mobile-menu-toggle {
   display: none;
@@ -1899,7 +1913,7 @@ body {
 
   /* Show nav links when mobile menu is open */
   .nav-links.mobile-open {
-    max-height: 300px;
+    max-height: 340px;
     opacity: 1;
     padding: 10px 0;
   }
@@ -1911,6 +1925,19 @@ body {
 
   .nav-links li:last-child {
     border-bottom: none;
+  }
+
+  .nav-links li.nav-lang-switch {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 15px 20px;
+  }
+
+  .nav-links li.nav-lang-switch a {
+    display: inline;
+    width: auto;
+    padding: 0;
   }
 
   .nav-links a {

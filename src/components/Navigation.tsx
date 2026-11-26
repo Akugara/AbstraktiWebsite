@@ -1,14 +1,20 @@
 import { Link, useLocation } from 'react-router-dom'
 import { Menu, X } from 'lucide-react'
 import { useState } from 'react'
+import { useLang, homePath, hashPath, switchLangPath } from '../i18n/LanguageContext'
+import { siteContent } from '../i18n/siteContent'
 
 const Navigation = () => {
   const location = useLocation()
+  const lang = useLang()
+  const c = siteContent[lang].nav
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+
+  const isHome = location.pathname === homePath(lang)
 
   const scrollToSection = (id: string) => {
     // Only scroll if on home page
-    if (location.pathname === '/') {
+    if (isHome) {
       const element = document.getElementById(id)
       element?.scrollIntoView({ behavior: 'smooth' })
     }
@@ -18,7 +24,7 @@ const Navigation = () => {
     // Close mobile menu when a link is clicked
     setIsMobileMenuOpen(false)
 
-    if (id && location.pathname === '/') {
+    if (id && isHome) {
       e.preventDefault()
       scrollToSection(id)
     }
@@ -28,7 +34,7 @@ const Navigation = () => {
     <nav className="nav">
       <div className="container">
         <div className="nav-content">
-          <Link to="/" className="logo">
+          <Link to={homePath(lang)} className="logo">
             <img src="/logoabstrakti.svg" alt="Abstrakti creative studio" loading="eager" />
           </Link>
 
@@ -36,7 +42,7 @@ const Navigation = () => {
           <button
             className="mobile-menu-toggle"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="Toggle menu"
+            aria-label={c.toggleMenu}
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -44,53 +50,70 @@ const Navigation = () => {
           <ul className={`nav-links ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
             <li>
               <Link
-                to="/"
+                to={homePath(lang)}
                 onClick={(e) => {
                   handleLinkClick(e)
                   window.scrollTo({ top: 0, behavior: 'smooth' })
                 }}
               >
-                HOME
+                {c.home}
               </Link>
             </li>
             <li>
               <Link
-                to="/#portfolio"
+                to={hashPath(lang, 'portfolio')}
                 onClick={(e) => handleLinkClick(e, 'portfolio')}
               >
-                PORTFOLIO
+                {c.portfolio}
               </Link>
             </li>
             <li>
               <Link
-                to="/#services"
+                to={hashPath(lang, 'services')}
                 onClick={(e) => handleLinkClick(e, 'services')}
               >
-                SERVICES
+                {c.services}
               </Link>
             </li>
             <li>
               <Link
-                to="/#about"
+                to={hashPath(lang, 'about')}
                 onClick={(e) => handleLinkClick(e, 'about')}
               >
-                ABOUT
+                {c.about}
               </Link>
             </li>
             <li>
               <Link
-                to="/#team"
+                to={hashPath(lang, 'team')}
                 onClick={(e) => handleLinkClick(e, 'team')}
               >
-                TEAM
+                {c.team}
               </Link>
             </li>
             <li>
               <Link
-                to="/#contact"
+                to={hashPath(lang, 'contact')}
                 onClick={(e) => handleLinkClick(e, 'contact')}
               >
-                CONTACT
+                {c.contact}
+              </Link>
+            </li>
+            <li className="nav-lang-switch">
+              <Link
+                to={switchLangPath(location.pathname, location.search, location.hash, 'en')}
+                className={lang === 'en' ? 'active' : ''}
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                EN
+              </Link>
+              {' / '}
+              <Link
+                to={switchLangPath(location.pathname, location.search, location.hash, 'fi')}
+                className={lang === 'fi' ? 'active' : ''}
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                FI
               </Link>
             </li>
           </ul>

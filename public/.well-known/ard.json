@@ -1,0 +1,17 @@
+{
+  "entries": [
+    {
+      "identifier": "urn:air:abstrakti.eu:contact:submit-inquiry",
+      "displayName": "Submit a project inquiry to Abstrakti",
+      "type": "application/agent-skills+json",
+      "url": "https://abstrakti.eu/.well-known/skills/contact-inquiry.json",
+      "description": "Lets an AI agent submit a new project inquiry (photography, video production, graphic design, or web design) directly to Abstrakti, a creative studio in Turku, Finland, on a visitor's behalf.",
+      "capabilities": ["ContactForm", "LeadSubmission"],
+      "representativeQueries": [
+        "Can you request a photography quote from Abstrakti?",
+        "Send Abstrakti a message about a video production project",
+        "Get in touch with Abstrakti about a brand identity project"
+      ]
+    }
+  ]
+}

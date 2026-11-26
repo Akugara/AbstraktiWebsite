@@ -1,0 +1,64 @@
+{
+  "schemaVersion": "1.0",
+  "name": "submit-project-inquiry",
+  "displayName": "Submit a Project Inquiry to Abstrakti",
+  "description": "Submits a new project inquiry to Abstrakti, a creative studio in Turku, Finland offering photography, video production, graphic design & brand identity, and web design. Use this when a person wants to request a quote or get in touch about a project. Always confirm the details with the person before submitting on their behalf.",
+  "endpoint": {
+    "method": "POST",
+    "url": "https://api.web3forms.com/submit",
+    "contentType": "application/json"
+  },
+  "inputSchema": {
+    "type": "object",
+    "required": ["access_key", "first_name", "last_name", "email", "message"],
+    "properties": {
+      "access_key": {
+        "type": "string",
+        "const": "dd872ed7-0fed-4ea6-89ae-8a3772dfb3bd",
+        "description": "Public Web3Forms access key for the abstrakti.eu contact form. This is a public client-side key, not a secret."
+      },
+      "subject": {
+        "type": "string",
+        "description": "Optional email subject line, e.g. 'New project inquiry from Jane Doe'."
+      },
+      "first_name": { "type": "string" },
+      "last_name": { "type": "string" },
+      "email": { "type": "string", "format": "email" },
+      "phone": { "type": "string", "description": "Optional phone number." },
+      "company": { "type": "string", "description": "Optional company name." },
+      "project_type": {
+        "type": "string",
+        "enum": [
+          "Photography",
+          "Video Production",
+          "Photography & Video Bundle",
+          "Graphic Design & Brand Identity",
+          "Web Design",
+          "Social Media Marketing",
+          "Full Studio Package",
+          "Event Coverage",
+          "Not sure yet"
+        ]
+      },
+      "budget": {
+        "type": "string",
+        "enum": [
+          "Under €750",
+          "€750 – €1,500",
+          "€1,500 – €3,000",
+          "€3,000 – €5,000",
+          "€5,000+",
+          "Not sure yet"
+        ]
+      },
+      "message": {
+        "type": "string",
+        "description": "Project details, goals, or what the person needs help with."
+      }
+    }
+  },
+  "successResponse": {
+    "example": { "success": true, "message": "Email sent successfully." }
+  },
+  "notes": "This posts directly to the studio's inbox via Web3Forms (https://web3forms.com). There is no confirmation step on the server side, so an agent should only call this after the person has reviewed and approved the message content."
+}

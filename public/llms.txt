@@ -1,0 +1,31 @@
+# Abstrakti
+
+> Abstrakti is a creative studio based in Turku, Finland, specializing in graphic design, brand identity, photography, and video production. We serve clients across Finland, Europe, and worldwide.
+
+We are a solution-oriented creative studio with over a decade of experience, known for a "less is more" approach to visual storytelling. Our work spans event photography and video (including Slush and Since AI), brand identity campaigns, and commercial photography/video production. A Finnish-language version of this site is available at every URL below by adding an `/fi` prefix (e.g. https://abstrakti.eu/fi).
+
+## Services
+
+- [Photography](https://abstrakti.eu/services/photography): Professional photography for products, portraits, events, and commercial needs. Packages from €650, commercial usage rights included.
+- [Video Production](https://abstrakti.eu/services/video-production): Brand films, promotional videos, and short-form content with professional editing and color grading. Packages from €720.
+- [Graphic Design & Brand Identity](https://abstrakti.eu/services/graphic-design): Logo design, brand identity systems, and visual guidelines for startups and businesses. Packages from €790.
+- [Web Design](https://abstrakti.eu/services/web-design): Custom, responsive website design from a single landing page to a full multi-page business site. Packages from €450.
+
+## Portfolio
+
+- [Slush 2026 – Event Photography](https://abstrakti.eu/portfolio/slush-2026): Event photography coverage of Slush 2026, including Finland's President Alexander Stubb.
+- [Since AI 2026 – Event Photography & Video](https://abstrakti.eu/portfolio/since-ai-2026): Full content production (photo, video, aftermovies, interviews) for the largest hackathon in the Nordics.
+- [Björkholm 1964](https://abstrakti.eu/portfolio/bjorkholm): Brand film and photography documenting three generations of a Finnish archipelago holiday village.
+- [Ravintola Alora – Brand Identity & Campaign](https://abstrakti.eu/portfolio/alora-branding): Full rebranding strategy and campaign for a kebab and pizza restaurant.
+- [Full portfolio index](https://abstrakti.eu/#portfolio): All projects, filterable by Photography, Video, and Graphic Design.
+
+## Company
+
+- [About & Team](https://abstrakti.eu/#about): Studio background, philosophy, and the people behind the work.
+- [Contact](https://abstrakti.eu/#contact): Project inquiry form, email, phone, and location (Turku, Finland).
+
+## Optional
+
+- [Finnish homepage](https://abstrakti.eu/fi): Suomenkielinen versio sivustosta.
+- [Sitemap](https://abstrakti.eu/sitemap.xml): Full list of indexed pages in both languages.
+- [Agentic resource manifest](https://abstrakti.eu/.well-known/ard.json): Machine-callable capabilities (ARD manifest), currently a project-inquiry submission skill.

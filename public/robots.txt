@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://abstrakti.eu/sitemap.xml
+Agentmap: https://abstrakti.eu/.well-known/ard.json

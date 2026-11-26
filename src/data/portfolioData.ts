@@ -44,6 +44,84 @@ export interface PortfolioItem {
 
 export const portfolioItems: PortfolioItem[] = [
   {
+    id: 14,
+    slug: 'slush-2026',
+    title: 'Slush 2026 – Event Photography',
+    client: 'Slush',
+    year: 2026,
+    description: "Slush brings together Europe's most ambitious founders, investors and innovators. It's one of the world's leading startup conferences.\n\nAs part of the official photography team, we covered the scale and energy of the event. That meant keynotes and panels, startup pitches, networking sessions and the atmosphere around the venue. Speakers ranged from Alexander Stubb, President of Finland, to Lovable's CEO.\n\nWorking closely with the other photographers, we captured the moments that showed what Slush is about: a diverse community and new ideas in action.",
+    role: ['Photographer'],
+    tags: ['Photography'],
+    image: '/FrameSlush2026.jpg',
+    mainImage: '/projects/slush2026/mainimage.jpg',
+    imageRows: [
+      {
+        layout: 'full',
+        images: [
+          { id: 1, url: '/projects/slush2026/stubb-21.jpg', caption: 'President of Finland Alexander Stubb on the Founder Stage' }
+        ]
+      },
+      {
+        layout: 'three-column',
+        images: [
+          { id: 2, url: '/projects/slush2026/reck-12.jpg' },
+          { id: 3, url: '/projects/slush2026/reck-31.jpg' },
+          { id: 4, url: '/projects/slush2026/reck-6.jpg' }
+        ]
+      },
+      {
+        layout: 'two-column',
+        images: [
+          { id: 5, url: '/projects/slush2026/hinchy-16.jpg' },
+          { id: 6, url: '/projects/slush2026/finalists-51.jpg' }
+        ]
+      },
+      {
+        layout: 'three-column',
+        images: [
+          { id: 7, url: '/projects/slush2026/hinchy-5.jpg' },
+          { id: 8, url: '/projects/slush2026/stubb-1.jpg' },
+          { id: 9, url: '/projects/slush2026/finalists-10.jpg' }
+        ]
+      },
+      {
+        layout: 'two-column',
+        images: [
+          { id: 10, url: '/projects/slush2026/impact-wilhelm-25.jpg' },
+          { id: 11, url: '/projects/slush2026/impact-wilhelm-5.jpg' }
+        ]
+      },
+      {
+        layout: 'three-column',
+        images: [
+          { id: 12, url: '/projects/slush2026/finalists-19.jpg' },
+          { id: 13, url: '/projects/slush2026/opening-show-5.jpg' },
+          { id: 14, url: '/projects/slush2026/big-team-3.jpg' }
+        ]
+      },
+      {
+        layout: 'full',
+        images: [
+          { id: 15, url: '/projects/slush2026/atmosphere-10.jpg' }
+        ]
+      },
+      {
+        layout: 'three-column',
+        images: [
+          { id: 16, url: '/projects/slush2026/framery-20.jpg' },
+          { id: 17, url: '/projects/slush2026/framery-27.jpg' },
+          { id: 18, url: '/projects/slush2026/impact-mishin-das-13.jpg' }
+        ]
+      },
+      {
+        layout: 'full',
+        images: [
+          { id: 19, url: '/projects/slush2026/impact-wilhelm-29.jpg' }
+        ]
+      }
+    ]
+  },
+  {
     id: 13,
     slug: 'since-ai-2026',
     title: 'Since AI 2026 – Event Photography & Video',

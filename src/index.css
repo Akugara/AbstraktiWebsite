@@ -243,10 +243,13 @@ body {
   padding: 8px 20px;
   background: #fff;
   border: 1px solid #ddd;
+  color: #000;
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 1px;
   cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
   transition: all 0.3s;
 }
 
@@ -1979,6 +1982,10 @@ body {
     grid-template-columns: 1fr;
   }
 
+  .portfolio h2 {
+    padding: 0 20px;
+  }
+
   .filter-tabs {
     flex-wrap: wrap;
     gap: 8px;
@@ -1997,7 +2004,11 @@ body {
   }
 
   .services {
-    padding: 60px 30px;
+    padding: 60px 20px;
+  }
+
+  .services .container {
+    padding: 0;
   }
 
   .services h2 {
@@ -2028,7 +2039,7 @@ body {
   }
 
   .service-package {
-    padding: 30px 20px;
+    padding: 24px 18px;
   }
 
   .package-price {
@@ -2058,13 +2069,25 @@ body {
     font-size: 12px;
   }
 
+  .about {
+    padding: 60px 20px;
+  }
+
+  .about .container {
+    padding: 0;
+  }
+
   .about-content {
     grid-template-columns: 1fr;
     gap: 40px;
   }
 
   .team {
-    padding: 60px 30px;
+    padding: 60px 20px;
+  }
+
+  .team .container {
+    padding: 0;
   }
 
   .team h2 {
@@ -2077,7 +2100,11 @@ body {
   }
 
   .contact {
-    padding: 60px 30px;
+    padding: 60px 20px;
+  }
+
+  .contact .container {
+    padding: 0;
   }
 
   .contact h2 {
@@ -2090,7 +2117,7 @@ body {
   }
 
   .contact-form {
-    padding: 30px 20px;
+    padding: 24px 18px;
   }
 
   .form-row {

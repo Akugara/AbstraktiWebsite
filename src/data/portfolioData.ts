@@ -38,6 +38,119 @@ export interface PortfolioItem {
 
 export const portfolioItems: PortfolioItem[] = [
   {
+    id: 13,
+    slug: 'since-ai-2026',
+    title: 'Since AI 2026 – Event Photography & Video',
+    client: 'Since AI',
+    year: 2026,
+    description: 'Since AI is the largest hackathon in the Nordics. More than a thousand participants from around the world spend two intensive days building and designing solutions to real AI challenges. Abstrakti handled the full content production: planning, photo and video coverage, and post-production. We delivered the YouTube aftermovie, a social media aftermovie, short-form videos, interviews, and an image bank Since AI will use to market its 2027 event. A team of three photographers and videographers covered the event.',
+    role: ['Photographer', 'Videographer'],
+    tags: ['Photography', 'Video'],
+    image: '/FrameSinceAI.jpg',
+    videos: [
+      {
+        id: 1,
+        url: '/projects/sinceai2026/MainVideo.mp4',
+        aspectRatio: '1920/1080',
+        posterImage: '/projects/sinceai2026/poster-MainVideo.jpg',
+        loop: false
+      }
+    ],
+    verticalVideos: [
+      {
+        id: 1,
+        url: '/projects/sinceai2026/since_ai_short_recap.mp4',
+        aspectRatio: '1080/1920',
+        posterImage: '/projects/sinceai2026/poster-since_ai_short_recap.jpg',
+        loop: false
+      },
+      {
+        id: 2,
+        url: '/projects/sinceai2026/since-ai-partners-short.mp4',
+        aspectRatio: '1080/1350',
+        posterImage: '/projects/sinceai2026/poster-since-ai-partners-short.jpg',
+        loop: false
+      },
+      {
+        id: 3,
+        url: '/projects/sinceai2026/since-ai-people-short.mp4',
+        aspectRatio: '1080/1350',
+        posterImage: '/projects/sinceai2026/poster-since-ai-people-short.jpg',
+        loop: false
+      }
+    ],
+    imageRows: [
+      {
+        layout: 'full',
+        images: [
+          { id: 1, url: '/projects/sinceai2026/SinceAIDay5-159.jpg' }
+        ]
+      },
+      {
+        layout: 'two-column',
+        images: [
+          { id: 2, url: '/projects/sinceai2026/SinceAiFourthBadge-77.jpg' },
+          { id: 3, url: '/projects/sinceai2026/SinceAiFourthBadge-78.jpg' }
+        ]
+      },
+      {
+        layout: 'three-column',
+        images: [
+          { id: 4, url: '/projects/sinceai2026/SinceAIDay5-4.jpg' },
+          { id: 5, url: '/projects/sinceai2026/SinceAIDay5-44.jpg' },
+          { id: 6, url: '/projects/sinceai2026/SinceAIDay5-95.jpg' }
+        ]
+      },
+      {
+        layout: 'two-column',
+        images: [
+          { id: 7, url: '/projects/sinceai2026/SinceAIDay5-17.jpg' },
+          { id: 8, url: '/projects/sinceai2026/SinceAIDay5-19.jpg' }
+        ]
+      },
+      {
+        layout: 'full',
+        images: [
+          { id: 9, url: '/projects/sinceai2026/SinceAiSpeakerJason-17.jpg' }
+        ]
+      },
+      {
+        layout: 'three-column',
+        images: [
+          { id: 10, url: '/projects/sinceai2026/SinceAiThirdBadge-44.jpg' },
+          { id: 11, url: '/projects/sinceai2026/SinceAiThirdBadge-81.jpg' },
+          { id: 12, url: '/projects/sinceai2026/SinceAIDay5-29.jpg' }
+        ]
+      },
+      {
+        layout: 'two-column',
+        images: [
+          { id: 13, url: '/projects/sinceai2026/SinceAiThirdBadge-64.jpg' },
+          { id: 14, url: '/projects/sinceai2026/SinceAiThirdBadge-93.jpg' }
+        ]
+      },
+      {
+        layout: 'full',
+        images: [
+          { id: 15, url: '/projects/sinceai2026/SinceAIDay5-164.jpg' }
+        ]
+      },
+      {
+        layout: 'two-column',
+        images: [
+          { id: 16, url: '/projects/sinceai2026/SinceAiSpeakerJason-69.jpg' },
+          { id: 17, url: '/projects/sinceai2026/SinceAIDay5-139.jpg' }
+        ]
+      },
+      {
+        layout: 'full',
+        images: [
+          { id: 18, url: '/projects/sinceai2026/SinceAiSpeakerJason-25.jpg' }
+        ]
+      }
+    ]
+  },
+  {
     id: 12,
     slug: 'nosejob',
     title: 'A Nose Job for Soile',

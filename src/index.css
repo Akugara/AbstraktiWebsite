@@ -1558,7 +1558,8 @@ body {
   margin-top: 80px;
 }
 
-.vertical-video-pair .video-container.vertical-1920 {
+.vertical-video-pair .video-container.vertical-1920,
+.vertical-video-pair .video-container.vertical-1350 {
   flex: 1 1 0;
   width: auto;
   max-width: 480px;
@@ -2108,7 +2109,8 @@ body {
     margin-top: 40px;
   }
 
-  .vertical-video-pair .video-container.vertical-1920 {
+  .vertical-video-pair .video-container.vertical-1920,
+  .vertical-video-pair .video-container.vertical-1350 {
     flex: none;
     width: 100%;
   }
